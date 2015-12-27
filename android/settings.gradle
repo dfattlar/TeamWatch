@@ -1,0 +1,3 @@
+rootProject.name = 'TeamWatch'
+
+include ':app'
