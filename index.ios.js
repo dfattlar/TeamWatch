@@ -2,8 +2,8 @@
 var React = require('react-native');
 var _ = require('lodash');
 var moment = require('moment');
-// var formatTime = require('minutes-seconds-milliseconds');
-// destructuring
+var { Icon } = require('react-native-icons');
+
 var {
   Modal,
   Text,
@@ -233,13 +233,17 @@ var TeamWatch = React.createClass({
     </TouchableHighlight>
   },
   athleteButton: function () {
+    debugger;
     return <TouchableHighlight
       style={styles.toolbarButton}
+      underlayColor='transparent'
       onPress={this._setModalVisible.bind(this, true)} >
-      <Text
-      style={styles.toolbarButtonText}>
-        Add Athlete
-      </Text>
+      <Icon
+        name='ion|person-add'
+        size={25}
+        color='#fff'
+        style={styles.addPersonIcon}
+      />
     </TouchableHighlight>
   },
   handleStartPress: function () {
@@ -504,6 +508,11 @@ var styles = StyleSheet.create({
         fontWeight:'bold',
         flex:1,
         fontSize: 20
+    },
+    addPersonIcon: {
+        width: 25,
+        height: 25,
+        left: 15
     }
 });
 
