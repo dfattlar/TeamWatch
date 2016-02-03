@@ -5,6 +5,7 @@ import React, {
   Text,
   TouchableOpacity
 } from 'react-native';
+import NavBar from './navbar';
 
 const styles = StyleSheet.create({
   button: {
@@ -27,15 +28,18 @@ export default class TeamWatch extends Component {
     const { watcher, increment, decrement } = this.props;
 
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>{watcher}</Text>
-        <TouchableOpacity onPress={increment} style={styles.button}>
-          <Text>up</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={decrement} style={styles.button}>
-          <Text>down</Text>
-        </TouchableOpacity>
-      </View>
+        <View>
+            <NavBar/>
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Text>{watcher}</Text>
+                <TouchableOpacity onPress={increment} style={styles.button}>
+                    <Text>up</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={decrement} style={styles.button}>
+                    <Text>down</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
     );
   }
 }
