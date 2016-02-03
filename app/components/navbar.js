@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     }
 });
 
-export default class NavBar extends Component {
+export default class Navbar extends Component {
   render() {
     return (
         <View style={styles.toolbar}>

@@ -5,7 +5,7 @@ import React, {
   Text,
   TouchableOpacity
 } from 'react-native';
-import NavBar from './navbar';
+import Navbar from './navbar';
 
 const styles = StyleSheet.create({
   button: {
@@ -29,7 +29,7 @@ export default class TeamWatch extends Component {
 
     return (
         <View>
-            <NavBar/>
+            <Navbar/>
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <Text>{watcher}</Text>
                 <TouchableOpacity onPress={increment} style={styles.button}>
