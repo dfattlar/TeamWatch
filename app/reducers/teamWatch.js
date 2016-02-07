@@ -1,21 +1,33 @@
 import * as types from '../actions/actionTypes';
 
 const initialState = {
-  count: 0
+  watchRunning: false,
+  time: 0
 };
 
 export default function watcher(state = initialState, action = {}) {
   switch (action.type) {
-    case types.INCREMENT:
+    case types.STARTWATCH:
+    debugger;
       return {
         ...state,
-        count: state.count + 1
+        watchRunning: true,
+        time: 0,
+        offset: action.offset
       };
-    case types.DECREMENT:
+    case types.STOPWATCH:
       return {
         ...state,
-        count: state.count - 1
+        watchRunning: false
       };
+    case 'TICK':
+    debugger;
+        return {
+          ...state,
+          time: state.time + (action.time - state.offset),
+          offset: action.time
+        };
+
     default:
       return state;
   }

@@ -1,13 +1,21 @@
 import * as types from './actionTypes';
 
-export function increment() {
+export function startWatch() {
   return {
-    type: types.INCREMENT
+    type: types.STARTWATCH,
+    offset: Date.now()
   };
 }
 
-export function decrement() {
+export function stopWatch() {
   return {
-    type: types.DECREMENT
+    type: types.STOPWATCH
   };
+}
+
+export function tick() {
+    return {
+        type: types.TICK,
+        time: Date.now()
+    }
 }
