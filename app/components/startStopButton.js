@@ -6,7 +6,6 @@ import React, {
   TouchableOpacity,
   TouchableHighlight
 } from 'react-native';
-import Navbar from './navbar';
 
 const styles = StyleSheet.create({
     button: {
@@ -25,6 +24,8 @@ const styles = StyleSheet.create({
     }
 });
 
+let intervalId;
+
 export default class StartStopButton extends Component {
   constructor(props) {
     super(props);
@@ -35,11 +36,17 @@ export default class StartStopButton extends Component {
     let depStyle = watcher.watchRunning ? styles.stopButton : styles.startButton;
 
     function callStartStop () {
-        watcher.watchRunning ? stopWatch() : startWatch();
+        if(watcher.watchRunning) {
+            debugger;
+            clearInterval(intervalId);
+            stopWatch();
+        } else {
+            startWatch();
 
-        setInterval(() => {
-          tick();
-        });
+            intervalId = setInterval(() => {
+              tick();
+            });
+        }
     }
 
     return (

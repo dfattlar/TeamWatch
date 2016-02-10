@@ -1,3 +1,9 @@
 export const STARTWATCH = 'STARTWATCH';
 export const STOPWATCH = 'STOPWATCH';
 export const TICK = 'TICK';
+export const RESET = 'RESET';
+export const OPENMODAL = 'OPENMODAL';
+export const CLOSEMODAL = 'CLOSEMODAL';
+export const NEW_ATHLETE_INPUT = 'NEW_ATHLETE_INPUT';
+export const ADD_ATHLETE = 'ADD_ATHLETE';
+export const ADD_SPLIT = 'ADD_SPLIT';

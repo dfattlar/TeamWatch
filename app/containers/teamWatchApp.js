@@ -4,13 +4,17 @@ import React, { Component } from 'react-native';
 import {bindActionCreators} from 'redux';
 import Navbar from '../components/navbar';
 import StartStopButton from '../components/startStopButton';
+import ResetButton from '../components/resetButton';
+import AddAthleteModal from '../components/addAthleteModal';
+import AthleteList from '../components/athleteList';
 import * as teamWatchActions from '../actions/teamWatchActions';
 import { connect } from 'react-redux';
 
 const {
     View,
     StyleSheet,
-    Text
+    Text,
+    TouchableHighlight
 } = React;
 
 // style the react component
@@ -27,7 +31,6 @@ var styles = StyleSheet.create({
   },
   timerWrapper: { // red
     flex: 1, // takes 5/8ths of available space
-    justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row'
   },
@@ -65,53 +68,6 @@ var styles = StyleSheet.create({
   },
   darkText: {
     color: '#433C3C'
-  },
-
-  /* modal styles */
-  container2: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 20,
-    flexDirection: 'column'
-  },
-  innerContainer: {
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  modalLabel: {
-    fontSize: 16,
-    paddingBottom: 20
-  },
-  modalButton: {
-    marginTop: 10,
-  },
-  modalClose: {
-    borderWidth: 2,
-    borderColor: '#fff',
-    borderRadius: 6,
-    height: 40,
-    width: 80,
-    position: 'absolute',
-    top: 40,
-    right: 20
-  },
-  modalCloseText: {
-    color: 'white',
-    textAlign: 'center',
-    paddingTop: 10
-  },
-  modalSaveButton: {
-    marginTop: 20,
-    borderWidth: 2,
-    borderColor: '#433C3C',
-    borderRadius: 6,
-    height: 40,
-    width: 120,
-  },
-  modalSaveButtonText: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    paddingTop: 10
   },
   /* athleteRow styles */
   athleteListView: {
@@ -201,14 +157,19 @@ class TeamWatchApp extends Component {
 
   render() {
     const { state, actions } = this.props;
+
     return (
         <View>
-            <Navbar />
-            <Text>{timeFormatting(state.time)}</Text>
+            <Navbar {...actions} />
+            <View style={styles.timerWrapper}>
+                <Text style={styles.timerText}>{timeFormatting(state.time)}</Text>
+            </View>
             <View style={[styles.buttonWrapper]}>
                 <StartStopButton watcher={state} {...actions} />
-                <StartStopButton watcher={state} {...actions} />
+                <ResetButton watcher={state} {...actions} />
             </View>
+            <AthleteList watcher={state} {...actions} />
+            <AddAthleteModal watcher={state} {...actions}/>
         </View>
     );
   }
@@ -225,7 +186,7 @@ function timeFormatting(time) {
     time = new Date(time);
     let m = pad(time.getMinutes().toString(), 2);
     let s = pad(time.getSeconds().toString(), 2);
-    let ms = pad(time.getMilliseconds().toString(), 3);
+    let ms = pad(time.getMilliseconds().toString(), 2);
 
     return `${m} : ${s} . ${ms}`;
 }
