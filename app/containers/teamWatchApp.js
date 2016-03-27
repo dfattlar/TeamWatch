@@ -19,131 +19,21 @@ const {
 
 // style the react component
 var styles = StyleSheet.create({
-  container: {
-    flex: 1, // fill the entire screen
-    alignItems: 'stretch'
-  },
-  header: { // yellow
-    flex: 1
-  },
-  footer: { // blue
-    flex: 1
-  },
   timerWrapper: { // red
     flex: 1, // takes 5/8ths of available space
     alignItems: 'center',
-    flexDirection: 'row'
-  },
-  timerItem: { // red
-    flex: 1, // takes 5/8ths of available space
-    justifyContent: 'center',
-    alignItems: 'center'
+    flexDirection: 'row',
+    marginLeft: 10
   },
   timerText: {
     fontSize: 70
-  },
-  timerColon: {
-    paddingLeft: 10,
-    paddingRight: 10,
-    fontSize: 60
   },
   buttonWrapper: { // green
     flex: 3, // takes 3/8ths of available space
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center'
-  },
-  timer: {
-    fontSize: 60
-  },
-  stopButton: {
-    borderColor: '#433C3C'
-  },
-  lap: {
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-  },
-  lapText: {
-    fontSize: 30
-  },
-  darkText: {
-    color: '#433C3C'
-  },
-  /* athleteRow styles */
-  athleteListView: {
-    marginTop: 20
-  },
-  athleteRow: {
-    height: 60,
-    flex: 1,
-    flexDirection: 'row'
-  },
-  athleteRowName: {
-    height: 60,
-    width: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  athleteRowNameText: {
-    fontSize: 20,
-    color: '#fff',
-    fontWeight: 'bold'
-  },
-  splits: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    flex: 1,
-    paddingLeft: 10,
-    height: 30
-  },
-  split: {
-    paddingRight: 10,
-    flexWrap: 'wrap',
-    fontSize: 16,
-    fontWeight: 'bold'
-  },
-  rowButton: {
-    height: 60,
-    width: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  rowButtonText:{
-    color: '#fff'
-  },
-  splitButton: {
-    backgroundColor: 'red',
-    alignSelf: 'flex-end'
-  },
-  finishButton: {
-    backgroundColor: 'black',
-    alignSelf: 'flex-end'
-  },
-  toolbar:{
-        backgroundColor:'#90AABF',
-        paddingTop:30,
-        paddingBottom:10,
-        flexDirection:'row'    //Step 1
-    },
-    toolbarButton:{
-        width: 70
-    },
-    toolbarButtonText:{
-        color:'#fff',
-        textAlign:'center'
-    },
-    toolbarTitle:{
-        color:'#fff',
-        textAlign:'center',
-        fontWeight:'bold',
-        flex:1,
-        fontSize: 20
-    },
-    addPersonIcon: {
-        width: 25,
-        height: 25,
-        left: 15
-    }
+  }
 });
 
 // @connect(state => ({
@@ -186,7 +76,10 @@ function timeFormatting(time) {
     time = new Date(time);
     let m = pad(time.getMinutes().toString(), 2);
     let s = pad(time.getSeconds().toString(), 2);
-    let ms = pad(time.getMilliseconds().toString(), 2);
+    let msNow = time.getMilliseconds();
+    let msOffset = msNow % 10;
+    let msDisplay = (msNow - msOffset) / 10;
+    let ms = pad(msDisplay, 3);
 
     return `${m} : ${s} . ${ms}`;
 }

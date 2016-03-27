@@ -60,7 +60,7 @@ export default class AthleteRow extends Component {
   render() {
     const {  name, splits, id, colorId } = this.props.rowData;
     const { addSplit } = this.props;
-console.log("&&&& "+addSplit);
+
     const initials = name.split(' ').map(function(i){
       return i.slice(0,1).toUpperCase();
     }).join('');

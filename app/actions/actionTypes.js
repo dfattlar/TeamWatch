@@ -1,9 +1,11 @@
 export const STARTWATCH = 'STARTWATCH';
 export const STOPWATCH = 'STOPWATCH';
 export const TICK = 'TICK';
-export const RESET = 'RESET';
+export const RESET_ALL = 'RESET_ALL';
+export const RESET_TIME = 'RESET_TIME';
 export const OPENMODAL = 'OPENMODAL';
 export const CLOSEMODAL = 'CLOSEMODAL';
 export const NEW_ATHLETE_INPUT = 'NEW_ATHLETE_INPUT';
 export const ADD_ATHLETE = 'ADD_ATHLETE';
+export const ADD_ATHLETE_ERROR = 'ADD_ATHLETE_ERROR';
 export const ADD_SPLIT = 'ADD_SPLIT';

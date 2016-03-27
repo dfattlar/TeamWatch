@@ -1,10 +1,11 @@
 import * as types from './actionTypes';
 
-export function startWatch() {
+export function startWatch(intervalId) {
   return {
     type: types.STARTWATCH,
     offset: Date.now(),
-    watchRunning: true
+    watchRunning: true,
+    intervalId: intervalId
   };
 }
 
@@ -15,9 +16,15 @@ export function stopWatch() {
   };
 }
 
-export function reset() {
+export function resetAll() {
     return  {
-        type: types.RESET
+        type: types.RESET_ALL
+    }
+}
+
+export function resetTime() {
+    return  {
+        type: types.RESET_TIME
     }
 }
 
@@ -52,6 +59,13 @@ export function addAthlete() {
         type: types.ADD_ATHLETE
     }
 }
+
+export function addAthleteError() {
+    return {
+        type: types.ADD_ATHLETE_ERROR
+    }
+}
+
 export function addSplit(id) {
     return {
         type: types.ADD_SPLIT,

@@ -49,8 +49,7 @@ var AthleteRow = React.createClass({
     var athletesData = this.props.athletesData;
     var time = this.props.timeElapsed;
     this.props.rowData.splits.push(time);
-    
-    debugger;
+
     var index = _.indexOf(athletesData, _.find(athletesData, {id: this.props.rowData.id}));
     var leftArr = athletesData.slice(0, index);
     var rightArr = athletesData.slice(index + 1);
@@ -60,7 +59,6 @@ var AthleteRow = React.createClass({
     this.setState({
       athletes: athletesData
     });
-    debugger;
     // this.setState({
     //   splits: splits
     // });

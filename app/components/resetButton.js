@@ -28,17 +28,26 @@ export default class ResetButton extends Component {
   }
 
   render() {
-    const { watcher, reset } = this.props;
+    const { watcher, resetAll, resetTime } = this.props;
 
     return (
         <TouchableHighlight underlayColor="gray"
           style={[styles.button]}
           onPress={() => Alert.alert(
-            'Are you sure you want to reset running time and athletes?',
+            'What would you like to reset?',
             null,
             [
-              {text: 'OK', onPress: () => reset()},
-              {text: 'Cancel', onPress: () => console.log('cancelled')}
+                {text: 'Reset Time And Splits Only', onPress: () => {
+                        clearInterval(watcher.intervalId);
+                        resetTime();
+                    }
+                },
+                {text: 'Reset Time and Athletes', onPress: () => {
+                        clearInterval(watcher.intervalId);
+                        resetAll();
+                    }
+                },
+                {text: 'Cancel', onPress: () => console.log('cancelled')}
             ]
           )}>
           <Text style={[styles.darkText]}>

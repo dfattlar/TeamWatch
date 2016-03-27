@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       padding: 20,
       flexDirection: 'column',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)'
+      backgroundColor: 'rgba(255, 255, 255, .6)'
     },
     innerContainer: {
       borderRadius: 10,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
       paddingTop: 10
     },
     modalSaveButton: {
-      marginTop: 20,
+      marginTop: 10,
       borderWidth: 2,
       borderColor: '#433C3C',
       borderRadius: 6,
@@ -56,6 +56,12 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       fontWeight: 'bold',
       paddingTop: 10
+    },
+    errorTextHidden: {
+        color: 'white'
+    },
+    errorText: {
+        color: 'red'
     }
 });
 
@@ -65,7 +71,15 @@ export default class AddAthleteModal extends Component {
   }
 
   render() {
-    const { watcher, closeModal, newAthleteInput, addAthlete } = this.props;
+    const { watcher, closeModal, newAthleteInput, addAthlete, addAthleteError } = this.props;
+
+    function checkAthleteName() {
+        if(watcher.newAthleteInput.trim() === '') {
+            addAthleteError();
+        } else {
+            addAthlete();
+        }
+    }
 
     return (
             <Modal visible={watcher.modalVisible}>
@@ -84,9 +98,12 @@ export default class AddAthleteModal extends Component {
                     onChangeText={(text) => newAthleteInput(text)}
                     value={watcher.newAthleteInput}
                   />
+                  <Text style={[styles.errorTextHidden, watcher.addAthleteError && styles.errorText]}>
+                    Please add athlete's first and last name.
+                  </Text>
 
                   <TouchableHighlight
-                    onPress={addAthlete}
+                    onPress={checkAthleteName}
                     style={[styles.modalSaveButton, this.props.style]}
                     underlayColor="#a9d9d4">
                       <Text style={styles.modalSaveButtonText}>Add Athlete</Text>

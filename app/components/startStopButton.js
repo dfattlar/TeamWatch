@@ -37,15 +37,13 @@ export default class StartStopButton extends Component {
 
     function callStartStop () {
         if(watcher.watchRunning) {
-            debugger;
             clearInterval(intervalId);
             stopWatch();
         } else {
-            startWatch();
-
             intervalId = setInterval(() => {
               tick();
             });
+            startWatch(intervalId);
         }
     }
 
@@ -57,7 +55,7 @@ export default class StartStopButton extends Component {
               style = {[styles.button, depStyle]}
             >
               <Text style={[styles.darkText]}>
-                {watcher.watchRunning ? 'Hold' : 'Start'}
+                {watcher.watchRunning ? 'Pause' : 'Start'}
               </Text>
             </TouchableHighlight>
         </View>
