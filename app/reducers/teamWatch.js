@@ -93,8 +93,10 @@ export default function watcher(state = initialState, action = {}) {
         return state.set('addAthleteError', true);
     case types.ADD_SPLIT:
         const currentTime = state.get('time');
+        const splits = state.getIn(['athletesArray', action.id - 1, 'splits']).toArray();
+        const lastSplit = splits.length ? lastSplit = splits[splits.length -1] : 0;
         const updatedState = state.updateIn(['athletesArray', action.id - 1, 'splits'], (list) => {
-            return list.push(currentTime);
+            return list.push(currentTime - lastSplit);
         });
         const newDS = updatedState.get('athletesArray');
         return state.withMutations(function(stateCopy) {
