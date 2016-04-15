@@ -47,12 +47,13 @@ class TeamWatchApp extends Component {
 
   render() {
     const { state, actions } = this.props;
-
+console.log('#### comp state '+JSON.stringify(state));
+console.log('#### comp actions '+JSON.stringify(actions));
     return (
         <View>
             <Navbar {...actions} />
             <View style={styles.timerWrapper}>
-                <Text style={styles.timerText}>{timeFormatting(state.time)}</Text>
+                <Text style={styles.timerText}>{timeFormatting(state.get('time'))}</Text>
             </View>
             <View style={[styles.buttonWrapper]}>
                 <StartStopButton watcher={state} {...actions} />

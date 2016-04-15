@@ -58,7 +58,7 @@ export default class AthleteRow extends Component {
   }
 
   render() {
-    const {  name, splits, id, colorId } = this.props.rowData;
+    const {  name, splits, id, colorId } = this.props.rowData.toJS();
     const { addSplit } = this.props;
 
     const initials = name.split(' ').map(function(i){

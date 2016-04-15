@@ -74,7 +74,7 @@ export default class AddAthleteModal extends Component {
     const { watcher, closeModal, newAthleteInput, addAthlete, addAthleteError } = this.props;
 
     function checkAthleteName() {
-        if(watcher.newAthleteInput.trim() === '') {
+        if(watcher.get('newAthleteInput').trim() === '') {
             addAthleteError();
         } else {
             addAthlete();
@@ -82,7 +82,7 @@ export default class AddAthleteModal extends Component {
     }
 
     return (
-            <Modal visible={watcher.modalVisible}>
+            <Modal visible={watcher.get('modalVisible')}>
               <View style={styles.modalContainer}>
                 <TouchableHighlight
                   onPress={closeModal}
@@ -96,9 +96,9 @@ export default class AddAthleteModal extends Component {
                   <TextInput
                     style={{height: 40, borderColor: 'gray', borderWidth: 1, paddingLeft: 10}}
                     onChangeText={(text) => newAthleteInput(text)}
-                    value={watcher.newAthleteInput}
+                    value={watcher.get('newAthleteInput')}
                   />
-                  <Text style={[styles.errorTextHidden, watcher.addAthleteError && styles.errorText]}>
+                  <Text style={[styles.errorTextHidden, watcher.get('addAthleteError') && styles.errorText]}>
                     Please add athlete's first and last name.
                   </Text>
 
