@@ -2,7 +2,7 @@ import * as types from './actionTypes';
 
 export function startWatch(intervalId) {
   return {
-    type: types.STARTWATCH,
+    type: types.START_WATCH,
     offset: Date.now(),
     watchRunning: true,
     intervalId: intervalId
@@ -11,7 +11,7 @@ export function startWatch(intervalId) {
 
 export function stopWatch() {
   return {
-    type: types.STOPWATCH,
+    type: types.STOP_WATCH,
     watchRunning: false
   };
 }
@@ -37,13 +37,13 @@ export function tick() {
 
 export function openModal() {
     return {
-        type: types.OPENMODAL
+        type: types.OPEN_MODAL
     }
 }
 
 export function closeModal() {
     return {
-        type: types.CLOSEMODAL
+        type: types.CLOSE_MODAL
     }
 }
 

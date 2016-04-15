@@ -20,14 +20,14 @@ const initialState = Immutable.fromJS({
 
 export default function watcher(state = initialState, action = {}) {
   switch (action.type) {
-    case types.STARTWATCH:
+    case types.START_WATCH:
         return state.withMutations(function(stateCopy) {
             stateCopy
                 .set('watchRunning', true)
                 .set('offset', action.offset)
                 .set('intervalId', action.intervalId);
         });
-    case types.STOPWATCH:
+    case types.STOP_WATCH:
       return state.set('watchRunning', false);
     case types.TICK:
         let newTime = state.get('time') + (action.time - state.get('offset'));
@@ -59,14 +59,14 @@ export default function watcher(state = initialState, action = {}) {
                 .set('athletesArray', resetAthleteSplitsArr)
                 .set('dataSource', state.get('dataSource').cloneWithRows(resetAthleteSplitsArr.toArray()))
         });
-    case types.OPENMODAL:
+    case types.OPEN_MODAL:
         return state.withMutations(function(stateCopy) {
             stateCopy
                 .set('modalVisible', true)
                 .set('addAthleteError', false)
                 .set('newAthleteInput', '');
         });
-    case types.CLOSEMODAL:
+    case types.CLOSE_MODAL:
         return state.set('modalVisible', false);
     case types.NEW_ATHLETE_INPUT:
         return state.set('newAthleteInput', action.newAthleteInput);
