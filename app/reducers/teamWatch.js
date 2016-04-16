@@ -1,4 +1,5 @@
 import * as types from '../actions/actionTypes';
+import * as constants from '../constants';
 import React, { ListView } from 'react-native';
 import Immutable from 'immutable';
 
@@ -15,20 +16,43 @@ const initialState = Immutable.fromJS({
   newAthlete: '',
   addAthleteError: false,
   athletesArray:initAthleteArray,
-  dataSource: ds.cloneWithRows(initAthleteArray.toArray())
+  dataSource: ds.cloneWithRows(initAthleteArray.toArray()),
+  timerMode: constants.RACE,
+  lastRelaySplit: 0
 });
 
 export default function watcher(state = initialState, action = {}) {
   switch (action.type) {
     case types.START_WATCH:
+        const arrStart = state.get('athletesArray').map(function(athlete) {
+            return athlete.set('totalTime', '');
+        });
+
         return state.withMutations(function(stateCopy) {
             stateCopy
+                .set('athletesArray', arrStart)
+                .set('dataSource', state.get('dataSource').cloneWithRows(arrStart.toArray()))
                 .set('watchRunning', true)
                 .set('offset', action.offset)
                 .set('intervalId', action.intervalId);
         });
     case types.STOP_WATCH:
-      return state.set('watchRunning', false);
+        const arrStop = state.get('athletesArray').map(function(athlete) {
+            const splits = athlete.get('splits');
+            let totalTime = '';
+            if(splits.size) {
+                totalTime = splits.reduce((a, b) => a + b);
+            }
+            return athlete.set('totalTime', totalTime);
+        });
+
+        return state.withMutations(function(stateCopy) {
+            stateCopy
+                .set('athletesArray', arrStop)
+                .set('dataSource', state.get('dataSource').cloneWithRows(arrStop.toArray()))
+                .set('watchRunning', false);
+        });
+
     case types.TICK:
         let newTime = state.get('time') + (action.time - state.get('offset'));
         return state.withMutations(function(stateCopy) {
@@ -50,7 +74,11 @@ export default function watcher(state = initialState, action = {}) {
         const resetAthleteSplitsArr = state
             .get('athletesArray')
             .map(function(athlete){
-                return athlete.set('splits', Immutable.List([]));
+                return athlete.withMutations(function(athleteCopy) {
+                    athleteCopy
+                        .set('splits', Immutable.List([]))
+                        .set('totalTime', '');
+                });
             });
         return state.withMutations(function(stateCopy) {
             stateCopy
@@ -77,7 +105,8 @@ export default function watcher(state = initialState, action = {}) {
             id: incId,
             name: state.get('newAthleteInput'),
             splits: Immutable.List([]),
-            colorId: incColorId
+            colorId: incColorId,
+            totalTime: ''
         });
         let arrUpdated = state.get('athletesArray').push(newAthlete);
         return state.withMutations(function(stateCopy) {
@@ -94,16 +123,23 @@ export default function watcher(state = initialState, action = {}) {
     case types.ADD_SPLIT:
         const currentTime = state.get('time');
         const splits = state.getIn(['athletesArray', action.id - 1, 'splits']).toArray();
-        const lastSplit = splits.length ? lastSplit = splits[splits.length -1] : 0;
+        const lastAthleteSplit = splits.length ? splits[splits.length -1] : 0;
         const updatedState = state.updateIn(['athletesArray', action.id - 1, 'splits'], (list) => {
-            return list.push(currentTime - lastSplit);
+            if(state.get('timerMode') === constants.RACE) {
+                return list.push(currentTime - lastAthleteSplit);
+            } else {
+                return list.push(currentTime - state.get('lastRelaySplit'));
+            }
         });
         const newDS = updatedState.get('athletesArray');
         return state.withMutations(function(stateCopy) {
             stateCopy
                 .set('athletesArray', newDS)
-                .set('dataSource', state.get('dataSource').cloneWithRows(newDS.toArray()));
+                .set('dataSource', state.get('dataSource').cloneWithRows(newDS.toArray()))
+                .set('lastRelaySplit', currentTime);
         });
+    case types.MODE_CHANGE:
+        return state.set('timerMode', action.timerMode);
     default:
       return state;
   }

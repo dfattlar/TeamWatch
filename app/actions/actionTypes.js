@@ -9,3 +9,4 @@ export const NEW_ATHLETE_INPUT = 'NEW_ATHLETE_INPUT';
 export const ADD_ATHLETE = 'ADD_ATHLETE';
 export const ADD_ATHLETE_ERROR = 'ADD_ATHLETE_ERROR';
 export const ADD_SPLIT = 'ADD_SPLIT';
+export const MODE_CHANGE = 'MODE_CHANGE';

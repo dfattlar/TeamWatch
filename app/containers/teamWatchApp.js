@@ -4,6 +4,7 @@ import React, { Component } from 'react-native';
 import {bindActionCreators} from 'redux';
 import Navbar from '../components/navbar';
 import StartStopButton from '../components/startStopButton';
+import TimerModeButton from '../components/timerModeButton';
 import ResetButton from '../components/resetButton';
 import AddAthleteModal from '../components/addAthleteModal';
 import AthleteList from '../components/athleteList';
@@ -19,8 +20,8 @@ const {
 
 // style the react component
 var styles = StyleSheet.create({
-  timerWrapper: { // red
-    flex: 1, // takes 5/8ths of available space
+  timerWrapper: {
+    flex: 1,
     alignItems: 'center',
     flexDirection: 'row',
     marginLeft: 10
@@ -28,17 +29,13 @@ var styles = StyleSheet.create({
   timerText: {
     fontSize: 70
   },
-  buttonWrapper: { // green
-    flex: 3, // takes 3/8ths of available space
+  buttonWrapper: {
+    flex: 3,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center'
   }
 });
-
-// @connect(state => ({
-//   state: state.counter
-// }))
 
 class TeamWatchApp extends Component {
   constructor(props) {
@@ -47,8 +44,7 @@ class TeamWatchApp extends Component {
 
   render() {
     const { state, actions } = this.props;
-console.log('#### comp state '+JSON.stringify(state));
-console.log('#### comp actions '+JSON.stringify(actions));
+
     return (
         <View>
             <Navbar {...actions} />
@@ -57,6 +53,7 @@ console.log('#### comp actions '+JSON.stringify(actions));
             </View>
             <View style={[styles.buttonWrapper]}>
                 <StartStopButton watcher={state} {...actions} />
+                <TimerModeButton watcher={state} {...actions} />
                 <ResetButton watcher={state} {...actions} />
             </View>
             <AthleteList watcher={state} {...actions} />

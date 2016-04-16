@@ -58,7 +58,7 @@ export default class AthleteRow extends Component {
   }
 
   render() {
-    const {  name, splits, id, colorId } = this.props.rowData.toJS();
+    const {  name, splits, id, colorId, totalTime } = this.props.rowData.toJS();
     const { addSplit } = this.props;
 
     const initials = name.split(' ').map(function(i){
@@ -67,20 +67,7 @@ export default class AthleteRow extends Component {
 
     function eachSplit() {
       return splits.map((split, i) => {
-        var formattedSplit;
-        if(split < 1000){
-          formattedSplit = moment(split).format('.SS');
-        } else if(split < 10000){
-          formattedSplit = moment(split).format('s.SS');
-        } else if( split < 60000){
-          formattedSplit = moment(split).format('ss.SS');
-        } else if( split < 600000){
-          formattedSplit = moment(split).format('m:ss.SS');
-        } else if( split < 3600000){
-          formattedSplit = moment(split).format('mm:ss.SS');
-        } else {
-          formattedSplit = moment(split).format('h:mm:ss.SS');
-        }
+        const formattedSplit = formatSplit(split);
         return <Text style={styles.split}
                 key={i}>
           { formattedSplit }
@@ -105,8 +92,33 @@ export default class AthleteRow extends Component {
             <View style={styles.splits}>
               { eachSplit() }
             </View>
+            <Text>
+                { formatSplit(totalTime) }
+            </Text>
           </View>
         </TouchableHighlight>
     );
   }
+}
+
+function formatSplit(split){
+    let formattedSplit;
+    if(split === '') {
+        return split;
+    }
+
+    if(split < 1000){
+      formattedSplit = moment(split).format('.SS');
+    } else if(split < 10000){
+      formattedSplit = moment(split).format('s.SS');
+    } else if( split < 60000){
+      formattedSplit = moment(split).format('ss.SS');
+    } else if( split < 600000){
+      formattedSplit = moment(split).format('m:ss.SS');
+    } else if( split < 3600000){
+      formattedSplit = moment(split).format('mm:ss.SS');
+    } else {
+      formattedSplit = moment(split).format('h:mm:ss.SS');
+    }
+    return formattedSplit;
 }

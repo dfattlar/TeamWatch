@@ -29,7 +29,6 @@ export default class AthleteList extends Component {
           dataSource={watcher.get('dataSource')}
           style={styles.athleteListView}
           renderRow={function(rowData) {
-              console.log('###### '+JSON.stringify(rowData));
               return (<AthleteRow rowData={rowData} addSplit={addSplit}/>);
           } }
         />

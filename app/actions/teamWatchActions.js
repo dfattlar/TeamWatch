@@ -72,3 +72,10 @@ export function addSplit(id) {
         id: id
     }
 }
+
+export function modeChange(mode) {
+    return {
+        type: types.MODE_CHANGE,
+        timerMode: mode
+    }
+}
