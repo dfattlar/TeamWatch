@@ -3,7 +3,7 @@ import * as types from './actionTypes';
 export function startWatch(intervalId) {
   return {
     type: types.START_WATCH,
-    offset: Date.now(),
+    startTime: Date.now(),
     watchRunning: true,
     intervalId: intervalId
   };
@@ -69,7 +69,8 @@ export function addAthleteError() {
 export function addSplit(id) {
     return {
         type: types.ADD_SPLIT,
-        id: id
+        id: id,
+        splitTime: Date.now()
     }
 }
 

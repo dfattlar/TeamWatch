@@ -9,6 +9,7 @@ import ResetButton from '../components/resetButton';
 import AddAthleteModal from '../components/addAthleteModal';
 import AthleteList from '../components/athleteList';
 import * as teamWatchActions from '../actions/teamWatchActions';
+import * as constants from '../constants.js';
 import { connect } from 'react-redux';
 
 const {
@@ -34,6 +35,15 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center'
+  },
+  relayContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
+  },
+  relayFinishTime: {
+      fontSize: 20,
+      marginTop: 20
   }
 });
 
@@ -44,6 +54,13 @@ class TeamWatchApp extends Component {
 
   render() {
     const { state, actions } = this.props;
+    let relayFinishTime;
+
+    if(state.get('relayFinishTime') && state.get('timerMode') === constants.RELAY) {
+        relayFinishTime = (<Text style={styles.relayFinishTime}>
+            Relay Finish Time: {timeFormatting(state.get('relayFinishTime'))}
+        </Text>);
+    }
 
     return (
         <View>
@@ -55,6 +72,9 @@ class TeamWatchApp extends Component {
                 <StartStopButton watcher={state} {...actions} />
                 <TimerModeButton watcher={state} {...actions} />
                 <ResetButton watcher={state} {...actions} />
+            </View>
+            <View style={styles.relayContainer}>
+                {relayFinishTime}
             </View>
             <AthleteList watcher={state} {...actions} />
             <AddAthleteModal watcher={state} {...actions}/>
