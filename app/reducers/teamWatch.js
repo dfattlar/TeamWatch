@@ -1,5 +1,5 @@
 import * as types from '../actions/actionTypes';
-import * as constants from '../constants';
+import { RACE, RELAY } from '../constants';
 import React, { ListView } from 'react-native';
 import Immutable from 'immutable';
 
@@ -18,7 +18,7 @@ const initialState = Immutable.fromJS({
   addAthleteError: false,
   athletesArray:initAthleteArray,
   dataSource: ds.cloneWithRows(initAthleteArray.toArray()),
-  timerMode: constants.RACE,
+  timerMode: RACE,
   lastRelaySplit: null,
   relayFinishTime: null
 });
@@ -140,18 +140,37 @@ export default function watcher(state = initialState, action = {}) {
     case types.ADD_ATHLETE_ERROR:
         return state.set('addAthleteError', true);
     case types.ADD_SPLIT:
+        const mode = state.get('timerMode');
         const startTime = state.get('startTime');
         const splitTime = action.splitTime;
-        const splits = state.getIn(['athletesArray', action.id - 1, 'splits']).toArray();
+        let currentAthleteIndex;
+        const currentAthlete = state.getIn(['athletesArray']).find(function(obj, index){
+            if(obj.get('id') === action.id) {
+                currentAthleteIndex = index;
+                return true;
+            }
+        });
+        const splits = currentAthlete.getIn(['splits']).toArray();
         const lastAthleteSplit = splits.length ? splits.reduce((a,b) => a + b) + startTime : startTime;
-        const updatedState = state.updateIn(['athletesArray', action.id - 1, 'splits'], (list) => {
-            if(state.get('timerMode') === constants.RACE) {
+        const updatedState = state.updateIn(['athletesArray', currentAthleteIndex, 'splits'], (list) => {
+            if(mode === RACE) {
                 return list.push(splitTime - lastAthleteSplit);
             } else {
                 return list.push(splitTime - state.get('lastRelaySplit'));
             }
         });
-        const newDS = updatedState.get('athletesArray');
+
+        let relaySplitState;
+        // If RELAY mode && this is the athletes first split, && this is not 
+        // the first athlete on the relay, set total time for previous athlete
+        if(mode === RELAY && splits.length === 0 && currentAthleteIndex !== 0) {
+            relaySplitState = updatedState.updateIn(['athletesArray', currentAthleteIndex - 1], (athlete) => {
+                return athlete.set('totalTime', athlete.get('splits').reduce((a, b) => a + b));
+            });
+        }
+
+        const saveState = relaySplitState ? relaySplitState : updatedState;
+        const newDS = saveState.get('athletesArray');
         return state.withMutations(function(stateCopy) {
             stateCopy
                 .set('athletesArray', newDS)
