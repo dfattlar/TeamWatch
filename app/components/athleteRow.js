@@ -13,42 +13,59 @@ const athleteColors = ['#51EC91', '#433C3C', '#91897D', '#8AF4B6', '#90AABF'];
 
 const styles = StyleSheet.create({
     athleteRow: {
-      height: 60,
-      flex: 1,
-      flexDirection: 'row'
+        height: 70,
+        flex: 1,
+        flexDirection: 'row'
+    },
+    rowBorder: {
+        flex: 13,
+        borderBottomColor: '#d3d3d3',
+        borderBottomWidth: 1,
+        flexDirection: 'row'
+    },
+    athleteNameContainer: {
+        flex: 3,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     athleteRowName: {
-      height: 60,
-      width: 60,
-      justifyContent: 'center',
-      alignItems: 'center',
+        height: 60,
+        width: 60,
+        borderRadius: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     athleteRowNameText: {
-      fontSize: 20,
-      color: '#fff',
-      fontWeight: 'bold'
+        fontSize: 20,
+        color: '#fff',
+        fontWeight: 'bold'
     },
     splits: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      flex: 1,
-      paddingLeft: 10,
-      height: 30
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        flex: 6,
+        paddingLeft: 10,
+        height: 30
     },
     split: {
-      paddingRight: 10,
-      flexWrap: 'wrap',
-      fontSize: 16,
-      fontWeight: 'bold'
+        paddingRight: 10,
+        flexWrap: 'wrap',
+        fontSize: 16,
+        fontWeight: 'bold'
     },
     rowButton: {
-      height: 60,
-      width: 100,
-      justifyContent: 'center',
-      alignItems: 'center',
+        height: 60,
+        width: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     rowButtonText:{
-      color: '#fff'
+        color: '#fff'
+    },
+    totalTimeContainer: {
+        flex: 3,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     totalTime: {
         color: '#433C3C',
@@ -84,22 +101,28 @@ export default class AthleteRow extends Component {
             onPress={() => addSplit(id)}
             style={[styles.athleteRow]}
         >
-          <View style={styles.athleteRow} key={id}>
-            <View style={[styles.athleteRowName, {
-                borderColor: athleteColors[colorId],
-                backgroundColor: athleteColors[colorId]
-              }]}>
-              <Text style={styles.athleteRowNameText}>
-                {initials}
-              </Text>
+            <View style={styles.athleteRow} key={id}>
+                <View style={styles.athleteNameContainer}>
+                    <View style={[styles.athleteRowName, {
+                        borderColor: athleteColors[colorId],
+                        backgroundColor: athleteColors[colorId]
+                    }]}>
+                        <Text style={styles.athleteRowNameText}>
+                            {initials}
+                        </Text>
+                    </View>
+                </View>
+                <View style={styles.rowBorder}>
+                    <View style={styles.splits}>
+                        { eachSplit() }
+                    </View>
+                    <View style={styles.totalTimeContainer}>
+                        <Text style={styles.totalTime}>
+                            { formatSplit(totalTime) }
+                        </Text>
+                    </View>
+                </View>
             </View>
-            <View style={styles.splits}>
-              { eachSplit() }
-            </View>
-            <Text style={styles.totalTime}>
-                { formatSplit(totalTime) }
-            </Text>
-          </View>
         </TouchableHighlight>
     );
   }
