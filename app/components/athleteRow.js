@@ -13,7 +13,7 @@ const athleteColors = ['#51EC91', '#433C3C', '#91897D', '#8AF4B6', '#90AABF'];
 
 const styles = StyleSheet.create({
     athleteRow: {
-        height: 70,
+        height: 80,
         flex: 1,
         flexDirection: 'row'
     },
@@ -36,22 +36,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     athleteRowNameText: {
-        fontSize: 20,
+        fontSize: 24,
         color: '#fff',
-        fontWeight: 'bold'
+        fontWeight: '300'
     },
     splits: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         flex: 6,
         paddingLeft: 10,
-        height: 30
+        height: 20
     },
     split: {
         paddingRight: 10,
         flexWrap: 'wrap',
         fontSize: 16,
-        fontWeight: 'bold'
+        fontWeight: '300'
     },
     rowButton: {
         height: 60,

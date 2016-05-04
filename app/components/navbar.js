@@ -9,13 +9,18 @@ const { Icon } = require('react-native-icons');
 console.log('ICONS --- '+Icon);
 const styles = StyleSheet.create({
     toolbar:{
-        backgroundColor:'#90AABF',
-        paddingTop:30,
-        paddingBottom:10,
-        flexDirection:'row'
+        backgroundColor:'transparent',
+        flex: 1,
+        flexDirection:'row',
     },
-    toolbarButton:{
-        width: 70
+    buttonContainer: {
+        flex: 2,
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end'
+    },
+    toolbarTitleContainer: {
+        flex: 4,
+        justifyContent: 'flex-end'
     },
     toolbarButtonText:{
         color:'#fff',
@@ -23,15 +28,14 @@ const styles = StyleSheet.create({
     },
     toolbarTitle:{
         color:'#fff',
-        textAlign:'center',
-        fontWeight:'bold',
-        flex:1,
-        fontSize: 20
+        fontSize: 24,
+        fontWeight: '300',
+        textAlign: 'center'
     },
     addPersonIcon: {
         width: 25,
         height: 25,
-        left: 15
+        marginRight: 15
     }
 });
 
@@ -41,19 +45,23 @@ export default class Navbar extends Component {
 
     return (
         <View style={styles.toolbar}>
-             <Text style={styles.toolbarButton}></Text>
-             <Text style={styles.toolbarTitle}>TeamWatch</Text>
-             <TouchableHighlight
-               style={styles.toolbarButton}
-               underlayColor='transparent'
-               onPress={openModal} >
-               <Icon
-                 name='ion|person-add'
-                 size={25}
-                 color='#fff'
-                 style={styles.addPersonIcon}
-               />
-             </TouchableHighlight>
+            <View style={styles.buttonContainer}></View>
+            <View style={styles.toolbarTitleContainer}>
+                <Text style={styles.toolbarTitle}>TeamWatch</Text>
+            </View>
+            <View style={styles.buttonContainer}>
+                <TouchableHighlight
+                   style={styles.toolbarButton}
+                   underlayColor='transparent'
+                   onPress={openModal} >
+                   <Icon
+                     name='ion|person-add'
+                     size={25}
+                     color='#fff'
+                     style={styles.addPersonIcon}
+                   />
+                </TouchableHighlight>
+            </View>
         </View>
     );
   }

@@ -11,13 +11,18 @@ import Navbar from './navbar';
 
 const styles = StyleSheet.create({
     button: {
-      borderWidth: 2,
-      height: 55,
-      width: 120,
+      borderWidth: 1,
+      height: 45,
+      width: 80,
       borderRadius: 8,
       justifyContent: 'center',
-      alignItems: 'center'
-    }
+      alignItems: 'center',
+      borderColor: 'white',
+      marginTop: 24
+  },
+  buttonText: {
+      color: 'white'
+  }
 });
 
 let intervalId;
@@ -33,6 +38,7 @@ export default class ResetButton extends Component {
     return (
         <TouchableHighlight underlayColor="gray"
           style={[styles.button]}
+          underlayColor="lightgray"
           onPress={() => Alert.alert(
             'What would you like to reset?',
             null,
@@ -50,8 +56,8 @@ export default class ResetButton extends Component {
                 {text: 'Cancel', onPress: () => console.log('cancelled')}
             ]
           )}>
-          <Text style={[styles.darkText]}>
-            Reset
+          <Text style={[styles.buttonText]}>
+            RESET
           </Text>
         </TouchableHighlight>
     );

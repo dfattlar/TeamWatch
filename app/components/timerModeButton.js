@@ -10,18 +10,17 @@ import React, {
 
 const styles = StyleSheet.create({
     button: {
-      borderWidth: 2,
-      height: 55,
-      width: 120,
+      borderWidth: 1,
+      height: 45,
+      width: 80,
       borderRadius: 8,
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      borderColor: 'white',
+      marginTop: 24
     },
-    startButton: {
-      borderColor: '#51EC91'
-    },
-    stopButton: {
-      borderColor: '#433C3C'
+    buttonText: {
+        color: 'white'
     }
 });
 
@@ -50,9 +49,9 @@ export default class TimeModeButton extends Component {
             <TouchableHighlight
               underlayColor="gray"
               onPress={callModeChange}
-              style = {[styles.button, depStyle]}
+              style = {styles.button}
             >
-              <Text style={[styles.darkText]}>
+              <Text style={[styles.buttonText]}>
                 {watcher.get('timerMode') === constants.RACE ? constants.RACE : constants.RELAY}
               </Text>
             </TouchableHighlight>

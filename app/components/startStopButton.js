@@ -10,11 +10,16 @@ import React, {
 const styles = StyleSheet.create({
     button: {
       borderWidth: 2,
-      height: 55,
-      width: 120,
-      borderRadius: 8,
+      height: 90,
+      width: 90,
+      borderRadius: 50,
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 24,
+        fontWeight: '200'
     },
     startButton: {
       borderColor: '#51EC91'
@@ -51,12 +56,12 @@ export default class StartStopButton extends Component {
     return (
         <View>
             <TouchableHighlight
-              underlayColor="gray"
+              underlayColor="lightgray"
               onPress={callStartStop}
               style = {[styles.button, depStyle]}
             >
-              <Text style={[styles.darkText]}>
-                {watcher.get('watchRunning') ? 'Pause' : 'Start'}
+              <Text style={[styles.buttonText]}>
+                {watcher.get('watchRunning') ? 'STOP' : 'START'}
               </Text>
             </TouchableHighlight>
         </View>
