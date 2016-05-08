@@ -12,6 +12,7 @@
     "react": "^0.14.8",
     "react-native": "0.22.0",
     "react-native-icons": "^0.7.0",
+    "react-native-router-flux": "^3.22.23",
     "react-redux": "4.1.2",
     "redux": "3.1.7",
     "redux-thunk": "1.0.3"

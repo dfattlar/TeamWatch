@@ -47,13 +47,6 @@ export function closeModal() {
     }
 }
 
-export function newAthleteInput(name) {
-    return {
-        type: types.NEW_ATHLETE_INPUT,
-        newAthleteInput: name
-    }
-}
-
 export function addAthlete() {
     return {
         type: types.ADD_ATHLETE

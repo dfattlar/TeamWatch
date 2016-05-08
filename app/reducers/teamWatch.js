@@ -115,30 +115,30 @@ export default function watcher(state = initialState, action = {}) {
         });
     case types.CLOSE_MODAL:
         return state.set('modalVisible', false);
-    case types.NEW_ATHLETE_INPUT:
-        return state.set('newAthleteInput', action.newAthleteInput);
-    case types.ADD_ATHLETE:
-        let incId = state.get('id') + 1;
-        let incColorId = (state.get('currentColorId') + 1) >= 5 ? 0 : state.get('currentColorId') + 1;
-        let newAthlete = Immutable.Map({
-            id: incId,
-            name: state.get('newAthleteInput'),
-            splits: Immutable.List([]),
-            colorId: incColorId,
-            totalTime: ''
-        });
-        let arrUpdated = state.get('athletesArray').push(newAthlete);
-        return state.withMutations(function(stateCopy) {
-            stateCopy
-                .set('modalVisible', false)
-                .set('addAthleteError', false)
-                .set('dataSource', state.get('dataSource').cloneWithRows(arrUpdated.toArray()))
-                .set('athletesArray', arrUpdated)
-                .set('id', incId)
-                .set('currentColorId', incColorId);
-        });
-    case types.ADD_ATHLETE_ERROR:
-        return state.set('addAthleteError', true);
+    // case types.NEW_ATHLETE_INPUT:
+    //     return state.set('newAthleteInput', action.newAthleteInput);
+    // case types.ADD_ATHLETE:
+    //     let incId = state.get('id') + 1;
+    //     let incColorId = (state.get('currentColorId') + 1) >= 5 ? 0 : state.get('currentColorId') + 1;
+    //     let newAthlete = Immutable.Map({
+    //         id: incId,
+    //         name: state.get('newAthleteInput'),
+    //         splits: Immutable.List([]),
+    //         colorId: incColorId,
+    //         totalTime: ''
+    //     });
+    //     let arrUpdated = state.get('athletesArray').push(newAthlete);
+    //     return state.withMutations(function(stateCopy) {
+    //         stateCopy
+    //             .set('modalVisible', false)
+    //             .set('addAthleteError', false)
+    //             .set('dataSource', state.get('dataSource').cloneWithRows(arrUpdated.toArray()))
+    //             .set('athletesArray', arrUpdated)
+    //             .set('id', incId)
+    //             .set('currentColorId', incColorId);
+    //     });
+    // case types.ADD_ATHLETE_ERROR:
+    //     return state.set('addAthleteError', true);
     case types.ADD_SPLIT:
         const mode = state.get('timerMode');
         const startTime = state.get('startTime');
@@ -161,7 +161,7 @@ export default function watcher(state = initialState, action = {}) {
         });
 
         let relaySplitState;
-        // If RELAY mode && this is the athletes first split, && this is not 
+        // If RELAY mode && this is the athletes first split, && this is not
         // the first athlete on the relay, set total time for previous athlete
         if(mode === RELAY && splits.length === 0 && currentAthleteIndex !== 0) {
             relaySplitState = updatedState.updateIn(['athletesArray', currentAthleteIndex - 1], (athlete) => {

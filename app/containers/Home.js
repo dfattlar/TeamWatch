@@ -9,7 +9,7 @@ import ResetButton from '../components/resetButton';
 import AddAthleteModal from '../components/addAthleteModal';
 import AthleteList from '../components/athleteList';
 import * as teamWatchActions from '../actions/teamWatchActions';
-import { RELAY } from '../constants.js';
+import * as constants from '../constants.js';
 import { connect } from 'react-redux';
 
 const {
@@ -73,7 +73,7 @@ var styles = StyleSheet.create({
   }
 });
 
-class TeamWatchApp extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
   }
@@ -82,7 +82,7 @@ class TeamWatchApp extends Component {
     const { state, actions } = this.props;
     let relayFinishTime;
 
-    if(state.get('relayFinishTime') && state.get('timerMode') === RELAY) {
+    if(state.get('relayFinishTime') && state.get('timerMode') === constants.RELAY) {
         relayFinishTime = (<Text style={styles.relayFinishTime}>
             Relay Finish Time: {timeFormatting(state.get('relayFinishTime'))}
         </Text>);
@@ -114,8 +114,8 @@ class TeamWatchApp extends Component {
                         {relayFinishTime}
                     </Text>
                 </View>
-                <AthleteList watcher={state} {...actions} />
-                <AddAthleteModal watcher={state} {...actions}/>
+
+
             </View>
         </View>
     );
@@ -141,10 +141,4 @@ function timeFormatting(time) {
     return `${m} : ${s} . ${ms}`;
 }
 
-export default connect(state => ({
-    state: state.watcher
-  }),
-  (dispatch) => ({
-    actions: bindActionCreators(teamWatchActions, dispatch)
-  })
-)(TeamWatchApp);
+export default connect(({routes}) => ({routes}))(Home);
