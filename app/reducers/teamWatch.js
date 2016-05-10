@@ -15,7 +15,6 @@ const initialState = Immutable.fromJS({
   currentColorId: 0,
   modalVisible: false,
   newAthlete: '',
-  addAthleteError: false,
   athletesArray:initAthleteArray,
   dataSource: ds.cloneWithRows(initAthleteArray.toArray()),
   timerMode: RACE,

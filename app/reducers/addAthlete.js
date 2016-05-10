@@ -17,7 +17,6 @@ const initialState = Immutable.fromJS({
 export default function addAthlete(state = initialState, action = {}) {
   switch (action.type) {
     case types.NEW_ATHLETE_INPUT:
-        debugger;
         return state.set('newAthleteInput', action.newAthleteInput);
     case types.ADD_ATHLETE:
         let newAthlete = Immutable.Map({
@@ -25,6 +24,7 @@ export default function addAthlete(state = initialState, action = {}) {
             name: state.get('newAthleteInput')
         });
         let arrUpdated = state.get('athleteStore').push(newAthlete);
+        debugger;
         return state.withMutations(function(stateCopy) {
             stateCopy
                 .set('addAthleteError', false)

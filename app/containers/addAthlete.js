@@ -41,7 +41,7 @@ class AddAthlete extends Component {
             actions.addAthlete();
         }
     }
-
+    
     return (
         <View style={styles.container}>
           <View style={[styles.innerContainer]}>
@@ -69,7 +69,7 @@ class AddAthlete extends Component {
 }
 
 export default connect(state => ({
-    state: state.watcher
+    state: state.addAthlete
   }),
   (dispatch) => ({
     actions: bindActionCreators(athleteActions, dispatch)

@@ -3,7 +3,7 @@ import routes from './routes';
 import addAthlete from './addAthlete';
 
 export {
-  watcher,
-  routes,
-  addAthlete
+    addAthlete,
+    watcher,
+    routes
 };

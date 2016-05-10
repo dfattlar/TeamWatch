@@ -32,6 +32,8 @@ class AllAthletesList extends Component {
   render() {
     const { state, actions } = this.props;
 
+    debugger;
+
     return (
         <View>
             <Text style={styles.container} onPress={Actions.newAthlete}>
@@ -43,7 +45,7 @@ class AllAthletesList extends Component {
 }
 
 export default connect(state => ({
-    state: state.watcher
+    state: state.addAthlete
   }),
   (dispatch) => ({
     actions: bindActionCreators(athleteActions, dispatch)
