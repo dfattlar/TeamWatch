@@ -21,10 +21,10 @@ export default function addAthlete(state = initialState, action = {}) {
     case types.ADD_ATHLETE:
         let newAthlete = Immutable.Map({
             id: Math.random().toString(36).substring(7),
-            name: state.get('newAthleteInput')
+            name: state.get('newAthleteInput'),
+            onWatch: false
         });
         let arrUpdated = state.get('athleteStore').push(newAthlete);
-        debugger;
         return state.withMutations(function(stateCopy) {
             stateCopy
                 .set('addAthleteError', false)
@@ -33,6 +33,28 @@ export default function addAthlete(state = initialState, action = {}) {
         });
     case types.ADD_ATHLETE_ERROR:
         return state.set('addAthleteError', true);
+    case types.ADD_ATHLETE_TO_WATCH:
+        let updatedAthleteArr = state.get('athleteStore').map(function(athlete) {
+            let athleteUpdate = athlete;
+            if(athlete.get('id') === action.payload.id) {
+                athleteUpdate = athlete.set('onWatch', true);
+            }
+            return athleteUpdate;
+        });
+        return state.withMutations(function(stateCopy) {
+            stateCopy
+                .set('storeDataSource', state.get('storeDataSource').cloneWithRows(updatedAthleteArr.toArray()))
+                .set('athleteStore', updatedAthleteArr)
+        });
+    case types.RESET_ATHLETE_LIST:
+        let resetAthleteArr = state.get('athleteStore').map(function(athlete) {
+            return athlete.set('onWatch', false);
+        });
+        return state.withMutations(function(stateCopy) {
+            stateCopy
+                .set('storeDataSource', state.get('storeDataSource').cloneWithRows(resetAthleteArr.toArray()))
+                .set('athleteStore', resetAthleteArr)
+        });
     default:
         return state;
   }

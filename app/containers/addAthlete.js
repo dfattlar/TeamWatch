@@ -34,14 +34,13 @@ class AddAthlete extends Component {
     const { state, actions } = this.props;
 
     function checkAthleteName() {
-        debugger;
         if(state.get('newAthleteInput').trim() === '') {
             actions.addAthleteError();
         } else {
             actions.addAthlete();
         }
     }
-    
+
     return (
         <View style={styles.container}>
           <View style={[styles.innerContainer]}>

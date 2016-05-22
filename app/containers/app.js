@@ -6,7 +6,7 @@ import { Router, Scene, Actions } from 'react-native-router-flux';
 
 import * as reducers from '../reducers';
 import TeamWatchApp from './teamWatchApp';
-import AllAthletesList from './allAthletesList';
+import AthleteStore from './athleteStore';
 import AddAthlete from './addAthlete';
 import TabView from '../components/tabView';
 
@@ -32,7 +32,7 @@ export default class App extends Component {
                 <Scene key="tabbar" tabs={true} >
                     <Scene key="watch" title="Watch" icon={TabIcon} component={TeamWatchApp} title="Watch" tabs={true} />
                     <Scene key="athletes"  title="Athletes" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
-                        <Scene key="athleteList" component={AllAthletesList} title="Athlete List" onRight={()=>Actions.newAthlete} rightTitle="Right" />
+                        <Scene key="athleteList" component={AthleteStore} title="Athlete List" onRight={()=>{Actions.newAthlete()}} rightTitle="+ Add" />
                         <Scene key="newAthlete" component={AddAthlete} title="Add Athlete" titleStyle={{color:'black'}}/>
                     </Scene>
                     <Scene key="history"  title="History" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>

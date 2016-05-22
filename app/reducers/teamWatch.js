@@ -116,26 +116,26 @@ export default function watcher(state = initialState, action = {}) {
         return state.set('modalVisible', false);
     // case types.NEW_ATHLETE_INPUT:
     //     return state.set('newAthleteInput', action.newAthleteInput);
-    // case types.ADD_ATHLETE:
-    //     let incId = state.get('id') + 1;
-    //     let incColorId = (state.get('currentColorId') + 1) >= 5 ? 0 : state.get('currentColorId') + 1;
-    //     let newAthlete = Immutable.Map({
-    //         id: incId,
-    //         name: state.get('newAthleteInput'),
-    //         splits: Immutable.List([]),
-    //         colorId: incColorId,
-    //         totalTime: ''
-    //     });
-    //     let arrUpdated = state.get('athletesArray').push(newAthlete);
-    //     return state.withMutations(function(stateCopy) {
-    //         stateCopy
-    //             .set('modalVisible', false)
-    //             .set('addAthleteError', false)
-    //             .set('dataSource', state.get('dataSource').cloneWithRows(arrUpdated.toArray()))
-    //             .set('athletesArray', arrUpdated)
-    //             .set('id', incId)
-    //             .set('currentColorId', incColorId);
-    //     });
+    case types.ADD_ATHLETE_TO_WATCH:
+        let incId = state.get('id') + 1;
+        let incColorId = (state.get('currentColorId') + 1) >= 5 ? 0 : state.get('currentColorId') + 1;
+        let newAthlete = Immutable.Map({
+            id: action.payload.id,
+            name: action.payload.name,
+            splits: Immutable.List([]),
+            colorId: incColorId,
+            totalTime: ''
+        });
+        let arrUpdated = state.get('athletesArray').push(newAthlete);
+        return state.withMutations(function(stateCopy) {
+            stateCopy
+                .set('modalVisible', false)
+                .set('addAthleteError', false)
+                .set('dataSource', state.get('dataSource').cloneWithRows(arrUpdated.toArray()))
+                .set('athletesArray', arrUpdated)
+                .set('id', incId)
+                .set('currentColorId', incColorId);
+        });
     // case types.ADD_ATHLETE_ERROR:
     //     return state.set('addAthleteError', true);
     case types.ADD_SPLIT:
