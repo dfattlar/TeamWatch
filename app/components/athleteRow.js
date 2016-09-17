@@ -49,6 +49,10 @@ const styles = StyleSheet.create({
     },
     rowButtonText:{
       color: '#fff'
+    },
+    totalTime: {
+        color: '#433C3C',
+        fontSize: 24
     }
 });
 
@@ -92,7 +96,7 @@ export default class AthleteRow extends Component {
             <View style={styles.splits}>
               { eachSplit() }
             </View>
-            <Text>
+            <Text style={styles.totalTime}>
                 { formatSplit(totalTime) }
             </Text>
           </View>
