@@ -44,12 +44,12 @@ export default class ResetButton extends Component {
             null,
             [
                 {text: 'Reset Time And Splits Only', onPress: () => {
-                        clearInterval(watcher.get('intervalId'));
+                        clearInterval(watcher.intervalId);
                         resetTime();
                     }
                 },
                 {text: 'Reset Time and Athletes', onPress: () => {
-                        clearInterval(watcher.get('intervalId'));
+                        clearInterval(watcher.intervalId);
                         resetAll();
                         resetAthleteList();
                     }

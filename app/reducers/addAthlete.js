@@ -2,60 +2,73 @@ import * as types from '../actions/actionTypes';
 import { RACE, RELAY } from '../constants';
 import React from 'react';
 import { ListView } from 'react-native';
-import Immutable from 'immutable';
 
 
-let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => !Immutable.is(r1, r2)});
-let initAthleteStore = Immutable.List([]);
+let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+let initAthleteStore = [];
 
-const initialState = Immutable.fromJS({
+const initialState = {
   newAthleteInput: '',
   addAthleteError: false,
   athleteStore: initAthleteStore,
-  storeDataSource: ds.cloneWithRows(initAthleteStore.toArray())
-});
+  storeDataSource: ds.cloneWithRows(initAthleteStore)
+};
 
 export default function addAthlete(state = initialState, action = {}) {
   switch (action.type) {
     case types.NEW_ATHLETE_INPUT:
-        return state.set('newAthleteInput', action.newAthleteInput);
+        return {
+            ...state,
+            newAthleteInput: action.newAthleteInput
+        }
     case types.ADD_ATHLETE:
-        let newAthlete = Immutable.Map({
+        let newAthlete = {
             id: Math.random().toString(36).substring(7),
-            name: state.get('newAthleteInput'),
+            name: state.newAthleteInput,
             onWatch: false
-        });
-        let arrUpdated = state.get('athleteStore').push(newAthlete);
-        return state.withMutations(function(stateCopy) {
-            stateCopy
-                .set('addAthleteError', false)
-                .set('storeDataSource', state.get('storeDataSource').cloneWithRows(arrUpdated.toArray()))
-                .set('athleteStore', arrUpdated)
-        });
+        };
+        let arrUpdated = [...state.athleteStore, newAthlete];
+        return {
+            ...state,
+            addAthleteError: false,
+            storeDataSource: state.storeDataSource.cloneWithRows(arrUpdated),
+            athleteStore: arrUpdated
+        }
     case types.ADD_ATHLETE_ERROR:
-        return state.set('addAthleteError', true);
+        return {
+            ...state,
+            addAthleteError: true
+        }
     case types.ADD_ATHLETE_TO_WATCH:
-        let updatedAthleteArr = state.get('athleteStore').map(function(athlete) {
+    debugger;
+        let updatedAthleteArr = state.athleteStore.map(function(athlete) {
             let athleteUpdate = athlete;
-            if(athlete.get('id') === action.payload.id) {
-                athleteUpdate = athlete.set('onWatch', true);
+            if(athlete.id === action.payload.id) {
+                athleteUpdate = {
+                    ...athlete,
+                    onWatch: true
+                }
             }
             return athleteUpdate;
         });
-        return state.withMutations(function(stateCopy) {
-            stateCopy
-                .set('storeDataSource', state.get('storeDataSource').cloneWithRows(updatedAthleteArr.toArray()))
-                .set('athleteStore', updatedAthleteArr)
-        });
+        debugger;
+        return {
+            ...state,
+            storeDataSource: state.storeDataSource.cloneWithRows(updatedAthleteArr),
+            athleteStore: updatedAthleteArr
+        }
     case types.RESET_ATHLETE_LIST:
-        let resetAthleteArr = state.get('athleteStore').map(function(athlete) {
-            return athlete.set('onWatch', false);
+        let resetAthleteArr = state.athleteStore.map(function(athlete) {
+            return {
+                ...athlete,
+                onWatch: false
+            }
         });
-        return state.withMutations(function(stateCopy) {
-            stateCopy
-                .set('storeDataSource', state.get('storeDataSource').cloneWithRows(resetAthleteArr.toArray()))
-                .set('athleteStore', resetAthleteArr)
-        });
+        return {
+            ...state,
+            storeDataSource: state.storeDataSource.cloneWithRows(resetAthleteArr),
+            athleteStore: resetAthleteArr
+        }
     default:
         return state;
   }

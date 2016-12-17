@@ -81,9 +81,9 @@ class TeamWatchApp extends Component {
     const { state, actions } = this.props;
     let relayFinishTime;
 
-    if(state.get('relayFinishTime') && state.get('timerMode') === RELAY) {
+    if(state.relayFinishTime && state.timerMode === RELAY) {
         relayFinishTime = (<Text style={styles.relayFinishTime}>
-            Relay Finish Time: {timeFormatting(state.get('relayFinishTime'))}
+            Relay Finish Time: {timeFormatting(state.relayFinishTime)}
         </Text>);
     }
 
@@ -98,7 +98,7 @@ class TeamWatchApp extends Component {
                 source={require('../assets/background.png')}>
                     <Navbar {...actions} />
                     <View style={styles.timerWrapper}>
-                        <Text style={styles.timerText}>{timeFormatting(state.get('time'))}</Text>
+                        <Text style={styles.timerText}>{timeFormatting(state.time)}</Text>
                     </View>
                     <View style={[styles.buttonWrapper]}>
                         <TimerModeButton watcher={state} {...actions} />
@@ -114,7 +114,6 @@ class TeamWatchApp extends Component {
                     </Text>
                 </View>
                 <AthleteList watcher={state} {...actions} />
-                <AddAthleteModal watcher={state} {...actions}/>
             </View>
         </View>
     );

@@ -18,7 +18,6 @@ const RouterWithRedux = connect()(Router);
 
 class TabIcon extends React.Component {
     render(){
-        debugger;
         return (
             <Text style={{color: this.props.selected ? 'red' :'black'}}>{this.props.title}</Text>
         );

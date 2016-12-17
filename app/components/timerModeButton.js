@@ -33,10 +33,10 @@ export default class TimeModeButton extends Component {
 
   render() {
     const { watcher, modeChange } = this.props;
-    let depStyle = watcher.get('timerMode') ? styles.stopButton : styles.startButton;
+    let depStyle = watcher.timerMode ? styles.stopButton : styles.startButton;
 
     function callModeChange () {
-        const timerMode = watcher.get('timerMode');
+        const timerMode = watcher.timerMode;
         if(timerMode === constants.RACE) {
             modeChange(constants.RELAY);
         } else {
@@ -52,7 +52,7 @@ export default class TimeModeButton extends Component {
               style = {styles.button}
             >
               <Text style={[styles.buttonText]}>
-                {watcher.get('timerMode') === constants.RACE ? constants.RACE : constants.RELAY}
+                {watcher.timerMode === constants.RACE ? constants.RACE : constants.RELAY}
               </Text>
             </TouchableHighlight>
         </View>

@@ -48,14 +48,6 @@ export default class Navbar extends Component {
                 <Text style={styles.toolbarTitle}>TeamWatch</Text>
             </View>
             <View style={styles.buttonContainer}>
-                <TouchableHighlight
-                   style={styles.toolbarButton}
-                   underlayColor='transparent'
-                   onPress={openModal} >
-                   <Text>
-                   Ok
-                   </Text>
-                </TouchableHighlight>
             </View>
         </View>
     );

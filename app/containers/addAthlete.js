@@ -33,7 +33,7 @@ class AddAthlete extends Component {
     const { state, actions } = this.props;
 
     function checkAthleteName() {
-        if(state.get('newAthleteInput').trim() === '') {
+        if(state.newAthleteInput.trim() === '') {
             actions.addAthleteError();
         } else {
             actions.addAthlete();
@@ -48,9 +48,9 @@ class AddAthlete extends Component {
             <TextInput
               style={{height: 40, borderColor: 'gray', borderWidth: 1, paddingLeft: 10}}
               onChangeText={(text) => actions.newAthleteInput(text)}
-              value={state.get('newAthleteInput')}
+              value={state.newAthleteInput}
             />
-            <Text style={[styles.errorTextHidden, state.get('addAthleteError') && styles.errorText]}>
+            <Text style={[styles.errorTextHidden, state.addAthleteError && styles.errorText]}>
               Please add athletes first and last name.
             </Text>
 
