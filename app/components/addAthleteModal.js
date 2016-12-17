@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import {
+import React, {
   StyleSheet,
+  Component,
   View,
   Text,
   TouchableHighlight,

@@ -28,12 +28,6 @@ export function resetTime() {
     }
 }
 
-export function resetAthleteList() {
-    return {
-        type: types.RESET_ATHLETE_LIST
-    }
-}
-
 export function tick() {
     return {
         type: types.TICK,
@@ -50,6 +44,25 @@ export function openModal() {
 export function closeModal() {
     return {
         type: types.CLOSE_MODAL
+    }
+}
+
+export function newAthleteInput(name) {
+    return {
+        type: types.NEW_ATHLETE_INPUT,
+        newAthleteInput: name
+    }
+}
+
+export function addAthlete() {
+    return {
+        type: types.ADD_ATHLETE
+    }
+}
+
+export function addAthleteError() {
+    return {
+        type: types.ADD_ATHLETE_ERROR
     }
 }
 

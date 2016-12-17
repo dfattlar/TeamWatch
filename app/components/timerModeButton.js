@@ -1,7 +1,7 @@
 import * as constants from '../constants';
-import React, { Component } from 'react';
-import {
+import React, {
   StyleSheet,
+  Component,
   View,
   Text,
   TouchableOpacity,
@@ -10,17 +10,18 @@ import {
 
 const styles = StyleSheet.create({
     button: {
-      borderWidth: 1,
-      height: 45,
-      width: 80,
+      borderWidth: 2,
+      height: 55,
+      width: 120,
       borderRadius: 8,
       justifyContent: 'center',
-      alignItems: 'center',
-      borderColor: 'white',
-      marginTop: 24
+      alignItems: 'center'
     },
-    buttonText: {
-        color: 'white'
+    startButton: {
+      borderColor: '#51EC91'
+    },
+    stopButton: {
+      borderColor: '#433C3C'
     }
 });
 
@@ -49,9 +50,9 @@ export default class TimeModeButton extends Component {
             <TouchableHighlight
               underlayColor="gray"
               onPress={callModeChange}
-              style = {styles.button}
+              style = {[styles.button, depStyle]}
             >
-              <Text style={[styles.buttonText]}>
+              <Text style={[styles.darkText]}>
                 {watcher.get('timerMode') === constants.RACE ? constants.RACE : constants.RELAY}
               </Text>
             </TouchableHighlight>

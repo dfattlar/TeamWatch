@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import {
+import React, {
   StyleSheet,
+  Component,
   View,
   Text,
   TouchableOpacity,
@@ -11,18 +11,13 @@ import Navbar from './navbar';
 
 const styles = StyleSheet.create({
     button: {
-      borderWidth: 1,
-      height: 45,
-      width: 80,
+      borderWidth: 2,
+      height: 55,
+      width: 120,
       borderRadius: 8,
       justifyContent: 'center',
-      alignItems: 'center',
-      borderColor: 'white',
-      marginTop: 24
-  },
-  buttonText: {
-      color: 'white'
-  }
+      alignItems: 'center'
+    }
 });
 
 let intervalId;
@@ -33,12 +28,11 @@ export default class ResetButton extends Component {
   }
 
   render() {
-    const { watcher, resetAll, resetTime, resetAthleteList } = this.props;
+    const { watcher, resetAll, resetTime } = this.props;
 
     return (
         <TouchableHighlight underlayColor="gray"
           style={[styles.button]}
-          underlayColor="lightgray"
           onPress={() => Alert.alert(
             'What would you like to reset?',
             null,
@@ -51,14 +45,13 @@ export default class ResetButton extends Component {
                 {text: 'Reset Time and Athletes', onPress: () => {
                         clearInterval(watcher.get('intervalId'));
                         resetAll();
-                        resetAthleteList();
                     }
                 },
                 {text: 'Cancel', onPress: () => console.log('cancelled')}
             ]
           )}>
-          <Text style={[styles.buttonText]}>
-            RESET
+          <Text style={[styles.darkText]}>
+            Reset
           </Text>
         </TouchableHighlight>
     );

@@ -1,7 +1,7 @@
 'use strict';
 
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
+import React, { Component } from 'react-native';
+import {bindActionCreators} from 'redux';
 import Navbar from '../components/navbar';
 import StartStopButton from '../components/startStopButton';
 import TimerModeButton from '../components/timerModeButton';
@@ -9,66 +9,41 @@ import ResetButton from '../components/resetButton';
 import AddAthleteModal from '../components/addAthleteModal';
 import AthleteList from '../components/athleteList';
 import * as teamWatchActions from '../actions/teamWatchActions';
-import { RELAY } from '../constants.js';
+import * as constants from '../constants.js';
 import { connect } from 'react-redux';
-import {
+
+const {
     View,
     StyleSheet,
     Text,
-    TouchableHighlight,
-    Image,
-    StatusBar
-} from 'react-native';
+    TouchableHighlight
+} = React;
 
 // style the react component
 var styles = StyleSheet.create({
-    timerSection: {
-        flex:4,
-    },
-    backgroundImg: {
-        overflow: 'hidden',
-        flex: 1,
-        width: null,
-        height: null
-    },
   timerWrapper: {
+    flex: 1,
     alignItems: 'center',
     flexDirection: 'row',
-    marginLeft: 20,
-    backgroundColor: 'transparent',
-    flex: 2
+    marginLeft: 10
   },
   timerText: {
-    fontSize: 70,
-    color: 'white',
-    fontWeight: '200'
+    fontSize: 70
   },
   buttonWrapper: {
+    flex: 3,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'flex-start',
-    flex: 2
+    alignItems: 'center'
   },
   relayContainer: {
-      backgroundColor: 'lightgray'
-  },
-  relayText: {
-      textAlign: 'center',
-      backgroundColor: 'transparent',
-      fontWeight: '300',
-      paddingTop: 5,
-      paddingBottom: 5
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
   },
   relayFinishTime: {
       fontSize: 20,
       marginTop: 20
-  },
-  appContainer: {
-      flex: 1,
-  },
-  athleteListContainer: {
-      flex:6,
-      backgroundColor: 'white'
   }
 });
 
@@ -81,41 +56,28 @@ class TeamWatchApp extends Component {
     const { state, actions } = this.props;
     let relayFinishTime;
 
-    if(state.get('relayFinishTime') && state.get('timerMode') === RELAY) {
+    if(state.get('relayFinishTime') && state.get('timerMode') === constants.RELAY) {
         relayFinishTime = (<Text style={styles.relayFinishTime}>
             Relay Finish Time: {timeFormatting(state.get('relayFinishTime'))}
         </Text>);
     }
 
     return (
-        <View style={styles.appContainer}>
-            <StatusBar
-              barStyle="light-content"
-            />
-            <View style={styles.timerSection}>
-                <Image
-                style={styles.backgroundImg}
-                source={require('../assets/background.png')}>
-                    <Navbar {...actions} />
-                    <View style={styles.timerWrapper}>
-                        <Text style={styles.timerText}>{timeFormatting(state.get('time'))}</Text>
-                    </View>
-                    <View style={[styles.buttonWrapper]}>
-                        <TimerModeButton watcher={state} {...actions} />
-                        <StartStopButton watcher={state} {...actions} />
-                        <ResetButton watcher={state} {...actions} />
-                    </View>
-                </Image>
+        <View>
+            <Navbar {...actions} />
+            <View style={styles.timerWrapper}>
+                <Text style={styles.timerText}>{timeFormatting(state.get('time'))}</Text>
             </View>
-            <View style={styles.athleteListContainer}>
-                <View style={styles.relayContainer}>
-                    <Text style={styles.relayText}>
-                        {relayFinishTime}
-                    </Text>
-                </View>
-                <AthleteList watcher={state} {...actions} />
-                <AddAthleteModal watcher={state} {...actions}/>
+            <View style={[styles.buttonWrapper]}>
+                <StartStopButton watcher={state} {...actions} />
+                <TimerModeButton watcher={state} {...actions} />
+                <ResetButton watcher={state} {...actions} />
             </View>
+            <View style={styles.relayContainer}>
+                {relayFinishTime}
+            </View>
+            <AthleteList watcher={state} {...actions} />
+            <AddAthleteModal watcher={state} {...actions}/>
         </View>
     );
   }

@@ -1,7 +1,6 @@
 import * as types from '../actions/actionTypes';
-import { RACE, RELAY } from '../constants';
-import React from 'react';
-import { ListView } from 'react-native';
+import * as constants from '../constants';
+import React, { ListView } from 'react-native';
 import Immutable from 'immutable';
 
 
@@ -16,9 +15,10 @@ const initialState = Immutable.fromJS({
   currentColorId: 0,
   modalVisible: false,
   newAthlete: '',
+  addAthleteError: false,
   athletesArray:initAthleteArray,
   dataSource: ds.cloneWithRows(initAthleteArray.toArray()),
-  timerMode: RACE,
+  timerMode: constants.RACE,
   lastRelaySplit: null,
   relayFinishTime: null
 });
@@ -115,14 +115,14 @@ export default function watcher(state = initialState, action = {}) {
         });
     case types.CLOSE_MODAL:
         return state.set('modalVisible', false);
-    // case types.NEW_ATHLETE_INPUT:
-    //     return state.set('newAthleteInput', action.newAthleteInput);
-    case types.ADD_ATHLETE_TO_WATCH:
+    case types.NEW_ATHLETE_INPUT:
+        return state.set('newAthleteInput', action.newAthleteInput);
+    case types.ADD_ATHLETE:
         let incId = state.get('id') + 1;
         let incColorId = (state.get('currentColorId') + 1) >= 5 ? 0 : state.get('currentColorId') + 1;
         let newAthlete = Immutable.Map({
-            id: action.payload.id,
-            name: action.payload.name,
+            id: incId,
+            name: state.get('newAthleteInput'),
             splits: Immutable.List([]),
             colorId: incColorId,
             totalTime: ''
@@ -137,40 +137,21 @@ export default function watcher(state = initialState, action = {}) {
                 .set('id', incId)
                 .set('currentColorId', incColorId);
         });
-    // case types.ADD_ATHLETE_ERROR:
-    //     return state.set('addAthleteError', true);
+    case types.ADD_ATHLETE_ERROR:
+        return state.set('addAthleteError', true);
     case types.ADD_SPLIT:
-        const mode = state.get('timerMode');
         const startTime = state.get('startTime');
         const splitTime = action.splitTime;
-        let currentAthleteIndex;
-        const currentAthlete = state.getIn(['athletesArray']).find(function(obj, index){
-            if(obj.get('id') === action.id) {
-                currentAthleteIndex = index;
-                return true;
-            }
-        });
-        const splits = currentAthlete.getIn(['splits']).toArray();
+        const splits = state.getIn(['athletesArray', action.id - 1, 'splits']).toArray();
         const lastAthleteSplit = splits.length ? splits.reduce((a,b) => a + b) + startTime : startTime;
-        const updatedState = state.updateIn(['athletesArray', currentAthleteIndex, 'splits'], (list) => {
-            if(mode === RACE) {
+        const updatedState = state.updateIn(['athletesArray', action.id - 1, 'splits'], (list) => {
+            if(state.get('timerMode') === constants.RACE) {
                 return list.push(splitTime - lastAthleteSplit);
             } else {
                 return list.push(splitTime - state.get('lastRelaySplit'));
             }
         });
-
-        let relaySplitState;
-        // If RELAY mode && this is the athletes first split, && this is not
-        // the first athlete on the relay, set total time for previous athlete
-        if(mode === RELAY && splits.length === 0 && currentAthleteIndex !== 0) {
-            relaySplitState = updatedState.updateIn(['athletesArray', currentAthleteIndex - 1], (athlete) => {
-                return athlete.set('totalTime', athlete.get('splits').reduce((a, b) => a + b));
-            });
-        }
-
-        const saveState = relaySplitState ? relaySplitState : updatedState;
-        const newDS = saveState.get('athletesArray');
+        const newDS = updatedState.get('athletesArray');
         return state.withMutations(function(stateCopy) {
             stateCopy
                 .set('athletesArray', newDS)

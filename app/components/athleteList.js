@@ -1,14 +1,18 @@
 import moment from 'moment';
-import React, { Component } from 'react';
-import {
+import React, {
   StyleSheet,
-  ListView,
-  ScrollView
+  Component,
+  View,
+  Text,
+  TouchableOpacity,
+  TouchableHighlight,
+  ListView
 } from 'react-native';
 import AthleteRow from './athleteRow';
 
 const styles = StyleSheet.create({
     athleteListView: {
+        marginTop: 20
     }
 });
 

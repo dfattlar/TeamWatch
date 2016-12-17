@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import {
+import React, {
   StyleSheet,
+  Component,
   View,
   Text,
   TouchableOpacity,
@@ -10,16 +10,11 @@ import {
 const styles = StyleSheet.create({
     button: {
       borderWidth: 2,
-      height: 90,
-      width: 90,
-      borderRadius: 50,
+      height: 55,
+      width: 120,
+      borderRadius: 8,
       justifyContent: 'center',
-      alignItems: 'center',
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 24,
-        fontWeight: '200'
+      alignItems: 'center'
     },
     startButton: {
       borderColor: '#51EC91'
@@ -56,12 +51,12 @@ export default class StartStopButton extends Component {
     return (
         <View>
             <TouchableHighlight
-              underlayColor="lightgray"
+              underlayColor="gray"
               onPress={callStartStop}
               style = {[styles.button, depStyle]}
             >
-              <Text style={[styles.buttonText]}>
-                {watcher.get('watchRunning') ? 'STOP' : 'START'}
+              <Text style={[styles.darkText]}>
+                {watcher.get('watchRunning') ? 'Pause' : 'Start'}
               </Text>
             </TouchableHighlight>
         </View>
