@@ -53,7 +53,7 @@ export default class AthleteStoreRow extends Component {
   }
 
   render() {
-    const {  name, id, onWatch } = this.props.rowData.toJS();
+    const {  name, id, onWatch } = this.props.rowData;
     const { addAthleteToWatch } = this.props.actions;
 
     let depStyle = onWatch ? styles.onWatch : styles.notOnWatch;

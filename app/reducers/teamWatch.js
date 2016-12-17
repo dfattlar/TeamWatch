@@ -1,13 +1,13 @@
 import * as types from '../actions/actionTypes';
-import * as constants from '../constants';
-import React, { ListView } from 'react-native';
-import Immutable from 'immutable';
+import { RACE, RELAY } from '../constants';
+import React from 'react';
+import { ListView } from 'react-native';
 
 
-let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => !Immutable.is(r1, r2)});
-let initAthleteArray = Immutable.List([]);
+let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+let initAthleteArray = [];
 
-const initialState = Immutable.fromJS({
+const initialState = {
   watchRunning: false,
   startTime: null,
   time: 0,
@@ -17,149 +17,188 @@ const initialState = Immutable.fromJS({
   newAthlete: '',
   addAthleteError: false,
   athletesArray:initAthleteArray,
-  dataSource: ds.cloneWithRows(initAthleteArray.toArray()),
-  timerMode: constants.RACE,
+  dataSource: ds.cloneWithRows(initAthleteArray),
+  timerMode: RACE,
   lastRelaySplit: null,
   relayFinishTime: null
-});
+};
 
 export default function watcher(state = initialState, action = {}) {
   switch (action.type) {
     case types.START_WATCH:
-        const arrStart = state.get('athletesArray').map(function(athlete) {
-            return athlete.set('totalTime', '');
-        });
-        const existingStartTime = state.get('startTime');
-
-        return state.withMutations(function(stateCopy) {
-            stateCopy
-                .set('athletesArray', arrStart)
-                .set('dataSource', state.get('dataSource').cloneWithRows(arrStart.toArray()))
-                .set('watchRunning', true)
-                .set('intervalId', action.intervalId);
-
-            // if there is watch is starting for the first time (has not been paused)
-            if(existingStartTime === null) {
-                stateCopy
-                    .set('startTime', action.startTime)
-                    .set('lastRelaySplit', action.startTime);
-            } else {
-                stateCopy
-                    .set('startTime', existingStartTime)
-                    .set('lastRelaySplit', action.startTime);
+        const arrStart = state.athletesArray.map(function(athlete) {
+            return {
+                ...athlete,
+                totalTime: ''
             }
         });
+        const existingStartTime = state.startTime;
+
+        const tempState = {
+            ...state,
+            athletesArray: arrStart,
+            dataSource: state.dataSource.cloneWithRows(arrStart),
+            watchRunning: true,
+            intervalId: action.intervalId
+        }
+
+            // if there is watch is starting for the first time (has not been paused)
+        if(existingStartTime === null) {
+            return {
+                ...tempState,
+                startTime: action.startTime,
+                lastRelaySplit: action.startTime
+            }
+        } else {
+            return {
+                ...tempState,
+                startTime: existingStartTime,
+                lastRelaySplit: action.startTime
+            }
+        }
+
     case types.STOP_WATCH:
         let relayFinishTime = 0;
-        const arrStop = state.get('athletesArray').map(function(athlete) {
-            const splits = athlete.get('splits');
+        const arrStop = state.athletesArray.map(function(athlete) {
+            const splits = athlete.splits;
             let totalTime = '';
             if(splits.size) {
                 totalTime = splits.reduce((a, b) => a + b);
             }
             relayFinishTime += totalTime;
-            return athlete.set('totalTime', totalTime);
-        });
-
-        return state.withMutations(function(stateCopy) {
-            stateCopy
-                .set('athletesArray', arrStop)
-                .set('dataSource', state.get('dataSource').cloneWithRows(arrStop.toArray()))
-                .set('watchRunning', false)
-                .set('relayFinishTime', relayFinishTime);
-        });
-
-    case types.TICK:
-        let newTime = action.time - state.get('startTime');
-        return state.withMutations(function(stateCopy) {
-            stateCopy
-                .set('time', newTime);
-        });
-    case types.RESET_ALL:
-        const newList = Immutable.List([]);
-        return state.withMutations(function(stateCopy) {
-            stateCopy
-                .set('time', 0)
-                .set('watchRunning', false)
-                .set('athletesArray', Immutable.List(newList))
-                .set('dataSource', state.get('dataSource').cloneWithRows(newList.toArray()))
-                .set('id', 0)
-                .set('startTime', null)
-                .set('relayFinishTime', null);
-        });
-    case types.RESET_TIME:
-        const resetAthleteSplitsArr = state
-            .get('athletesArray')
-            .map(function(athlete){
-                return athlete.withMutations(function(athleteCopy) {
-                    athleteCopy
-                        .set('splits', Immutable.List([]))
-                        .set('totalTime', '');
-                });
-            });
-        return state.withMutations(function(stateCopy) {
-            stateCopy
-                .set('time', 0)
-                .set('watchRunning', false)
-                .set('athletesArray', resetAthleteSplitsArr)
-                .set('dataSource', state.get('dataSource').cloneWithRows(resetAthleteSplitsArr.toArray()))
-                .set('startTime', null)
-                .set('relayFinishTime', null);
-        });
-    case types.OPEN_MODAL:
-        return state.withMutations(function(stateCopy) {
-            stateCopy
-                .set('modalVisible', true)
-                .set('addAthleteError', false)
-                .set('newAthleteInput', '');
-        });
-    case types.CLOSE_MODAL:
-        return state.set('modalVisible', false);
-    case types.NEW_ATHLETE_INPUT:
-        return state.set('newAthleteInput', action.newAthleteInput);
-    case types.ADD_ATHLETE:
-        let incId = state.get('id') + 1;
-        let incColorId = (state.get('currentColorId') + 1) >= 5 ? 0 : state.get('currentColorId') + 1;
-        let newAthlete = Immutable.Map({
-            id: incId,
-            name: state.get('newAthleteInput'),
-            splits: Immutable.List([]),
-            colorId: incColorId,
-            totalTime: ''
-        });
-        let arrUpdated = state.get('athletesArray').push(newAthlete);
-        return state.withMutations(function(stateCopy) {
-            stateCopy
-                .set('modalVisible', false)
-                .set('addAthleteError', false)
-                .set('dataSource', state.get('dataSource').cloneWithRows(arrUpdated.toArray()))
-                .set('athletesArray', arrUpdated)
-                .set('id', incId)
-                .set('currentColorId', incColorId);
-        });
-    case types.ADD_ATHLETE_ERROR:
-        return state.set('addAthleteError', true);
-    case types.ADD_SPLIT:
-        const startTime = state.get('startTime');
-        const splitTime = action.splitTime;
-        const splits = state.getIn(['athletesArray', action.id - 1, 'splits']).toArray();
-        const lastAthleteSplit = splits.length ? splits.reduce((a,b) => a + b) + startTime : startTime;
-        const updatedState = state.updateIn(['athletesArray', action.id - 1, 'splits'], (list) => {
-            if(state.get('timerMode') === constants.RACE) {
-                return list.push(splitTime - lastAthleteSplit);
-            } else {
-                return list.push(splitTime - state.get('lastRelaySplit'));
+            return {
+                ...athlete,
+                totalTime: totalTime
             }
         });
-        const newDS = updatedState.get('athletesArray');
-        return state.withMutations(function(stateCopy) {
-            stateCopy
-                .set('athletesArray', newDS)
-                .set('dataSource', state.get('dataSource').cloneWithRows(newDS.toArray()))
-                .set('lastRelaySplit', splitTime);
+
+        return {
+            ...state,
+            athletesArray: arrStop,
+            dataSource: state.dataSource.cloneWithRows(arrStop),
+            watchRunning: false,
+            relayFinishTime: relayFinishTime
+        }
+
+    case types.TICK:
+        let newTime = action.time - state.startTime;
+        return {
+            ...state,
+            time: newTime
+        };
+    case types.RESET_ALL:
+        const newList = [];
+        return {
+            ...state,
+            time: 0,
+            watchRunning: false,
+            athletesArray: newList,
+            dataSource: state.dataSource.cloneWithRows(newList),
+            id: 0,
+            startTime: null,
+            relayFinishTime: null
+        }
+    case types.RESET_TIME:
+        const resetAthleteSplitsArr = state.athletesArray
+            .map(function(athlete){
+                return {
+                    ...athlete,
+                    splits: [],
+                    totalTime: ''
+                }
+            });
+        return {
+            ...state,
+            time: 0,
+            watchRunning: false,
+            athletesArray: resetAthleteSplitsArr,
+            dataSource: state.dataSource.cloneWithRows(resetAthleteSplitsArr),
+            startTime: null,
+            relayFinishTime: null
+        }
+    case types.OPEN_MODAL:
+        return {
+            ...state,
+            modalVisible: true,
+            addAthleteError: false,
+            newAthleteInput: ''
+        }
+    case types.CLOSE_MODAL:
+        return {
+            ...state,
+            modalVisible: false
+        }
+    // case types.NEW_ATHLETE_INPUT:
+    //     return state.set('newAthleteInput', action.newAthleteInput);
+    case types.ADD_ATHLETE_TO_WATCH:
+    debugger;
+        let incId = state.id + 1;
+        let incColorId = (state.currentColorId + 1) >= 5 ? 0 : state.currentColorId + 1;
+        let newAthlete = {
+            id: action.payload.id,
+            name: action.payload.name,
+            splits: [],
+            colorId: incColorId,
+            totalTime: ''
+        };
+        let arrUpdated = [...state.athletesArray, newAthlete];
+        return {
+            ...state,
+            modalVisible: false,
+            addAthleteError: false,
+            dataSource: state.dataSource.cloneWithRows(arrUpdated),
+            athletesArray: arrUpdated,
+            id: incId,
+            currentColorId: incColorId
+        }
+    // case types.ADD_ATHLETE_ERROR:
+    //     return state.set('addAthleteError', true);
+    case types.ADD_SPLIT:
+        const mode = state.timerMode;
+        const startTime = state.startTime;
+        const splitTime = action.splitTime;
+        let currentAthleteIndex;
+        const currentAthlete = state.athletesArray.find(function(obj, index){
+            if(obj.id === action.id) {
+                currentAthleteIndex = index;
+                return true;
+            }
         });
+        const splits = currentAthlete.splits;
+        const lastAthleteSplit = splits.length ? splits.reduce((a,b) => a + b) + startTime : startTime;
+        const updatedState = state.athletesArray.currentAthleteIndex.splits = (list) => {
+            if(mode === RACE) {
+                return list.push(splitTime - lastAthleteSplit);
+            } else {
+                return list.push(splitTime - state.lastRelaySplit);
+            }
+        }
+
+        let relaySplitState;
+        // If RELAY mode && this is the athletes first split, && this is not
+        // the first athlete on the relay, set total time for previous athlete
+        if(mode === RELAY && splits.length === 0 && currentAthleteIndex !== 0) {
+            relaySplitState = updatedState.athletesArray[currentAthleteIndex - 1] = (athlete) => {
+                return {
+                    ...athlete,
+                    totalTime: athlete.splits.reduce((a, b) => a + b)
+                }
+            }
+        }
+
+        const saveState = relaySplitState ? relaySplitState : updatedState;
+        const newDS = saveState.athletesArray;
+        return {
+            ...state,
+            athletesArray: newDS,
+            dataSource: state.dataSource.cloneWithRows(newDS),
+            lastRelaySplit: splitTime
+        }
     case types.MODE_CHANGE:
-        return state.set('timerMode', action.timerMode);
+        return {
+            ...state,
+            timerMode: action.timerMode
+        }
     default:
       return state;
   }

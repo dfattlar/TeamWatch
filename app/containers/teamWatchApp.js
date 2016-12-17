@@ -56,25 +56,39 @@ class TeamWatchApp extends Component {
     const { state, actions } = this.props;
     let relayFinishTime;
 
-    if(state.get('relayFinishTime') && state.get('timerMode') === constants.RELAY) {
+    if(state.relayFinishTime && state.timerMode === RELAY) {
         relayFinishTime = (<Text style={styles.relayFinishTime}>
-            Relay Finish Time: {timeFormatting(state.get('relayFinishTime'))}
+            Relay Finish Time: {timeFormatting(state.relayFinishTime)}
         </Text>);
     }
 
     return (
-        <View>
-            <Navbar {...actions} />
-            <View style={styles.timerWrapper}>
-                <Text style={styles.timerText}>{timeFormatting(state.get('time'))}</Text>
+        <View style={styles.appContainer}>
+            <StatusBar
+              barStyle="light-content"
+            />
+            <View style={styles.timerSection}>
+                <Image
+                style={styles.backgroundImg}
+                source={require('../assets/background.png')}>
+                    <Navbar {...actions} />
+                    <View style={styles.timerWrapper}>
+                        <Text style={styles.timerText}>{timeFormatting(state.time)}</Text>
+                    </View>
+                    <View style={[styles.buttonWrapper]}>
+                        <TimerModeButton watcher={state} {...actions} />
+                        <StartStopButton watcher={state} {...actions} />
+                        <ResetButton watcher={state} {...actions} />
+                    </View>
+                </Image>
             </View>
-            <View style={[styles.buttonWrapper]}>
-                <StartStopButton watcher={state} {...actions} />
-                <TimerModeButton watcher={state} {...actions} />
-                <ResetButton watcher={state} {...actions} />
-            </View>
-            <View style={styles.relayContainer}>
-                {relayFinishTime}
+            <View style={styles.athleteListContainer}>
+                <View style={styles.relayContainer}>
+                    <Text style={styles.relayText}>
+                        {relayFinishTime}
+                    </Text>
+                </View>
+                <AthleteList watcher={state} {...actions} />
             </View>
             <AthleteList watcher={state} {...actions} />
             <AddAthleteModal watcher={state} {...actions}/>

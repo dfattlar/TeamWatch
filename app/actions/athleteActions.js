@@ -8,6 +8,7 @@ export function addAthlete() {
 }
 
 export function addAthleteToWatch(id, name) {
+    debugger;
     return {
         type: types.ADD_ATHLETE_TO_WATCH,
         payload: { id, name }

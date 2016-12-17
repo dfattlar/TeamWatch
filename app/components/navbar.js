@@ -41,19 +41,12 @@ export default class Navbar extends Component {
 
     return (
         <View style={styles.toolbar}>
-             <Text style={styles.toolbarButton}></Text>
-             <Text style={styles.toolbarTitle}>TeamWatch</Text>
-             <TouchableHighlight
-               style={styles.toolbarButton}
-               underlayColor='transparent'
-               onPress={openModal} >
-               <Icon
-                 name='ion|person-add'
-                 size={25}
-                 color='#fff'
-                 style={styles.addPersonIcon}
-               />
-             </TouchableHighlight>
+            <View style={styles.buttonContainer}></View>
+            <View style={styles.toolbarTitleContainer}>
+                <Text style={styles.toolbarTitle}>TeamWatch</Text>
+            </View>
+            <View style={styles.buttonContainer}>
+            </View>
         </View>
     );
   }
