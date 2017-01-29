@@ -32,7 +32,8 @@ export default function addAthlete(state = initialState, action = {}) {
             ...state,
             addAthleteError: false,
             storeDataSource: state.storeDataSource.cloneWithRows(arrUpdated),
-            athleteStore: arrUpdated
+            athleteStore: arrUpdated,
+            newAthleteInput: ''
         }
     case types.ADD_ATHLETE_ERROR:
         return {
@@ -40,7 +41,6 @@ export default function addAthlete(state = initialState, action = {}) {
             addAthleteError: true
         }
     case types.ADD_ATHLETE_TO_WATCH:
-    debugger;
         let updatedAthleteArr = state.athleteStore.map(function(athlete) {
             let athleteUpdate = athlete;
             if(athlete.id === action.payload.id) {
@@ -51,7 +51,7 @@ export default function addAthlete(state = initialState, action = {}) {
             }
             return athleteUpdate;
         });
-        debugger;
+
         return {
             ...state,
             storeDataSource: state.storeDataSource.cloneWithRows(updatedAthleteArr),

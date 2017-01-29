@@ -81,7 +81,6 @@ export default class AthleteRow extends Component {
   render() {
     const {  name, splits, id, colorId, totalTime } = this.props.rowData;
     const { addSplit } = this.props;
-debugger;
     const initials = name.split(' ').map(function(i){
       return i.slice(0,1).toUpperCase();
     }).join('');

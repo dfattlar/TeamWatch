@@ -19,11 +19,12 @@ export default class AthleteList extends Component {
 
   render() {
     const { watcher, addSplit } = this.props;
-debugger;
+
     return (
         <ListView
           dataSource={watcher.dataSource}
           style={styles.athleteListView}
+          enableEmptySections={true}
           renderRow={function(rowData) {
               return (<AthleteRow rowData={rowData} addSplit={addSplit}/>);
           } }

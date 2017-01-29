@@ -31,7 +31,7 @@ export default class App extends Component {
           <RouterWithRedux>
               <Scene key="root" hideNavBar={true}>
                   <Scene key="tabbar" tabs={true} >
-                      <Scene key="watch" title="Watch" icon={TabIcon} component={TeamWatchApp} tabs={true} />
+                      <Scene key="watch" title="Watch" icon={TabIcon} component={TeamWatchApp} hideNavBar initial={true}/>
                       <Scene key="athletes"  title="Athletes" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
                           <Scene key="athleteList" component={AthleteStore} title="Athlete List" onRight={()=>{Actions.newAthlete()}} rightTitle="+ Add" />
                           <Scene key="newAthlete" component={AddAthlete} title="Add Athlete" titleStyle={{color:'black'}}/>

@@ -61,7 +61,7 @@ export default function watcher(state = initialState, action = {}) {
         const arrStop = state.athletesArray.map(function(athlete) {
             const splits = athlete.splits;
             let totalTime = '';
-            if(splits.size) {
+            if(splits.length) {
                 totalTime = splits.reduce((a, b) => a + b);
             }
             relayFinishTime += totalTime;
@@ -130,7 +130,6 @@ export default function watcher(state = initialState, action = {}) {
     // case types.NEW_ATHLETE_INPUT:
     //     return state.set('newAthleteInput', action.newAthleteInput);
     case types.ADD_ATHLETE_TO_WATCH:
-    debugger;
         let incId = state.id + 1;
         let incColorId = (state.currentColorId + 1) >= 5 ? 0 : state.currentColorId + 1;
         let newAthlete = {
@@ -153,25 +152,28 @@ export default function watcher(state = initialState, action = {}) {
     // case types.ADD_ATHLETE_ERROR:
     //     return state.set('addAthleteError', true);
     case types.ADD_SPLIT:
-        const mode = state.timerMode;
-        const startTime = state.startTime;
+        const updatedState = Object.assign({}, state);
+        const mode = updatedState.timerMode;
+        const startTime = updatedState.startTime;
         const splitTime = action.splitTime;
         let currentAthleteIndex;
-        const currentAthlete = state.athletesArray.find(function(obj, index){
+        const currentAthlete = updatedState.athletesArray.find(function(obj, index){
             if(obj.id === action.id) {
                 currentAthleteIndex = index;
                 return true;
             }
         });
+
         const splits = currentAthlete.splits;
         const lastAthleteSplit = splits.length ? splits.reduce((a,b) => a + b) + startTime : startTime;
-        const updatedState = state.athletesArray.currentAthleteIndex.splits = (list) => {
-            if(mode === RACE) {
-                return list.push(splitTime - lastAthleteSplit);
-            } else {
-                return list.push(splitTime - state.lastRelaySplit);
-            }
+        let newSplit;
+        if(mode === RACE) {
+            newSplit = splitTime - lastAthleteSplit;
+        } else {
+            newSplit = splitTime - updatedState.lastRelaySplit;
         }
+
+        updatedState.athletesArray[currentAthleteIndex].splits.push(newSplit);
 
         let relaySplitState;
         // If RELAY mode && this is the athletes first split, && this is not
@@ -185,8 +187,9 @@ export default function watcher(state = initialState, action = {}) {
             }
         }
 
-        const saveState = relaySplitState ? relaySplitState : updatedState;
+        return relaySplitState ? relaySplitState : updatedState;
         const newDS = saveState.athletesArray;
+
         return {
             ...state,
             athletesArray: newDS,
