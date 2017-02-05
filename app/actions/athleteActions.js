@@ -1,14 +1,12 @@
 import * as types from './actionTypes';
 
 export function addAthlete() {
-    debugger;
     return {
         type: types.ADD_ATHLETE
     }
 }
 
 export function addAthleteToWatch(id, name) {
-    debugger;
     return {
         type: types.ADD_ATHLETE_TO_WATCH,
         payload: { id, name }

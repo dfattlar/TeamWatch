@@ -1,7 +1,6 @@
 import * as types from './actionTypes';
 
 export function startWatch(intervalId) {
-    debugger;
   return {
     type: types.START_WATCH,
     startTime: Date.now(),

@@ -1,14 +1,26 @@
-import React, { Component } from 'react-native';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { Provider } from 'react-redux';
+import React, { Component } from 'react';
+import { Text, View, AsyncStorage } from 'react-native';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
+import { Provider, connect } from 'react-redux';
+import {persistStore, autoRehydrate} from 'redux-persist'
 import thunk from 'redux-thunk';
+import { Router, Scene, Actions } from 'react-native-router-flux';
 
 import * as reducers from '../reducers';
 import TeamWatchApp from './teamWatchApp';
+import AthleteStore from './athleteStore';
+import AddAthlete from './addAthlete';
+import TabView from '../components/tabView';
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-const reducer = combineReducers(reducers);
-const store = createStoreWithMiddleware(reducer);
+const store = createStore(
+    combineReducers(reducers),
+    undefined,
+    compose(
+        autoRehydrate({log:true}),
+        applyMiddleware(thunk)
+    )
+);
+
 const RouterWithRedux = connect()(Router);
 
 class TabIcon extends React.Component {
@@ -20,11 +32,42 @@ class TabIcon extends React.Component {
 }
 
 export default class App extends Component {
+    constructor() {
+        super()
+        this.state = { rehydrated: false }
+      }
+
+      componentWillMount(){
+        persistStore(store, {storage: AsyncStorage}, () => {
+          this.setState({ rehydrated: true })
+        });
+      }
+
   render() {
+      if(!this.state.rehydrated){
+          return (
+              <View>
+                <Text>Loading...</Text>
+              </View>);
+        }
     return (
-      <Provider store={store}>
-        <TeamWatchApp />
-      </Provider>
+        <Provider store={store}>
+          <RouterWithRedux>
+              <Scene key="root" hideNavBar={true}>
+                  <Scene key="tabbar" tabs={true} >
+                      <Scene key="watch" title="Watch" icon={TabIcon} component={TeamWatchApp} hideNavBar initial={true}/>
+                      <Scene key="athletes"  title="Athletes" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
+                          <Scene key="athleteList" component={AthleteStore} title="Athlete List" onRight={()=>{Actions.newAthlete()}} rightTitle="+ Add" />
+                          <Scene key="newAthlete" component={AddAthlete} title="Add Athlete" titleStyle={{color:'black'}}/>
+                      </Scene>
+                      <Scene key="history"  title="History" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
+                          <Scene key="historyList" component={TabView} title="History List" onRight={()=>alert("Right button")} rightTitle="Right" />
+                          <Scene key="historyDetail" component={TabView} title="Race" titleStyle={{color:'black'}}/>
+                      </Scene>
+                  </Scene>
+              </Scene>
+          </RouterWithRedux>
+        </Provider>
     );
   }
 }
