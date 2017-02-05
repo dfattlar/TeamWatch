@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { Text, View, AsyncStorage } from 'react-native';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider, connect } from 'react-redux';
+import {persistStore, autoRehydrate} from 'redux-persist'
 import thunk from 'redux-thunk';
 import { Router, Scene, Actions } from 'react-native-router-flux';
 
@@ -11,9 +12,15 @@ import AthleteStore from './athleteStore';
 import AddAthlete from './addAthlete';
 import TabView from '../components/tabView';
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-const reducer = combineReducers(reducers);
-const store = createStoreWithMiddleware(reducer);
+const store = createStore(
+    combineReducers(reducers),
+    undefined,
+    compose(
+        autoRehydrate({log:true}),
+        applyMiddleware(thunk)
+    )
+);
+
 const RouterWithRedux = connect()(Router);
 
 class TabIcon extends React.Component {
@@ -25,7 +32,24 @@ class TabIcon extends React.Component {
 }
 
 export default class App extends Component {
+    constructor() {
+        super()
+        this.state = { rehydrated: false }
+      }
+
+      componentWillMount(){
+        persistStore(store, {storage: AsyncStorage}, () => {
+          this.setState({ rehydrated: true })
+        });
+      }
+
   render() {
+      if(!this.state.rehydrated){
+          return (
+              <View>
+                <Text>Loading...</Text>
+              </View>);
+        }
     return (
         <Provider store={store}>
           <RouterWithRedux>

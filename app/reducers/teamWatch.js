@@ -1,5 +1,6 @@
 import * as types from '../actions/actionTypes';
 import { RACE, RELAY } from '../constants';
+import { REHYDRATE } from 'redux-persist/constants';
 import React from 'react';
 import { ListView } from 'react-native';
 
@@ -23,7 +24,13 @@ const initialState = {
 };
 
 export default function watcher(state = initialState, action = {}) {
+
   switch (action.type) {
+    case REHYDRATE :
+        return {
+            ...action.payload.watcher,
+            dataSource: ds.cloneWithRows(action.payload.watcher.athletesArray)
+        }
     case types.START_WATCH:
         const arrStart = state.athletesArray.map(function(athlete) {
             return {
