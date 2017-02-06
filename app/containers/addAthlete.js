@@ -25,51 +25,50 @@ var styles = StyleSheet.create({
 });
 
 class AddAthlete extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { state, actions } = this.props;
-
-    function checkAthleteName() {
-        if(state.newAthleteInput.trim() === '') {
-            actions.addAthleteError();
-        } else {
-            actions.addAthlete();
-        }
+    constructor(props) {
+        super(props);
     }
 
-    return (
-        <View style={styles.container}>
-          <View style={[styles.innerContainer]}>
+    render() {
+        const { state, actions } = this.props;
 
-            <Text style={styles.modalLabel}>Add the athletes first and last name: </Text>
-            <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1, paddingLeft: 10}}
-              onChangeText={(text) => actions.newAthleteInput(text)}
-              value={state.newAthleteInput}
-            />
-            <Text style={[styles.errorTextHidden, state.addAthleteError && styles.errorText]}>
-              Please add athletes first and last name.
-            </Text>
+        function checkAthleteName() {
+            if (state.newAthleteInput.trim() === '') {
+                actions.addAthleteError();
+            } else {
+                actions.addAthlete();
+            }
+        }
 
-            <TouchableHighlight
-              onPress={checkAthleteName}
-              style={[styles.modalSaveButton, this.props.style]}
-              underlayColor="#a9d9d4">
-                <Text style={styles.modalSaveButtonText}>Add Athlete</Text>
-            </TouchableHighlight>
-          </View>
-        </View>
-    );
-  }
+        return (
+            <View style={styles.container}>
+                <View style={[styles.innerContainer]}>
+                    <Text style={styles.modalLabel}>Add the athletes first and last name: </Text>
+                    <TextInput
+                        style={{height: 40, borderColor: 'gray', borderWidth: 1, paddingLeft: 10}}
+                        onChangeText={(text) => actions.newAthleteInput(text)}
+                        value={state.newAthleteInput}
+                    />
+                    <Text style={[styles.errorTextHidden, state.addAthleteError && styles.errorText]}>
+                        Please add athletes first and last name.
+                    </Text>
+
+                    <TouchableHighlight
+                        onPress={checkAthleteName}
+                        style={[styles.modalSaveButton, this.props.style]}
+                        underlayColor="#a9d9d4">
+                        <Text style={styles.modalSaveButtonText}>Add Athlete</Text>
+                    </TouchableHighlight>
+                </View>
+            </View>
+        );
+    }
 }
 
 export default connect(state => ({
-    state: state.addAthlete
-  }),
-  (dispatch) => ({
-    actions: bindActionCreators(athleteActions, dispatch)
-  })
+        state: state.addAthlete
+    }),
+    (dispatch) => ({
+        actions: bindActionCreators(athleteActions, dispatch)
+    })
 )(AddAthlete);

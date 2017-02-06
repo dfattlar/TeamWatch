@@ -26,43 +26,43 @@ var styles = StyleSheet.create({
 });
 
 class AthleteStore extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { state, actions } = this.props;
-    const store = state.addAthlete.athleteStore;
-
-    if(store.length) {
-        return (
-            <View style={styles.container}>
-                <ListView
-                  dataSource={state.addAthlete.storeDataSource}
-                  style={styles.athleteListView}
-                  enableEmptySections={true}
-                  renderRow={function(rowData) {
-                      return (<AthleteStoreRow rowData={rowData} actions={actions} />);
-                  } }
-                />
-            </View>
-        );
-    } else {
-        return (
-            <View style={styles.container}>
-                <Text onPress={Actions.newAthlete}>
-                    Click the + button to add athletes
-                </Text>
-            </View>
-        );
+    constructor(props) {
+        super(props);
     }
-  }
+
+    render() {
+        const { state, actions } = this.props;
+        const store = state.addAthlete.athleteStore;
+
+        if(store.length) {
+            return (
+                <View style={styles.container}>
+                    <ListView
+                      dataSource={state.addAthlete.storeDataSource}
+                      style={styles.athleteListView}
+                      enableEmptySections={true}
+                      renderRow={function(rowData) {
+                          return (<AthleteStoreRow rowData={rowData} actions={actions} />);
+                      } }
+                    />
+                </View>
+            );
+        } else {
+            return (
+                <View style={styles.container}>
+                    <Text onPress={Actions.newAthlete}>
+                        Click the + button to add athletes
+                    </Text>
+                </View>
+            );
+        }
+    }
 }
 
 export default connect(state => ({
-    state: state
-  }),
-  (dispatch) => ({
-    actions: bindActionCreators(athleteActions, dispatch)
-  })
+        state: state
+    }),
+    (dispatch) => ({
+        actions: bindActionCreators(athleteActions, dispatch)
+    })
 )(AthleteStore);
