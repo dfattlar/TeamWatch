@@ -27,6 +27,9 @@ export default function watcher(state = initialState, action = {}) {
 
   switch (action.type) {
     case REHYDRATE :
+        if(!action.payload.hasOwnProperty('watcher')){
+            return state;
+        }
         return {
             ...action.payload.watcher,
             dataSource: ds.cloneWithRows(action.payload.watcher.athletesArray)
@@ -159,6 +162,11 @@ export default function watcher(state = initialState, action = {}) {
     // case types.ADD_ATHLETE_ERROR:
     //     return state.set('addAthleteError', true);
     case types.ADD_SPLIT:
+        // don't add split if time has not started
+        if(state.startTime === null){
+            return state;
+        }
+
         const updatedState = Object.assign({}, state);
         const mode = updatedState.timerMode;
         const startTime = updatedState.startTime;
