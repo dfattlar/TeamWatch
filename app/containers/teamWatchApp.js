@@ -23,7 +23,7 @@ import {
 // style the react component
 var styles = StyleSheet.create({
     timerSection: {
-        flex:4,
+        flex: 4,
     },
     backgroundImg: {
         overflow: 'hidden',
@@ -31,101 +31,101 @@ var styles = StyleSheet.create({
         width: null,
         height: null
     },
-  timerWrapper: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginLeft: 20,
-    backgroundColor: 'transparent',
-    flex: 2
-  },
-  timerText: {
-    fontSize: 70,
-    color: 'white',
-    fontWeight: '200'
-  },
-  buttonWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'flex-start',
-    flex: 2
-  },
-  relayContainer: {
-      backgroundColor: 'lightgray'
-  },
-  relayText: {
-      textAlign: 'center',
-      backgroundColor: 'transparent',
-      fontWeight: '300',
-      paddingTop: 5,
-      paddingBottom: 5
-  },
-  relayFinishTime: {
-      fontSize: 20,
-      marginTop: 20
-  },
-  appContainer: {
-      flex: 1,
-  },
-  athleteListContainer: {
-      flex:6,
-      backgroundColor: 'white'
-  }
+    timerWrapper: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        marginLeft: 20,
+        backgroundColor: 'transparent',
+        flex: 2
+    },
+    timerText: {
+        fontSize: 70,
+        color: 'white',
+        fontWeight: '200'
+    },
+    buttonWrapper: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'flex-start',
+        flex: 2
+    },
+    relayContainer: {
+        backgroundColor: 'lightgray'
+    },
+    relayText: {
+        textAlign: 'center',
+        backgroundColor: 'transparent',
+        fontWeight: '300',
+        paddingTop: 5,
+        paddingBottom: 5
+    },
+    relayFinishTime: {
+        fontSize: 20,
+        marginTop: 20
+    },
+    appContainer: {
+        flex: 1,
+    },
+    athleteListContainer: {
+        flex: 6,
+        backgroundColor: 'white'
+    }
 });
 
 class TeamWatchApp extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { state, actions } = this.props;
-    let relayFinishTime;
-
-    if(state.relayFinishTime && state.timerMode === RELAY) {
-        relayFinishTime = (<Text style={styles.relayFinishTime}>
-            Relay Finish Time: {timeFormatting(state.relayFinishTime)}
-        </Text>);
+    constructor(props) {
+        super(props);
     }
 
-    return (
-        <View style={styles.appContainer}>
-            <StatusBar
-              barStyle="light-content"
-            />
-            <View style={styles.timerSection}>
-                <Image
-                style={styles.backgroundImg}
-                source={require('../assets/background.png')}>
-                    <Navbar {...actions} />
-                    <View style={styles.timerWrapper}>
-                        <Text style={styles.timerText}>{timeFormatting(state.time)}</Text>
-                    </View>
-                    <View style={[styles.buttonWrapper]}>
-                        <TimerModeButton watcher={state} {...actions} />
-                        <StartStopButton watcher={state} {...actions} />
-                        <ResetButton watcher={state} {...actions} />
-                    </View>
-                </Image>
-            </View>
-            <View style={styles.athleteListContainer}>
-                <View style={styles.relayContainer}>
-                    <Text style={styles.relayText}>
-                        {relayFinishTime}
-                    </Text>
+    render() {
+        const { state, actions } = this.props;
+        let relayFinishTime;
+
+        if(state.relayFinishTime && state.timerMode === RELAY) {
+            relayFinishTime = (<Text style={styles.relayFinishTime}>
+                Relay Finish Time: {timeFormatting(state.relayFinishTime)}
+            </Text>);
+        }
+
+        return (
+            <View style={styles.appContainer}>
+                <StatusBar
+                  barStyle="light-content"
+                />
+                <View style={styles.timerSection}>
+                    <Image
+                    style={styles.backgroundImg}
+                    source={require('../assets/background.png')}>
+                        <Navbar {...actions} />
+                        <View style={styles.timerWrapper}>
+                            <Text style={styles.timerText}>{timeFormatting(state.time)}</Text>
+                        </View>
+                        <View style={[styles.buttonWrapper]}>
+                            <TimerModeButton watcher={state} {...actions} />
+                            <StartStopButton watcher={state} {...actions} />
+                            <ResetButton watcher={state} {...actions} />
+                        </View>
+                    </Image>
                 </View>
-                <AthleteList watcher={state} {...actions} />
+                <View style={styles.athleteListContainer}>
+                    <View style={styles.relayContainer}>
+                        <Text style={styles.relayText}>
+                            {relayFinishTime}
+                        </Text>
+                    </View>
+                    <AthleteList watcher={state} {...actions} />
+                </View>
             </View>
-        </View>
-    );
-  }
+        );
+    }
 }
 
 function timeFormatting(time) {
     const pad = (time, length) => {
-      while (time.length < length) {
-        time = '0' + time;
-      }
-      return time;
+        while (time.length < length) {
+            time = '0' + time;
+        }
+        return time;
     }
 
     time = new Date(time);
@@ -140,9 +140,9 @@ function timeFormatting(time) {
 }
 
 export default connect(state => ({
-    state: state.watcher
-  }),
-  (dispatch) => ({
-    actions: bindActionCreators(teamWatchActions, dispatch)
-  })
+        state: state.watcher
+    }),
+    (dispatch) => ({
+        actions: bindActionCreators(teamWatchActions, dispatch)
+    })
 )(TeamWatchApp);

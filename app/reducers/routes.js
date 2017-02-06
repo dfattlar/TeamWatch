@@ -11,7 +11,7 @@ export default function routes(state = initialState, action = {}) {
                 scene: action.scene,
             };
 
-        // ...other actions
+            // ...other actions
 
         default:
             return state;

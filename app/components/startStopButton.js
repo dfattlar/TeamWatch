@@ -9,12 +9,12 @@ import {
 
 const styles = StyleSheet.create({
     button: {
-      borderWidth: 2,
-      height: 90,
-      width: 90,
-      borderRadius: 50,
-      justifyContent: 'center',
-      alignItems: 'center',
+        borderWidth: 2,
+        height: 90,
+        width: 90,
+        borderRadius: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     buttonText: {
         color: 'white',
@@ -22,49 +22,49 @@ const styles = StyleSheet.create({
         fontWeight: '200'
     },
     startButton: {
-      borderColor: '#51EC91'
+        borderColor: '#51EC91'
     },
     stopButton: {
-      borderColor: '#433C3C'
+        borderColor: '#433C3C'
     }
 });
 
 let intervalId;
 
 export default class StartStopButton extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { watcher, startWatch, stopWatch, tick } = this.props;
-    let depStyle = watcher.watchRunning ? styles.stopButton : styles.startButton;
-
-    function callStartStop () {
-        const watchRunning = watcher.watchRunning;
-        if(watchRunning) {
-            clearInterval(intervalId);
-            stopWatch();
-        } else {
-            intervalId = setInterval(() => {
-              tick();
-            });
-            startWatch(intervalId);
-        }
+    constructor(props) {
+        super(props);
     }
 
-    return (
-        <View>
-            <TouchableHighlight
-              underlayColor="lightgray"
-              onPress={callStartStop}
-              style = {[styles.button, depStyle]}
-            >
-              <Text style={[styles.buttonText]}>
-                {watcher.watchRunning ? 'STOP' : 'START'}
-              </Text>
-            </TouchableHighlight>
-        </View>
-    );
-  }
+    render() {
+        const { watcher, startWatch, stopWatch, tick } = this.props;
+        let depStyle = watcher.watchRunning ? styles.stopButton : styles.startButton;
+
+        function callStartStop() {
+            const watchRunning = watcher.watchRunning;
+            if (watchRunning) {
+                clearInterval(intervalId);
+                stopWatch();
+            } else {
+                intervalId = setInterval(() => {
+                    tick();
+                });
+                startWatch(intervalId);
+            }
+        }
+
+        return (
+            <View>
+                <TouchableHighlight
+                  underlayColor="lightgray"
+                  onPress={callStartStop}
+                  style = {[styles.button, depStyle]}
+                >
+                    <Text style={[styles.buttonText]}>
+                        {watcher.watchRunning ? 'STOP' : 'START'}
+                    </Text>
+                </TouchableHighlight>
+            </View>
+        );
+    }
 }

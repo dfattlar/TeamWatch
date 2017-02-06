@@ -1,7 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet} from "react-native";
-
-import {Actions} from "react-native-router-flux";
+import { View, Text, StyleSheet } from "react-native";
+import { Actions } from "react-native-router-flux";
 
 const styles = StyleSheet.create({
     container: {
@@ -22,9 +21,8 @@ const styles = StyleSheet.create({
     },
 });
 
-
 export default class TabView extends React.Component {
-    render(){
+    render() {
         const drawer = this.context.drawer;
         return (
             <View style={[styles.container, this.props.sceneStyle]}>

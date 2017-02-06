@@ -16,7 +16,9 @@ const store = createStore(
     combineReducers(reducers),
     undefined,
     compose(
-        autoRehydrate({log:true}),
+        autoRehydrate({
+            log: true
+        }),
         applyMiddleware(thunk)
     )
 );
@@ -24,9 +26,11 @@ const store = createStore(
 const RouterWithRedux = connect()(Router);
 
 class TabIcon extends React.Component {
-    render(){
+    render() {
         return (
-            <Text style={{color: this.props.selected ? 'red' :'black'}}>{this.props.title}</Text>
+            <Text style = {{color: this.props.selected ? 'red' : 'black'}} >
+                { this.props.title }
+            < /Text>
         );
     }
 }
@@ -34,40 +38,45 @@ class TabIcon extends React.Component {
 export default class App extends Component {
     constructor() {
         super()
-        this.state = { rehydrated: false }
-      }
-
-      componentWillMount(){
-        persistStore(store, {storage: AsyncStorage}, () => {
-          this.setState({ rehydrated: true })
-        });
-      }
-
-  render() {
-      if(!this.state.rehydrated){
-          return (
-              <View>
-                <Text>Loading...</Text>
-              </View>);
+        this.state = {
+            rehydrated: false
         }
-    return (
-        <Provider store={store}>
-          <RouterWithRedux>
-              <Scene key="root" hideNavBar={true}>
-                  <Scene key="tabbar" tabs={true} >
-                      <Scene key="watch" title="Watch" icon={TabIcon} component={TeamWatchApp} hideNavBar initial={true}/>
-                      <Scene key="athletes"  title="Athletes" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
-                          <Scene key="athleteList" component={AthleteStore} title="Athlete List" onRight={()=>{Actions.newAthlete()}} rightTitle="+ Add" />
-                          <Scene key="newAthlete" component={AddAthlete} title="Add Athlete" titleStyle={{color:'black'}}/>
-                      </Scene>
-                      <Scene key="history"  title="History" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
-                          <Scene key="historyList" component={TabView} title="History List" onRight={()=>alert("Right button")} rightTitle="Right" />
-                          <Scene key="historyDetail" component={TabView} title="Race" titleStyle={{color:'black'}}/>
-                      </Scene>
-                  </Scene>
-              </Scene>
-          </RouterWithRedux>
-        </Provider>
-    );
-  }
+    }
+
+    componentWillMount() {
+        persistStore(store, { storage: AsyncStorage }, () => {
+            this.setState({
+                rehydrated: true
+            })
+        });
+    }
+
+    render() {
+        if (!this.state.rehydrated) {
+            return (
+                <View>
+                    <Text>Loading...</Text>
+                </View>
+            );
+        }
+        return (
+            <Provider store={store}>
+                <RouterWithRedux>
+                    <Scene key="root" hideNavBar={true}>
+                        <Scene key="tabbar" tabs={true}>
+                            <Scene key="watch" title="Watch" icon={TabIcon} component={TeamWatchApp} hideNavBar initial={true}/>
+                            <Scene key="athletes"  title="Athletes" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
+                                <Scene key="athleteList" component={AthleteStore} title="Athlete List" onRight={()=>{Actions.newAthlete()}} rightTitle="+ Add" />
+                                <Scene key="newAthlete" component={AddAthlete} title="Add Athlete" titleStyle={{color:'black'}}/>
+                            </Scene>
+                            <Scene key="history"  title="History" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
+                                <Scene key="historyList" component={TabView} title="History List" onRight={()=>alert("Right button")} rightTitle="Right" />
+                                <Scene key="historyDetail" component={TabView} title="Race" titleStyle={{color:'black'}}/>
+                            </Scene>
+                        </Scene>
+                    </Scene>
+                </RouterWithRedux>
+            </Provider>
+        );
+    }
 }
