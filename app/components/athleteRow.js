@@ -92,7 +92,7 @@ export default class AthleteRow extends Component {
                      key={i}>
                         { formattedSplit }
                     </Text>
-                ;)
+                );
             });
         }
         return (
