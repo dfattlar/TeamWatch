@@ -1,15 +1,8 @@
 import * as types from '../actions/actionTypes';
-import {
-    RACE,
-    RELAY
-} from '../constants';
-import {
-    REHYDRATE
-} from 'redux-persist/constants';
+import { RACE, RELAY } from '../constants';
+import { REHYDRATE } from 'redux-persist/constants';
 import React from 'react';
-import {
-    ListView
-} from 'react-native';
+import { ListView } from 'react-native';
 
 
 let ds = new ListView.DataSource({
@@ -170,8 +163,25 @@ export default function watcher(state = initialState, action = {}) {
                 id: incId,
                 currentColorId: incColorId
             }
-            // case types.ADD_ATHLETE_ERROR:
-            //     return state.set('addAthleteError', true);
+        case types.REMOVE_ATHLETE_FROM_WATCH:
+            const removeId = action.payload.id;
+            let athleteIndex;
+            state.athletesArray.forEach((athlete, index)=>{
+                if(athlete.id === removeId){
+                    athleteIndex = index;
+                }
+            });
+
+            const updatedSource = [
+                ...state.athletesArray.slice(0, athleteIndex),
+                ...state.athletesArray.slice(athleteIndex+1)
+            ];
+
+            return {
+                ...state,
+                athletesArray: updatedSource,
+                dataSource: state.dataSource.cloneWithRows(updatedSource)
+            }
         case types.ADD_SPLIT:
             // don't add split if time has not started
             if (state.startTime === null) {

@@ -3,7 +3,7 @@ import { RACE, RELAY } from '../constants';
 import { REHYDRATE } from 'redux-persist/constants';
 import React from 'react';
 import { ListView } from 'react-native';
-
+import * as _ from 'lodash';
 
 let ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
@@ -45,6 +45,23 @@ export default function addAthlete(state = initialState, action = {}) {
                 storeDataSource: state.storeDataSource.cloneWithRows(arrUpdated),
                 athleteStore: arrUpdated,
                 newAthleteInput: ''
+            }
+        case types.REMOVE_ATHLETE_FROM_WATCH:
+            const removeId = action.payload.id;
+            const updatedStore = state.athleteStore.map((athlete)=>{
+                if(athlete.id === removeId){
+                    return {
+                        ...athlete,
+                        onWatch: false
+                    }
+                }
+                return athlete;
+            });
+
+            return {
+                ...state,
+                athleteStore: updatedStore,
+                storeDataSource: state.storeDataSource.cloneWithRows(updatedStore)
             }
         case types.ADD_ATHLETE_ERROR:
             return {

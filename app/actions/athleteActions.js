@@ -13,6 +13,13 @@ export function addAthleteToWatch(id, name) {
     }
 }
 
+export function removeAthleteFromWatch(id) {
+    return {
+        type: types.REMOVE_ATHLETE_FROM_WATCH,
+        payload: { id }
+    }
+}
+
 
 export function addAthleteError() {
     return {
