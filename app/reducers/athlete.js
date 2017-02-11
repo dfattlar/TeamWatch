@@ -10,13 +10,11 @@ import * as _ from 'lodash';
 let ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
 });
-let initAthleteStore = [];
 
 const initialState = {
     newAthleteInput: '',
     addAthleteError: false,
-    athleteStore: initAthleteStore,
-    storeDataSource: ds.cloneWithRows(initAthleteStore)
+    athleteStore: []
 };
 
 export default function athlete(state = initialState, action = {}) {
@@ -26,8 +24,7 @@ export default function athlete(state = initialState, action = {}) {
                 return state;
             }
             return {
-                ...action.payload.athlete,
-                storeDataSource: ds.cloneWithRows(action.payload.athlete.athleteStore)
+                ...action.payload.athlete
             }
         case types.NEW_ATHLETE_INPUT:
             return {
@@ -44,7 +41,6 @@ export default function athlete(state = initialState, action = {}) {
             return {
                 ...state,
                 addAthleteError: false,
-                storeDataSource: state.storeDataSource.cloneWithRows(arrUpdated),
                 athleteStore: arrUpdated,
                 newAthleteInput: ''
             }
@@ -67,7 +63,6 @@ export default function athlete(state = initialState, action = {}) {
 
             return {
                 ...state,
-                storeDataSource: state.storeDataSource.cloneWithRows(updatedAthleteArr),
                 athleteStore: updatedAthleteArr
             }
         case types.REMOVE_ATHLETE_FROM_WATCH:
@@ -84,8 +79,7 @@ export default function athlete(state = initialState, action = {}) {
 
             return {
                 ...state,
-                athleteStore: updatedStore,
-                storeDataSource: state.storeDataSource.cloneWithRows(updatedStore)
+                athleteStore: updatedStore
             }
         case types.RESET_ATHLETE_LIST:
             let resetAthleteArr = state.athleteStore.map(function(athlete) {
@@ -96,7 +90,6 @@ export default function athlete(state = initialState, action = {}) {
             });
             return {
                 ...state,
-                storeDataSource: state.storeDataSource.cloneWithRows(resetAthleteArr),
                 athleteStore: resetAthleteArr
             }
         default:
