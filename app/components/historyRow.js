@@ -7,8 +7,7 @@ import {
     View,
     Text,
     TouchableOpacity,
-    TouchableHighlight,
-    ListView
+    TouchableHighlight
 } from 'react-native';
 
 const styles = StyleSheet.create({
