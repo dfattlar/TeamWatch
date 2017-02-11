@@ -99,7 +99,6 @@ export default class HistoryRow extends Component {
 }
 
 function formatSplit(split, endTime) {
-    debugger;
     if(endTime) {
         split = split + endTime;
         return moment(split).format('MMM Do');
