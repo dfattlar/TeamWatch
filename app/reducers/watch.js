@@ -1,3 +1,5 @@
+'use strict';
+
 import * as types from '../actions/actionTypes';
 import { RACE, RELAY } from '../constants';
 import { REHYDRATE } from 'redux-persist/constants';

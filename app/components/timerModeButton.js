@@ -1,3 +1,5 @@
+'use strict';
+
 import { RACE, RELAY } from '../constants';
 import React, { Component } from 'react';
 import {

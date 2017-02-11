@@ -1,3 +1,5 @@
+'use strict';
+
 export const START_WATCH = 'START_WATCH';
 export const STOP_WATCH = 'STOP_WATCH';
 export const TICK = 'TICK';

@@ -1,3 +1,5 @@
+'use strict';
+
 import React, { Component } from 'react';
 import { Text, View, AsyncStorage } from 'react-native';
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';

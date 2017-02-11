@@ -1,3 +1,5 @@
+'use strict';
+
 import * as types from '../actions/actionTypes';
 import { REHYDRATE } from 'redux-persist/constants';
 import React from 'react';

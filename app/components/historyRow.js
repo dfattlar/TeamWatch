@@ -1,3 +1,5 @@
+'use strict';
+
 import moment from 'moment';
 import React, { Component } from 'react';
 import {
@@ -96,5 +98,5 @@ export default class HistoryRow extends Component {
 }
 
 function formatSplit(split, endTime) {
-    return moment(split).format('MMM Do');
+    return moment(split).format('MMM Do - hh:mm:ss A');
 }
