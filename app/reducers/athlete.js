@@ -19,15 +19,15 @@ const initialState = {
     storeDataSource: ds.cloneWithRows(initAthleteStore)
 };
 
-export default function addAthlete(state = initialState, action = {}) {
+export default function athlete(state = initialState, action = {}) {
     switch (action.type) {
         case REHYDRATE:
-            if (!action.payload.hasOwnProperty('addAthlete')) {
+            if (!action.payload.hasOwnProperty('athlete')) {
                 return state;
             }
             return {
-                ...action.payload.addAthlete,
-                storeDataSource: ds.cloneWithRows(action.payload.addAthlete.athleteStore)
+                ...action.payload.athlete,
+                storeDataSource: ds.cloneWithRows(action.payload.athlete.athleteStore)
             }
         case types.NEW_ATHLETE_INPUT:
             return {

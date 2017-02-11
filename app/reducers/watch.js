@@ -27,15 +27,15 @@ const initialState = {
     relayFinishTime: null
 };
 
-export default function watcher(state = initialState, action = {}) {
+export default function watch(state = initialState, action = {}) {
     switch (action.type) {
         case REHYDRATE:
-            if (!action.payload.hasOwnProperty('watcher')) {
+            if (!action.payload.hasOwnProperty('watch')) {
                 return state;
             }
             return {
-                ...action.payload.watcher,
-                dataSource: ds.cloneWithRows(action.payload.watcher.athletesArray)
+                ...action.payload.watch,
+                dataSource: ds.cloneWithRows(action.payload.watch.athletesArray)
             }
 
         case types.START_WATCH:
@@ -166,7 +166,7 @@ export default function watcher(state = initialState, action = {}) {
                 currentColorId: incColorId
             }
         case types.REMOVE_ATHLETE_FROM_WATCH:
-            const removeId = action.payload.id;
+            const removeId = action.id;
             let athleteIndex;
             state.athletesArray.forEach((athlete, index)=>{
                 if(athlete.id === removeId){
