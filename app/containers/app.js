@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import { Router, Scene, Actions } from 'react-native-router-flux';
 
 import * as reducers from '../reducers';
-import TeamWatchApp from './teamWatchApp';
+import Watch from './watch';
 import AthleteStore from './athleteStore';
 import AddAthlete from './addAthlete';
 import History from './history';
@@ -65,7 +65,7 @@ export default class App extends Component {
                 <RouterWithRedux>
                     <Scene key="root" hideNavBar={true}>
                         <Scene key="tabbar" tabs={true}>
-                            <Scene key="watch" title="Watch" icon={TabIcon} component={TeamWatchApp} hideNavBar initial={true}/>
+                            <Scene key="watch" title="Watch" icon={TabIcon} component={Watch} hideNavBar initial={true}/>
                             <Scene key="athletes"  title="Athletes" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
                                 <Scene key="athleteList" component={AthleteStore} title="Athlete List" onRight={()=>{Actions.newAthlete()}} rightTitle="+ Add" />
                                 <Scene key="newAthlete" component={AddAthlete} title="Add Athlete" titleStyle={{color:'black'}}/>

@@ -37,11 +37,11 @@ export default class StartStopButton extends Component {
     }
 
     render() {
-        const { watcher, startWatch, stopWatch, tick } = this.props;
-        let depStyle = watcher.watchRunning ? styles.stopButton : styles.startButton;
+        const { watch, startWatch, stopWatch, tick } = this.props;
+        let depStyle = watch.watchRunning ? styles.stopButton : styles.startButton;
 
         function callStartStop() {
-            const watchRunning = watcher.watchRunning;
+            const watchRunning = watch.watchRunning;
             if (watchRunning) {
                 clearInterval(intervalId);
                 stopWatch();
@@ -61,7 +61,7 @@ export default class StartStopButton extends Component {
                   style = {[styles.button, depStyle]}
                 >
                     <Text style={[styles.buttonText]}>
-                        {watcher.watchRunning ? 'STOP' : 'START'}
+                        {watch.watchRunning ? 'STOP' : 'START'}
                     </Text>
                 </TouchableHighlight>
             </View>

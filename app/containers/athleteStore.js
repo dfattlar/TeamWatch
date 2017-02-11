@@ -32,13 +32,13 @@ class AthleteStore extends Component {
 
     render() {
         const { state, actions } = this.props;
-        const store = state.addAthlete.athleteStore;
+        const store = state.athlete.athleteStore;
 
         if(store.length) {
             return (
                 <View style={styles.container}>
                     <ListView
-                      dataSource={state.addAthlete.storeDataSource}
+                      dataSource={state.athlete.storeDataSource}
                       style={styles.athleteListView}
                       enableEmptySections={true}
                       renderRow={function(rowData) {

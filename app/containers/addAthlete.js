@@ -66,7 +66,7 @@ class AddAthlete extends Component {
 }
 
 export default connect(state => ({
-        state: state.addAthlete
+        state: state.athlete
     }),
     (dispatch) => ({
         actions: bindActionCreators(athleteActions, dispatch)

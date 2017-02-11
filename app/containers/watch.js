@@ -8,7 +8,7 @@ import TimerModeButton from '../components/timerModeButton';
 import ResetButton from '../components/resetButton';
 import AddAthleteModal from '../components/addAthleteModal';
 import AthleteList from '../components/athleteList';
-import * as teamWatchActions from '../actions/teamWatchActions';
+import * as watchActions from '../actions/watchActions';
 import { RELAY } from '../constants.js';
 import { connect } from 'react-redux';
 import {
@@ -72,7 +72,7 @@ var styles = StyleSheet.create({
     }
 });
 
-class TeamWatchApp extends Component {
+class Watch extends Component {
     constructor(props) {
         super(props);
     }
@@ -96,14 +96,14 @@ class TeamWatchApp extends Component {
                     <Image
                     style={styles.backgroundImg}
                     source={require('../assets/background.png')}>
-                        <Navbar {...actions} watcher={state} />
+                        <Navbar {...actions} watch={state} />
                         <View style={styles.timerWrapper}>
                             <Text style={styles.timerText}>{timeFormatting(state.time)}</Text>
                         </View>
                         <View style={[styles.buttonWrapper]}>
-                            <TimerModeButton watcher={state} {...actions} />
-                            <StartStopButton watcher={state} {...actions} />
-                            <ResetButton watcher={state} {...actions} />
+                            <TimerModeButton watch={state} {...actions} />
+                            <StartStopButton watch={state} {...actions} />
+                            <ResetButton watch={state} {...actions} />
                         </View>
                     </Image>
                 </View>
@@ -113,7 +113,7 @@ class TeamWatchApp extends Component {
                             {relayFinishTime}
                         </Text>
                     </View>
-                    <AthleteList watcher={state} {...actions} />
+                    <AthleteList watch={state} {...actions} />
                 </View>
             </View>
         );
@@ -140,9 +140,9 @@ function timeFormatting(time) {
 }
 
 export default connect(state => ({
-        state: state.watcher
+        state: state.watch
     }),
     (dispatch) => ({
-        actions: bindActionCreators(teamWatchActions, dispatch)
+        actions: bindActionCreators(watchActions, dispatch)
     })
-)(TeamWatchApp);
+)(Watch);

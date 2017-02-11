@@ -39,13 +39,13 @@ const styles = StyleSheet.create({
 
 export default class Navbar extends Component {
     render() {
-        const { addHistory, watcher } = this.props;
+        const { addHistory, watch } = this.props;
 
         function callAddHistory() {
             addHistory({
-                athletesArray: watcher.athletesArray,
-                relayFinishTime: watcher.relayFinishTime,
-                startTime: watcher.startTime
+                athletesArray: watch.athletesArray,
+                relayFinishTime: watch.relayFinishTime,
+                startTime: watch.startTime
             });
         }
 

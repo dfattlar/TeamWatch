@@ -1,4 +1,4 @@
-import * as constants from '../constants';
+import { RACE, RELAY } from '../constants';
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -32,15 +32,15 @@ export default class TimeModeButton extends Component {
     }
 
     render() {
-        const { watcher, modeChange } = this.props;
-        let depStyle = watcher.timerMode ? styles.stopButton : styles.startButton;
+        const { watch, modeChange } = this.props;
+        let depStyle = watch.timerMode ? styles.stopButton : styles.startButton;
 
         function callModeChange() {
-            const timerMode = watcher.timerMode;
-            if (timerMode === constants.RACE) {
-                modeChange(constants.RELAY);
+            const timerMode = watch.timerMode;
+            if (timerMode === RACE) {
+                modeChange(RELAY);
             } else {
-                modeChange(constants.RACE);
+                modeChange(RACE);
             }
         }
 
@@ -52,7 +52,7 @@ export default class TimeModeButton extends Component {
                   style = {styles.button}
                 >
                     <Text style={[styles.buttonText]}>
-                        {watcher.timerMode === constants.RACE ? constants.RACE : constants.RELAY}
+                        {watch.timerMode === RACE ? RACE : RELAY}
                     </Text>
                 </TouchableHighlight>
             </View>

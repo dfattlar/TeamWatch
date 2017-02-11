@@ -1,11 +1,11 @@
-import watcher from './teamWatch';
 import routes from './routes';
-import addAthlete from './addAthlete';
+import watch from './watch';
+import athlete from './athlete';
 import history from './history';
 
 export {
-    addAthlete,
-    watcher,
     routes,
+    watch,
+    athlete,
     history
 };
