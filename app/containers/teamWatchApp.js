@@ -96,7 +96,7 @@ class TeamWatchApp extends Component {
                     <Image
                     style={styles.backgroundImg}
                     source={require('../assets/background.png')}>
-                        <Navbar {...actions} />
+                        <Navbar {...actions} watcher={state} />
                         <View style={styles.timerWrapper}>
                             <Text style={styles.timerText}>{timeFormatting(state.time)}</Text>
                         </View>

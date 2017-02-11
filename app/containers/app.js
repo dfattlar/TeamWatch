@@ -10,6 +10,7 @@ import * as reducers from '../reducers';
 import TeamWatchApp from './teamWatchApp';
 import AthleteStore from './athleteStore';
 import AddAthlete from './addAthlete';
+import History from './history';
 import TabView from '../components/tabView';
 
 const store = createStore(
@@ -70,7 +71,7 @@ export default class App extends Component {
                                 <Scene key="newAthlete" component={AddAthlete} title="Add Athlete" titleStyle={{color:'black'}}/>
                             </Scene>
                             <Scene key="history"  title="History" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
-                                <Scene key="historyList" component={TabView} title="History List" onRight={()=>alert("Right button")} rightTitle="Right" />
+                                <Scene key="historyList" component={History} title="History List" onRight={()=>alert("Right button")} rightTitle="Right" />
                                 <Scene key="historyDetail" component={TabView} title="Race" titleStyle={{color:'black'}}/>
                             </Scene>
                         </Scene>

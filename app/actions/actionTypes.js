@@ -12,3 +12,4 @@ export const ADD_ATHLETE_ERROR = 'ADD_ATHLETE_ERROR';
 export const ADD_SPLIT = 'ADD_SPLIT';
 export const MODE_CHANGE = 'MODE_CHANGE';
 export const RESET_ATHLETE_LIST = 'RESET_ATHLETE_LIST';
+export const ADD_HISTORY = 'ADD_HISTORY';

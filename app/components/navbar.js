@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flex: 2,
         alignItems: 'flex-end',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        marginRight: 5
     },
     toolbarTitleContainer: {
         flex: 4,
@@ -30,16 +31,15 @@ const styles = StyleSheet.create({
         fontWeight: '300',
         textAlign: 'center'
     },
-    addPersonIcon: {
-        width: 25,
-        height: 25,
-        marginRight: 15
+    saveText: {
+        fontSize: 18,
+        color: '#fff'
     }
 });
 
 export default class Navbar extends Component {
     render() {
-        const { openModal } = this.props;
+        const { addHistory, watcher } = this.props;
 
         return (
             <View style={styles.toolbar}>
@@ -48,6 +48,16 @@ export default class Navbar extends Component {
                     <Text style={styles.toolbarTitle}>TeamWatch</Text>
                 </View>
                 <View style={styles.buttonContainer}>
+                    <TouchableHighlight
+                      underlayColor="lightgray"
+                      onPress={addHistory({
+                          athletesArray: watcher.athletesArray,
+                          relayFinishTime: watcher.relayFinishTime,
+                          startTime: watcher.startTime
+                      })}
+                    >
+                        <Text style={styles.saveText}>Save</Text>
+                    </TouchableHighlight>
                 </View>
             </View>
         );

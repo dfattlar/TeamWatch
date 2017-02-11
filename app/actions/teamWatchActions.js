@@ -67,3 +67,10 @@ export function modeChange(mode) {
         timerMode: mode
     }
 }
+
+export function addHistory(watchData) {
+    return {
+        type: types.ADD_HISTORY,
+        payload: watchData
+    }
+}
