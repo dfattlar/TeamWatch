@@ -48,23 +48,6 @@ export default function addAthlete(state = initialState, action = {}) {
                 athleteStore: arrUpdated,
                 newAthleteInput: ''
             }
-        case types.REMOVE_ATHLETE_FROM_WATCH:
-            const removeId = action.payload.id;
-            const updatedStore = state.athleteStore.map((athlete)=>{
-                if(athlete.id === removeId){
-                    return {
-                        ...athlete,
-                        onWatch: false
-                    }
-                }
-                return athlete;
-            });
-
-            return {
-                ...state,
-                athleteStore: updatedStore,
-                storeDataSource: state.storeDataSource.cloneWithRows(updatedStore)
-            }
         case types.ADD_ATHLETE_ERROR:
             return {
                 ...state,
@@ -86,6 +69,23 @@ export default function addAthlete(state = initialState, action = {}) {
                 ...state,
                 storeDataSource: state.storeDataSource.cloneWithRows(updatedAthleteArr),
                 athleteStore: updatedAthleteArr
+            }
+        case types.REMOVE_ATHLETE_FROM_WATCH:
+            const removeId = action.id;
+            const updatedStore = state.athleteStore.map((athlete)=>{
+                if(athlete.id === removeId){
+                    return {
+                        ...athlete,
+                        onWatch: false
+                    }
+                }
+                return athlete;
+            });
+
+            return {
+                ...state,
+                athleteStore: updatedStore,
+                storeDataSource: state.storeDataSource.cloneWithRows(updatedStore)
             }
         case types.RESET_ATHLETE_LIST:
             let resetAthleteArr = state.athleteStore.map(function(athlete) {
