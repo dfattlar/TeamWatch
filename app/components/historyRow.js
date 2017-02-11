@@ -77,7 +77,7 @@ export default class HistoryRow extends Component {
     }
 
     render() {
-        const {  startTime, time } = this.props.rowData[0];
+        const {  startTime } = this.props.rowData[0];
 
         return (
             <View>
@@ -85,10 +85,7 @@ export default class HistoryRow extends Component {
                     <View style={styles.rowBorder}>
                         <View style={styles.totalTimeContainer}>
                             <Text style={styles.totalTime}>
-                                { formatSplit(startTime, time) }
-                            </Text>
-                            <Text style={styles.totalTime}>
-                                { formatSplit(time) }
+                                { formatSplit(startTime) }
                             </Text>
                         </View>
                     </View>
@@ -99,27 +96,5 @@ export default class HistoryRow extends Component {
 }
 
 function formatSplit(split, endTime) {
-    if(endTime) {
-        split = split + endTime;
-        return moment(split).format('MMM Do');
-    }
-    let formattedSplit;
-    if (split === '') {
-        return split;
-    }
-
-    if (split < 1000) {
-        formattedSplit = moment(split).format('.SS');
-    } else if (split < 10000) {
-        formattedSplit = moment(split).format('s.SS');
-    } else if (split < 60000) {
-        formattedSplit = moment(split).format('ss.SS');
-    } else if (split < 600000) {
-        formattedSplit = moment(split).format('m:ss.SS');
-    } else if (split < 3600000) {
-        formattedSplit = moment(split).format('mm:ss.SS');
-    } else {
-        formattedSplit = moment(split).format('h:mm:ss.SS');
-    }
-    return formattedSplit;
+    return moment(split).format('MMM Do');
 }

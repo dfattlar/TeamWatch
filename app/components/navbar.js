@@ -41,6 +41,14 @@ export default class Navbar extends Component {
     render() {
         const { addHistory, watcher } = this.props;
 
+        function callAddHistory() {
+            addHistory({
+                athletesArray: watcher.athletesArray,
+                relayFinishTime: watcher.relayFinishTime,
+                startTime: watcher.startTime
+            });
+        }
+
         return (
             <View style={styles.toolbar}>
                 <View style={styles.buttonContainer}></View>
@@ -50,11 +58,7 @@ export default class Navbar extends Component {
                 <View style={styles.buttonContainer}>
                     <TouchableHighlight
                       underlayColor="lightgray"
-                      onPress={addHistory({
-                          athletesArray: watcher.athletesArray,
-                          relayFinishTime: watcher.relayFinishTime,
-                          startTime: watcher.startTime
-                      })}
+                      onPress={callAddHistory}
                     >
                         <Text style={styles.saveText}>Save</Text>
                     </TouchableHighlight>
