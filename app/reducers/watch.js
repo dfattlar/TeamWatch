@@ -6,12 +6,6 @@ import { REHYDRATE } from 'redux-persist/constants';
 import React from 'react';
 import { ListView } from 'react-native';
 
-
-let ds = new ListView.DataSource({
-    rowHasChanged: (r1, r2) => r1 !== r2
-});
-let initAthleteArray = [];
-
 const initialState = {
     watchRunning: false,
     startTime: null,
@@ -20,8 +14,7 @@ const initialState = {
     currentColorId: 0,
     modalVisible: false,
     newAthlete: '',
-    athletesArray: initAthleteArray,
-    dataSource: ds.cloneWithRows(initAthleteArray),
+    athletesArray: [],
     timerMode: RACE,
     lastRelaySplit: null,
     relayFinishTime: null
@@ -34,8 +27,7 @@ export default function watch(state = initialState, action = {}) {
                 return state;
             }
             return {
-                ...action.payload.watch,
-                dataSource: ds.cloneWithRows(action.payload.watch.athletesArray)
+                ...action.payload.watch
             }
 
         case types.START_WATCH:
@@ -50,7 +42,6 @@ export default function watch(state = initialState, action = {}) {
             const tempState = {
                 ...state,
                 athletesArray: arrStart,
-                dataSource: state.dataSource.cloneWithRows(arrStart),
                 watchRunning: true,
                 intervalId: action.intervalId
             }
@@ -88,7 +79,6 @@ export default function watch(state = initialState, action = {}) {
             return {
                 ...state,
                 athletesArray: arrStop,
-                dataSource: state.dataSource.cloneWithRows(arrStop),
                 watchRunning: false,
                 relayFinishTime: relayFinishTime
             }
@@ -107,7 +97,6 @@ export default function watch(state = initialState, action = {}) {
                 time: 0,
                 watchRunning: false,
                 athletesArray: newList,
-                dataSource: state.dataSource.cloneWithRows(newList),
                 id: 0,
                 startTime: null,
                 relayFinishTime: null
@@ -127,7 +116,6 @@ export default function watch(state = initialState, action = {}) {
                 time: 0,
                 watchRunning: false,
                 athletesArray: resetAthleteSplitsArr,
-                dataSource: state.dataSource.cloneWithRows(resetAthleteSplitsArr),
                 startTime: null,
                 relayFinishTime: null
             }
@@ -160,7 +148,6 @@ export default function watch(state = initialState, action = {}) {
                 ...state,
                 modalVisible: false,
                 addAthleteError: false,
-                dataSource: state.dataSource.cloneWithRows(arrUpdated),
                 athletesArray: arrUpdated,
                 id: incId,
                 currentColorId: incColorId
@@ -181,8 +168,7 @@ export default function watch(state = initialState, action = {}) {
 
             return {
                 ...state,
-                athletesArray: updatedSource,
-                dataSource: state.dataSource.cloneWithRows(updatedSource)
+                athletesArray: updatedSource
             }
         case types.ADD_SPLIT:
             // don't add split if time has not started
@@ -231,7 +217,6 @@ export default function watch(state = initialState, action = {}) {
             return {
                 ...state,
                 athletesArray: newDS,
-                dataSource: state.dataSource.cloneWithRows(newDS),
                 lastRelaySplit: splitTime
             }
         case types.MODE_CHANGE:

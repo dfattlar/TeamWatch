@@ -15,7 +15,18 @@ const styles = StyleSheet.create({
 
 export default class AthleteList extends Component {
     constructor(props) {
+        debugger;
         super(props);
+        this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2})
+        this.state = {
+            dataSource: this.ds.cloneWithRows(this.props.watch.athletesArray),
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            dataSource: this.ds.cloneWithRows(nextProps.watch.athletesArray)
+        })
     }
 
     render() {
@@ -23,7 +34,7 @@ export default class AthleteList extends Component {
 
         return (
             <ListView
-             dataSource={watch.dataSource}
+             dataSource={this.state.dataSource}
              style={styles.athleteListView}
              enableEmptySections={true}
              renderRow={function(rowData) {
