@@ -7,8 +7,7 @@ import {
     View,
     Text,
     TouchableOpacity,
-    TouchableHighlight,
-    ListView
+    TouchableHighlight
 } from 'react-native';
 
 const athleteColors = ['#51EC91', '#433C3C', '#91897D', '#8AF4B6', '#90AABF'];
