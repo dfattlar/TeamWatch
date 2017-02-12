@@ -7,7 +7,7 @@ import StartStopButton from '../components/startStopButton';
 import TimerModeButton from '../components/timerModeButton';
 import ResetButton from '../components/resetButton';
 import AddAthleteModal from '../components/addAthleteModal';
-import AthleteList from '../components/athleteList';
+import WatchAthletes from '../components/watchAthletes';
 import * as watchActions from '../actions/watchActions';
 import { RELAY } from '../constants.js';
 import { connect } from 'react-redux';
@@ -113,7 +113,7 @@ class Watch extends Component {
                             {relayFinishTime}
                         </Text>
                     </View>
-                    <AthleteList watch={state} {...actions} />
+                    <WatchAthletes watch={state} {...actions} />
                 </View>
             </View>
         );

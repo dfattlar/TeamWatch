@@ -7,13 +7,13 @@ import {
     ListView,
     ScrollView
 } from 'react-native';
-import AthleteRow from './athleteRow';
+import WatchAthleteRow from './watchAthleteRow';
 
 const styles = StyleSheet.create({
     athleteListView: {}
 });
 
-export default class AthleteList extends Component {
+export default class WatchAthletes extends Component {
     constructor(props) {
         super(props);
         this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2})
@@ -37,7 +37,7 @@ export default class AthleteList extends Component {
              style={styles.athleteListView}
              enableEmptySections={true}
              renderRow={function(rowData) {
-                 return (<AthleteRow rowData={rowData} addSplit={addSplit}/>);
+                 return (<WatchAthleteRow rowData={rowData} addSplit={addSplit}/>);
              }}
             />
         );

@@ -6,7 +6,7 @@ import * as athleteActions from '../actions/athleteActions';
 import * as constants from '../constants.js';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import AthleteStoreRow from '../components/athleteStoreRow';
+import AthleteRow from '../components/athleteRow';
 import {
     View,
     StyleSheet,
@@ -52,7 +52,7 @@ class AthleteStore extends Component {
                       style={styles.athleteListView}
                       enableEmptySections={true}
                       renderRow={function(rowData) {
-                          return (<AthleteStoreRow rowData={rowData} actions={actions} />);
+                          return (<AthleteRow rowData={rowData} actions={actions} />);
                       } }
                     />
                 </View>

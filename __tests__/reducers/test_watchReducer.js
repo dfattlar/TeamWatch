@@ -1,4 +1,4 @@
-import reducer from '../../app/reducers/watch'
+import reducer from '../../app/reducers/watchReducer'
 import * as types from '../../app/actions/actionTypes'
 import { RACE, RELAY } from '../../app/constants'
 import { ListView } from 'react-native'
