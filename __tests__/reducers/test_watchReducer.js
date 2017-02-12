@@ -112,6 +112,29 @@ describe('watch reducer', () => {
         )
     })
 
+    it('should handle STOP_WATCH in Relay Mode', () => {
+        expect(
+            reducer({
+                ...initialState,
+                timerMode: RELAY,
+                athletesArray: [{name:'ath1',totalTime:'',splits:[1,2,3]},
+                    {name:'ath2',totalTime:'',splits:[4,5,6]},{name:'ath3',totalTime:'',splits:[]}],
+            }, {
+                type: types.STOP_WATCH
+            })
+        ).toEqual(
+            {
+                ...initialState,
+                watchRunning: false,
+                timerMode: RELAY,
+                relayFinishTime: 21,
+                athletesArray: [{name:'ath1',totalTime:6,splits:[1,2,3]},
+                    {name:'ath2',totalTime:15,splits:[4,5,6]},
+                    {name:'ath3',totalTime:'',splits:[]}]
+            }
+        )
+    })
+
     it('should handle TICK', () => {
         expect(
             reducer({

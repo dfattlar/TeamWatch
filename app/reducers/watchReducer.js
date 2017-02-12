@@ -55,8 +55,8 @@ export default function watch(state = initialState, action = {}) {
                 let totalTime = '';
                 if (splits.length) {
                     totalTime = splits.reduce((a, b) => a + b);
+                    relayFinishTime += totalTime;
                 }
-                relayFinishTime += totalTime;
                 return {
                     ...athlete,
                     totalTime: totalTime
@@ -180,9 +180,7 @@ export default function watch(state = initialState, action = {}) {
 
             // If in relay mode && not first athlete && prev athlete has splits...
             // Set the finishing time of the previous athlete
-            debugger;
             if (state.timerMode === RELAY && athIndex !== 0 && state.athletesArray[athIndex - 1].splits.length) {
-                debugger;
                 const finishedRelayAthlete = state.athletesArray[athIndex - 1]
                 let updatedRelayAthlete = {
                     ...finishedRelayAthlete,

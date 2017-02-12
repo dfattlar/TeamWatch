@@ -83,7 +83,7 @@ class Watch extends Component {
 
         if(state.relayFinishTime && state.timerMode === RELAY) {
             relayFinishTime = (<Text style={styles.relayFinishTime}>
-                Relay Finish Time: {timeFormatting(state.relayFinishTime)}
+                Relay Finish Time: { timeFormatting(state.relayFinishTime) }
             </Text>);
         }
 
