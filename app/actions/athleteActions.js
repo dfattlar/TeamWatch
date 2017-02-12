@@ -24,7 +24,7 @@ export function addAthleteError() {
 export function addAthleteToWatch(id, name) {
     return {
         type: types.ADD_ATHLETE_TO_WATCH,
-        payload: { id,name }
+        payload: { id, name }
     }
 }
 

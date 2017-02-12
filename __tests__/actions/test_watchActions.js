@@ -10,7 +10,6 @@ describe('Watch Actions', () => {
         const expectedAction = {
             type: types.START_WATCH,
             startTime,
-            watchRunning,
             intervalId
         }
         expect(actions.startWatch(intervalId)).toEqual(expectedAction)
@@ -19,8 +18,7 @@ describe('Watch Actions', () => {
 
     it('should create an action to stop the watch', () => {
         const expectedAction = {
-            type: types.STOP_WATCH,
-            watchRunning: false
+            type: types.STOP_WATCH
         }
         expect(actions.stopWatch()).toEqual(expectedAction)
     })

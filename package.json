@@ -19,7 +19,10 @@
     "redux-thunk": "^2.1.0"
   },
   "jest": {
-    "preset": "jest-react-native"
+    "preset": "jest-react-native",
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native)"
+    ]
   },
   "devDependencies": {
     "babel-jest": "17.0.0",

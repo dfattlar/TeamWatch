@@ -6,15 +6,13 @@ export function startWatch(intervalId) {
   return {
     type: types.START_WATCH,
     startTime: Date.now(),
-    watchRunning: true,
     intervalId: intervalId
   };
 }
 
 export function stopWatch() {
   return {
-    type: types.STOP_WATCH,
-    watchRunning: false
+    type: types.STOP_WATCH
   };
 }
 
