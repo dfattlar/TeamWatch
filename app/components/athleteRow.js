@@ -9,6 +9,7 @@ import {
     TouchableOpacity,
     TouchableHighlight
 } from 'react-native';
+import { Actions } from 'react-native-router-flux'
 
 const athleteColors = ['#51EC91', '#433C3C', '#91897D', '#8AF4B6', '#90AABF'];
 
@@ -54,7 +55,8 @@ export default class AthleteRow extends Component {
 
     render() {
         const {  name, id, onWatch } = this.props.rowData;
-        const { addAthleteToWatch, removeAthleteFromWatch } = this.props.actions;
+        const athleteData = this.props.rowData;
+        const { addAthleteToWatch, removeAthleteFromWatch,  } = this.props.actions;
 
         let depStyle = onWatch ? styles.onWatch : styles.notOnWatch;
 
@@ -66,23 +68,32 @@ export default class AthleteRow extends Component {
             }
         }
 
+        function athleteDetail() {
+            Actions.athleteDetail(athleteData);
+        }
+
         return (
-            <TouchableHighlight
-                onPress={addAthleteCheck}
-                key={id}
-            >
+            <View key={id}>
                 <View style={[styles.athleteRow]}>
-                    <View style={styles.buttonContainer}>
-                        <View style={[styles.athleteAddButton, depStyle]}>
+                    <TouchableHighlight
+                        onPress={addAthleteCheck}
+                    >
+                        <View style={styles.buttonContainer}>
+                            <View style={[styles.athleteAddButton, depStyle]}>
+                            </View>
                         </View>
-                    </View>
-                    <View style={styles.nameContainer}>
-                        <Text style={styles.athleteRowNameText}>
-                            {name}
-                        </Text>
-                    </View>
+                    </TouchableHighlight>
+                    <TouchableHighlight
+                        onPress={athleteDetail}
+                    >
+                        <View style={styles.nameContainer}>
+                            <Text style={styles.athleteRowNameText}>
+                                {name}
+                            </Text>
+                        </View>
+                    </TouchableHighlight>
                 </View>
-            </TouchableHighlight>
+            </View>
         );
     }
 }
