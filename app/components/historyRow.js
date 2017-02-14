@@ -9,6 +9,7 @@ import {
     TouchableOpacity,
     TouchableHighlight
 } from 'react-native';
+import { Actions } from 'react-native-router-flux'
 
 const styles = StyleSheet.create({
     athleteRow: {
@@ -79,9 +80,16 @@ export default class HistoryRow extends Component {
 
     render() {
         const {  startTime } = this.props.rowData[0];
+        const historyData = this.props.rowData[0]
+
+        function goToHistoryDetail() {
+            Actions.historyDetail(historyData)
+        }
+
 
         return (
-            <View>
+            <TouchableHighlight
+            onPress={goToHistoryDetail}>
                 <View style={styles.athleteRow} /*key={id}*/>
                     <View style={styles.rowBorder}>
                         <View style={styles.totalTimeContainer}>
@@ -91,7 +99,7 @@ export default class HistoryRow extends Component {
                         </View>
                     </View>
                 </View>
-            </View>
+            </TouchableHighlight>
         );
     }
 }
