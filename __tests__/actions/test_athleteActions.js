@@ -30,10 +30,7 @@ describe('Athlete Actions', () => {
         const name = 'Athlete1'
         const expectedAction = {
             type: types.ADD_ATHLETE_TO_WATCH,
-            payload: {
-                id: id,
-                name: name
-            }
+            id
         }
         expect(actions.addAthleteToWatch(id, name)).toEqual(expectedAction)
     })

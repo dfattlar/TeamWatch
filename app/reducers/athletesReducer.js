@@ -4,12 +4,7 @@ import * as types from '../actions/actionTypes';
 import { RACE, RELAY } from '../constants';
 import { REHYDRATE } from 'redux-persist/constants';
 import React from 'react';
-import { ListView } from 'react-native';
 import * as _ from 'lodash';
-
-let ds = new ListView.DataSource({
-    rowHasChanged: (r1, r2) => r1 !== r2
-});
 
 const initialState = {
     newAthleteInput: '',
@@ -50,15 +45,14 @@ export default function athlete(state = initialState, action = {}) {
                 addAthleteError: true
             }
         case types.ADD_ATHLETE_TO_WATCH:
-            let updatedAthleteArr = state.athleteStore.map(function(athlete) {
-                let athleteUpdate = athlete;
-                if (athlete.id === action.payload.id) {
-                    athleteUpdate = {
+            const updatedAthleteArr = state.athleteStore.map(function(athlete) {
+                if (athlete.id === action.id) {
+                    return {
                         ...athlete,
                         onWatch: true
                     }
                 }
-                return athleteUpdate;
+                return athlete;
             });
 
             return {
