@@ -46,7 +46,7 @@ export default function athlete(state = initialState, action = {}) {
             }
         case types.ADD_ATHLETE_TO_WATCH:
             const updatedAthleteArr = state.athleteStore.map(function(athlete) {
-                if (athlete.id === action.id) {
+                if (athlete.id === action.payload.id) {
                     return {
                         ...athlete,
                         onWatch: true

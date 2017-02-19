@@ -103,7 +103,10 @@ describe('watch reducer', () => {
                 {id:'id_789',name:'zzz',onWatch:false}]
             }, {
                 type: types.ADD_ATHLETE_TO_WATCH,
-                id: 'id_456'
+                payload: {
+                    id: 'id_456',
+                    name: 'xxx'
+                }
             })
         ).toEqual(
             {

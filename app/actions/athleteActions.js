@@ -21,10 +21,10 @@ export function addAthleteError() {
     }
 }
 
-export function addAthleteToWatch(id) {
+export function addAthleteToWatch(id, name) {
     return {
         type: types.ADD_ATHLETE_TO_WATCH,
-        id
+        payload: { id, name }
     }
 }
 

@@ -30,7 +30,10 @@ describe('Athlete Actions', () => {
         const name = 'Athlete1'
         const expectedAction = {
             type: types.ADD_ATHLETE_TO_WATCH,
-            id
+            payload: {
+                id,
+                name
+            }
         }
         expect(actions.addAthleteToWatch(id, name)).toEqual(expectedAction)
     })
@@ -39,7 +42,7 @@ describe('Athlete Actions', () => {
         const id = 'id_123'
         const expectedAction = {
             type: types.REMOVE_ATHLETE_FROM_WATCH,
-            id: id
+            id
         }
         expect(actions.removeAthleteFromWatch(id)).toEqual(expectedAction)
     })
