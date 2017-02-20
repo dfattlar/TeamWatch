@@ -160,19 +160,24 @@ export default function watch(state = initialState, action = {}) {
             }
 
         case types.DELETE_ATHLETE:
-            let deleteIndex;
+            let deleteIndex
             // using 'some' method break loop when athlete is found
-            state.athletesArray.some((athlete, index)=>{
+            const athleteOnWatch = state.athletesArray.some((athlete, index)=>{
                 if(athlete.id === action.id){
                     deleteIndex = index;
                     return true;
                 }
-            });
+            })
 
-            const deleteArr = [
-                ...state.athletesArray.slice(0, deleteIndex),
-                ...state.athletesArray.slice(deleteIndex+1)
-            ];
+            let deleteArr
+            if(athleteOnWatch) {
+                deleteArr = [
+                    ...state.athletesArray.slice(0, deleteIndex),
+                    ...state.athletesArray.slice(deleteIndex+1)
+                ]
+            } else {
+                deleteArr = [...state.athletesArray]
+            }
 
             return {
                 ...state,
