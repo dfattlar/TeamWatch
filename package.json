@@ -8,11 +8,13 @@
     "test:watch": "npm test -- --watch"
   },
   "dependencies": {
+    "@maintained-repos/react-native-swipeout": "^3.1.5",
     "lodash": "^4.17.4",
     "moment": "^2.16.0",
     "react": "^15.4.2",
     "react-native": "^0.41.0",
     "react-native-router-flux": "^3.37.0",
+    "react-native-swipe-list-view": "^0.3.3",
     "react-redux": "^4.4.5",
     "redux": "^3.6.0",
     "redux-persist": "^4.0.0-alpha7",

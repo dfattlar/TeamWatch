@@ -269,6 +269,18 @@ describe('watch reducer', () => {
         })
     })
 
+    it('should handle DELETE_ATHLETE', () => {
+        expect(
+            reducer({
+                ...initialState,
+                athletesArray: [{ id:1 }, { id: 2 }, { id: 3 }]
+            }, { type: types.DELETE_ATHLETE, id: 2 })
+        ).toEqual({
+            ...initialState,
+            athletesArray: [{ id:1 }, { id: 3 }]
+        })
+    })
+
     it('should handle ADD_SPLIT - No start time', () => {
         expect(
             reducer({ initialState }, { type: types.ADD_SPLIT, id: 1, splitTime: 10 })

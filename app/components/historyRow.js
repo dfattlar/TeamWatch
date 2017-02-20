@@ -79,13 +79,12 @@ export default class HistoryRow extends Component {
     }
 
     render() {
-        const {  startTime } = this.props.rowData[0];
+        const {  startTime, name } = this.props.rowData[0];
         const historyData = this.props.rowData[0]
 
         function goToHistoryDetail() {
             Actions.historyDetail(historyData)
         }
-
 
         return (
             <TouchableHighlight
@@ -94,7 +93,7 @@ export default class HistoryRow extends Component {
                     <View style={styles.rowBorder}>
                         <View style={styles.totalTimeContainer}>
                             <Text style={styles.totalTime}>
-                                { formatSplit(startTime) }
+                                { name ? name : formatSplit(startTime) }
                             </Text>
                         </View>
                     </View>

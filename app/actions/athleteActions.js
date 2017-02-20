@@ -31,6 +31,13 @@ export function addAthleteToWatch(id, name) {
 export function removeAthleteFromWatch(id) {
     return {
         type: types.REMOVE_ATHLETE_FROM_WATCH,
-        id: id
+        id
+    }
+}
+
+export function deleteAthlete(id) {
+    return {
+        type: types.DELETE_ATHLETE,
+        id
     }
 }

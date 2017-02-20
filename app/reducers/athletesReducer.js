@@ -75,6 +75,7 @@ export default function athlete(state = initialState, action = {}) {
                 ...state,
                 athleteStore: updatedStore
             }
+
         case types.RESET_ATHLETE_LIST:
             let resetAthleteArr = state.athleteStore.map(function(athlete) {
                 return {
@@ -85,6 +86,22 @@ export default function athlete(state = initialState, action = {}) {
             return {
                 ...state,
                 athleteStore: resetAthleteArr
+            }
+
+        case types.DELETE_ATHLETE:
+            const deleteId = action.id;
+            const athleteIndex = state.athleteStore.findIndex((athlete)=>{
+                return athlete.id === deleteId
+            });
+
+            const deleteAthleteArr = [
+                ...state.athleteStore.slice(0,athleteIndex),
+                ...state.athleteStore.slice(athleteIndex + 1)
+            ]
+
+            return {
+                ...state,
+                athleteStore: deleteAthleteArr
             }
         default:
             return state;

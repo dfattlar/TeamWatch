@@ -46,4 +46,13 @@ describe('Athlete Actions', () => {
         }
         expect(actions.removeAthleteFromWatch(id)).toEqual(expectedAction)
     })
+
+    it('should create an action to delete an athlete', () => {
+        const id = 'id_123'
+        const expectedAction = {
+            type: types.DELETE_ATHLETE,
+            id
+        }
+        expect(actions.deleteAthlete(id)).toEqual(expectedAction)
+    })
 })

@@ -170,4 +170,27 @@ describe('watch reducer', () => {
             }
         )
     })
+
+    it('should handle DELETE_ATHLETE', () => {
+        const id = 'id_456'
+        expect(
+            reducer({
+                ...initialState,
+                athleteStore: [{id:'id_123',name:'yyy',onWatch:true},
+                {id:'id_456',name:'xxx',onWatch:false},
+                {id:'id_789',name:'zzz',onWatch:true}]
+            }, {
+                type: types.DELETE_ATHLETE,
+                id
+            })
+        ).toEqual(
+            {
+                ...initialState,
+                athleteStore: [
+                    {id:'id_123',name:'yyy',onWatch:true},
+                    {id:'id_789',name:'zzz',onWatch:true}
+                ]
+            }
+        )
+    })
 })

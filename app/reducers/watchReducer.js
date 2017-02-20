@@ -159,6 +159,26 @@ export default function watch(state = initialState, action = {}) {
                 athletesArray: updatedSource
             }
 
+        case types.DELETE_ATHLETE:
+            let deleteIndex;
+            // using 'some' method break loop when athlete is found
+            state.athletesArray.some((athlete, index)=>{
+                if(athlete.id === action.id){
+                    deleteIndex = index;
+                    return true;
+                }
+            });
+
+            const deleteArr = [
+                ...state.athletesArray.slice(0, deleteIndex),
+                ...state.athletesArray.slice(deleteIndex+1)
+            ];
+
+            return {
+                ...state,
+                athletesArray: deleteArr
+            }
+
         case types.ADD_SPLIT:
             // don't add split if time has not started
             if (!state.startTime) {

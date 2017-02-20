@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderBottomColor: 'black',
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
+        backgroundColor: '#fff'
     },
     athleteAddButton: {
         height: 30,

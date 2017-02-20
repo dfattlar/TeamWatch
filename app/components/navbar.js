@@ -5,7 +5,9 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableHighlight
+  TouchableHighlight,
+  Platform,
+  AlertIOS
 } from 'react-native';
 const styles = StyleSheet.create({
     toolbar: {
@@ -44,11 +46,25 @@ export default class Navbar extends Component {
         const { addHistory, watch } = this.props;
 
         function callAddHistory() {
-            addHistory({
-                athletesArray: watch.athletesArray,
-                relayFinishTime: watch.relayFinishTime,
-                startTime: watch.startTime
-            });
+            if(Platform.OS === 'ios') {
+                AlertIOS.prompt(
+                    'Name this Race',
+                    null,
+                    input => addHistory({
+                        athletesArray: watch.athletesArray,
+                        relayFinishTime: watch.relayFinishTime,
+                        startTime: watch.startTime,
+                        name: input
+                    })
+                )
+            } else {
+                addHistory({
+                    athletesArray: watch.athletesArray,
+                    relayFinishTime: watch.relayFinishTime,
+                    startTime: watch.startTime,
+                    name: null
+                });
+            }
         }
 
         return (
