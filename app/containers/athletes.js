@@ -19,22 +19,6 @@ import {
     Alert
 } from 'react-native';
 
-// style the react component
-var styles = StyleSheet.create({
-    container: {
-        marginTop: 70,
-        flex: 1
-    },
-    rowBack: {
-        alignItems: 'center',
-		backgroundColor: '#DDD',
-		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'flex-end',
-		paddingRight: 15
-    }
-});
-
 class AthleteStore extends Component {
     constructor(props) {
         super(props);
@@ -91,9 +75,10 @@ class AthleteStore extends Component {
             );
         } else {
             return (
-                <View style={styles.container}>
-                    <Text onPress={Actions.newAthlete}>
-                        Click the + button to add athletes
+                <View style={[styles.container, styles.noAthContainer]}>
+                    <Text style={styles.noAthTitle}>Add An Athlete</Text>
+                    <Text onPress={Actions.newAthlete} style={styles.noAthText}>
+                        Tap the '+Add' button above to create an athlete.
                     </Text>
                 </View>
             );
@@ -108,3 +93,32 @@ export default connect(state => ({
         actions: bindActionCreators(athleteActions, dispatch)
     })
 )(AthleteStore);
+
+// style the react component
+var styles = StyleSheet.create({
+    container: {
+        marginTop: 64,
+        flex: 1
+    },
+    noAthContainer: {
+        alignItems: 'center'
+    },
+    noAthTitle: {
+        fontSize: 24,
+        fontWeight: '200',
+        marginTop: 15
+    },
+    noAthText: {
+        fontSize: 16,
+        fontWeight: '200',
+        margin: 20
+    },
+    rowBack: {
+        alignItems: 'center',
+		backgroundColor: '#DDD',
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'flex-end',
+		paddingRight: 15
+    }
+});

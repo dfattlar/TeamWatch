@@ -16,14 +16,6 @@ import {
     StatusBar
 } from 'react-native';
 
-// style the react component
-var styles = StyleSheet.create({
-    container: {
-        marginTop: 100,
-        flex: 1
-    }
-});
-
 class AddAthlete extends Component {
     constructor(props) {
         super(props);
@@ -43,14 +35,14 @@ class AddAthlete extends Component {
         return (
             <View style={styles.container}>
                 <View style={[styles.innerContainer]}>
-                    <Text style={styles.modalLabel}>Add the athletes first and last name: </Text>
+                    <Text style={styles.formText}>Add the athlete's first and last name: </Text>
                     <TextInput
                         style={{height: 40, borderColor: 'gray', borderWidth: 1, paddingLeft: 10}}
                         onChangeText={(text) => actions.newAthleteInput(text)}
                         value={state.newAthleteInput}
                     />
-                    <Text style={[styles.errorTextHidden, state.addAthleteError && styles.errorText]}>
-                        Please add athletes first and last name.
+                    <Text style={[styles.formText, styles.errorTextHidden, state.addAthleteError && styles.errorText,]}>
+                        Please add athlete's first and last name.
                     </Text>
 
                     <TouchableHighlight
@@ -72,3 +64,38 @@ export default connect(state => ({
         actions: bindActionCreators(athleteActions, dispatch)
     })
 )(AddAthlete);
+
+// style the react component
+var styles = StyleSheet.create({
+    container: {
+        marginTop: 64,
+        flex: 1,
+        alignItems: 'center'
+    },
+    formText: {
+        fontSize: 16,
+        fontWeight: '200',
+        margin: 20
+    },
+    errorTextHidden: {
+        marginTop: 5,
+        color: '#fff'
+    },
+    errorText: {
+        color: 'red'
+    },
+    modalSaveButton: {
+        backgroundColor: '#90aabf',
+        height: 40,
+        borderRadius: 6,
+        borderWidth: 1,
+        borderColor: '#433c3c'
+    },
+    modalSaveButtonText: {
+        color: '#fff',
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 'normal',
+        marginTop: 6
+    }
+});

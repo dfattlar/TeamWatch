@@ -5,13 +5,11 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     ListView,
-    ScrollView
+    ScrollView,
+    View,
+    Text
 } from 'react-native';
 import WatchAthleteRow from './watchAthleteRow';
-
-const styles = StyleSheet.create({
-    athleteListView: {}
-});
 
 export default class WatchAthletes extends Component {
     constructor(props) {
@@ -31,6 +29,14 @@ export default class WatchAthletes extends Component {
     render() {
         const { watch, addSplit } = this.props;
 
+        if(!watch.athletesArray.length) {
+            return (
+                <View style={styles.noAthContainer}>
+                    <Text style={styles.noAthTitle}>Add Athletes to the Watch</Text>
+                    <Text style={styles.noAthText}>Tap the Athletes tab below. Then create an athlete or tap the cirlce next to their name to add them to the watch.</Text>
+                </View>
+            )
+        }
         return (
             <ListView
              dataSource={this.state.dataSource}
@@ -43,3 +49,21 @@ export default class WatchAthletes extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    athleteListView: {},
+    noAthContainer: {
+        flex: 1,
+        alignItems: 'center'
+    },
+    noAthTitle: {
+        fontSize: 24,
+        fontWeight: '200',
+        marginTop: 15
+    },
+    noAthText: {
+        fontSize: 16,
+        fontWeight: '200',
+        margin: 20
+    }
+});

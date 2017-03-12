@@ -15,14 +15,6 @@ import {
     ListView
 } from 'react-native';
 
-// style the react component
-var styles = StyleSheet.create({
-    container: {
-        marginTop: 70,
-        flex: 1
-    }
-});
-
 class History extends Component {
     constructor(props) {
         super(props);
@@ -47,9 +39,10 @@ class History extends Component {
             );
         } else {
             return (
-                <View style={styles.container}>
-                    <Text>
-                        Click Save on the Watch tab to save an item to your history.
+                <View style={[styles.container, styles.noHistContainer]}>
+                    <Text style={styles.noHistTitle}>No History Saved Yet</Text>
+                    <Text style={styles.noHistText}>
+                        Tap 'Save' on the top right of the Watch tab to save an item to your history.
                     </Text>
                 </View>
             );
@@ -64,3 +57,24 @@ export default connect(state => ({
         actions: bindActionCreators(historyActions, dispatch)
     })
 )(History);
+
+// style the react component
+var styles = StyleSheet.create({
+    container: {
+        marginTop: 64,
+        flex: 1
+    },
+    noHistContainer: {
+        alignItems: 'center'
+    },
+    noHistTitle: {
+        fontSize: 24,
+        fontWeight: '200',
+        marginTop: 15
+    },
+    noHistText: {
+        fontSize: 16,
+        fontWeight: '200',
+        margin: 20
+    }
+});

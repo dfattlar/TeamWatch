@@ -18,12 +18,12 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flex: 2,
         alignItems: 'flex-end',
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
         marginRight: 5
     },
     toolbarTitleContainer: {
         flex: 4,
-        justifyContent: 'flex-end'
+        justifyContent: 'center'
     },
     toolbarButtonText: {
         color: '#fff',

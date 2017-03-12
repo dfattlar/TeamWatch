@@ -35,6 +35,7 @@ var styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         marginLeft: 20,
+        marginTop: -40,
         backgroundColor: 'transparent',
         flex: 2
     },
@@ -47,7 +48,8 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'flex-start',
-        flex: 2
+        flex: 2,
+        marginTop: -25
     },
     relayContainer: {
         backgroundColor: 'lightgray'
@@ -67,8 +69,9 @@ var styles = StyleSheet.create({
         flex: 1,
     },
     athleteListContainer: {
-        flex: 6,
-        backgroundColor: 'white'
+        flex: 5,
+        backgroundColor: 'white',
+        bottom: 45
     }
 });
 
