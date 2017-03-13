@@ -19,6 +19,7 @@ import {
 class AddAthlete extends Component {
     constructor(props) {
         super(props);
+        props.state.addAthleteError = false;
     }
 
     render() {
