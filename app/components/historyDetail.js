@@ -1,23 +1,23 @@
 import React, { Component } from 'react'
+import WatchAthleteRow from './watchAthleteRow'
 import {
     StyleSheet,
     View,
     Text,
     TouchableHighlight,
     Modal,
-    TextInput
+    TextInput,
+    ListView
 } from 'react-native'
-
-const styles = StyleSheet.create({
-    history: {
-        marginTop: 60,
-        flex: 1
-    }
-})
+import { Actions } from 'react-native-router-flux'
 
 export default class HistoryDetail extends Component {
     constructor(props) {
         super(props)
+        this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2})
+        this.state = {
+            dataSource: this.ds.cloneWithRows(this.props.athletesArray),
+        }
     }
 
     render() {
@@ -25,14 +25,22 @@ export default class HistoryDetail extends Component {
 
         return (
             <View style={[styles.history]}>
-                <Text>Athlete!</Text>
-                <Text>Athlete!</Text>
-                <Text>Athlete!</Text>
-                <Text>Athlete!</Text>
-                <Text>{startTime}!</Text>
-                <Text>{relayFinishTime}!</Text>
-                <Text>{athletesArray.length}!</Text>
+                <ListView
+                 dataSource={this.state.dataSource}
+                 style={styles.athleteListView}
+                 enableEmptySections={true}
+                 renderRow={function(rowData) {
+                     return (<WatchAthleteRow rowData={rowData} routeParent={{routeParent:'history'}} />);
+                 }}
+                />
             </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    history: {
+        marginTop: 65,
+        flex: 1
+    }
+})

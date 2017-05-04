@@ -32,10 +32,9 @@ var styles = StyleSheet.create({
         height: null
     },
     timerWrapper: {
-        alignItems: 'center',
+        alignItems: 'flex-start',
         flexDirection: 'row',
         marginLeft: 20,
-        marginTop: -40,
         backgroundColor: 'transparent',
         flex: 2
     },
@@ -48,8 +47,8 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'flex-start',
-        flex: 2,
-        marginTop: -25
+        flex: 3,
+        marginTop: -10
     },
     relayContainer: {
         backgroundColor: 'lightgray'

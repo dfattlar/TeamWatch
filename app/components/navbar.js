@@ -18,12 +18,17 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flex: 2,
         alignItems: 'flex-end',
-        justifyContent: 'center',
-        marginRight: 5
+        justifyContent: 'flex-end',
+        marginRight: 15
+    },
+    saveButton: {
+        height: 44,
+        paddingBottom: 4,
+        justifyContent: 'flex-end'
     },
     toolbarTitleContainer: {
         flex: 4,
-        justifyContent: 'center'
+        justifyContent: 'flex-end'
     },
     toolbarButtonText: {
         color: '#fff',
@@ -77,6 +82,7 @@ export default class Navbar extends Component {
                     <TouchableHighlight
                       underlayColor="lightgray"
                       onPress={callAddHistory}
+                      style={styles.saveButton}
                     >
                         <Text style={styles.saveText}>Save</Text>
                     </TouchableHighlight>

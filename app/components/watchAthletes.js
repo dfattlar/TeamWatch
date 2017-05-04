@@ -28,7 +28,7 @@ export default class WatchAthletes extends Component {
 
     render() {
         const { watch, addSplit } = this.props;
-
+debugger;
         if(!watch.athletesArray.length) {
             return (
                 <View style={styles.noAthContainer}>
@@ -43,7 +43,7 @@ export default class WatchAthletes extends Component {
              style={styles.athleteListView}
              enableEmptySections={true}
              renderRow={function(rowData) {
-                 return (<WatchAthleteRow rowData={rowData} addSplit={addSplit}/>);
+                 return (<WatchAthleteRow rowData={rowData} addSplit={addSplit} routeParent={{routeParent:'watch'}}/>);
              }}
             />
         );

@@ -30,6 +30,7 @@ class AddAthlete extends Component {
                 actions.addAthleteError();
             } else {
                 actions.addAthlete();
+                Actions.athleteList()
             }
         }
 

@@ -1,14 +1,14 @@
 'use strict';
 
-import moment from 'moment';
-import React, { Component } from 'react';
+import moment from 'moment'
+import React, { Component } from 'react'
 import {
     StyleSheet,
     View,
     Text,
     TouchableOpacity,
     TouchableHighlight
-} from 'react-native';
+} from 'react-native'
 
 const athleteColors = ['#51EC91', '#433C3C', '#91897D', '#8AF4B6', '#90AABF'];
 const styles = StyleSheet.create({
@@ -80,6 +80,7 @@ export default class WatchAthleteRow extends Component {
 
     render() {
         const {  name, splits, id, colorId, totalTime } = this.props.rowData;
+        const { routeParent } = this.props.routeParent
         const { addSplit } = this.props;
         const initials = name.split(' ').map(function(i){
           return i.slice(0,1).toUpperCase();
@@ -96,11 +97,23 @@ export default class WatchAthleteRow extends Component {
                 );
             });
         }
-        return (
-            <TouchableHighlight
-             onPress={() => addSplit(id)}
-             style={[styles.athleteRow]}
-            >
+
+        if(routeParent === 'history') {
+            return (<View
+                    style={[styles.athleteRow]}>
+                        { buildRow() }
+                    </View>)
+        } else {
+            return (<TouchableHighlight
+                     onPress={() => addSplit(id)}
+                     style={[styles.athleteRow]}
+                    >
+                        { buildRow() }
+                    </TouchableHighlight>)
+        }
+
+        function buildRow() {
+            return (
                 <View style={styles.athleteRow} key={id}>
                     <View style={styles.athleteNameContainer}>
                         <View style={[styles.athleteRowName, {
@@ -123,8 +136,8 @@ export default class WatchAthleteRow extends Component {
                         </View>
                     </View>
                 </View>
-            </TouchableHighlight>
-        );
+            )
+        }
     }
 }
 

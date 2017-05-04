@@ -75,7 +75,7 @@ export default class AthleteRow extends Component {
     render() {
         const {  name, id, onWatch } = this.props.rowData;
         const athleteData = this.props.rowData;
-        const { addAthleteToWatch, removeAthleteFromWatch,  } = this.props.actions;
+        const { addAthleteToWatch, removeAthleteFromWatch } = this.props.actions;
 
         let depStyle = onWatch ? styles.onWatch : styles.notOnWatch;
 
@@ -105,7 +105,7 @@ export default class AthleteRow extends Component {
                         </View>
                     </TouchableHighlight>
                     <TouchableHighlight
-                        onPress={athleteDetail}
+                        onPress={addAthleteCheck}
                         style={styles.nameTouchContainer}
                     >
                         <View style={styles.nameContainer}>

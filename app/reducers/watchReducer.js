@@ -195,28 +195,16 @@ export default function watch(state = initialState, action = {}) {
             let athletes = state.athletesArray.map((athlete, index)=>{
                 if(athlete.id === action.id) {
                     athIndex = index
+                    const splits = _getNextSplit(athlete.splits, state.timerMode, action, state.lastRelaySplit, state.startTime)
+                    const totalTime = splits.reduce((a, b) => a + b)
                     return {
                         ...athlete,
-                        splits: _getNextSplit(athlete.splits, state.timerMode, action, state.lastRelaySplit, state.startTime)
+                        splits: splits,
+                        totalTime: totalTime
                     }
                 }
                 return athlete
             })
-
-            // If in relay mode && not first athlete && prev athlete has splits...
-            // Set the finishing time of the previous athlete
-            if (state.timerMode === RELAY && athIndex !== 0 && state.athletesArray[athIndex - 1].splits.length) {
-                const finishedRelayAthlete = state.athletesArray[athIndex - 1]
-                let updatedRelayAthlete = {
-                    ...finishedRelayAthlete,
-                    totalTime: finishedRelayAthlete.splits.reduce((a, b) => a + b)
-                }
-                athletes = [
-                    ...athletes.slice(0,athIndex - 1),
-                    updatedRelayAthlete,
-                    ...athletes.slice(athIndex)
-                ]
-            }
 
             return {
                 ...state,

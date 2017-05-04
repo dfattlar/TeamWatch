@@ -96,8 +96,8 @@ describe('watch reducer', () => {
         expect(
             reducer({
                 ...initialState,
-                athletesArray: [{name:'ath1',totalTime:'',splits:[1,2,3]},
-                    {name:'ath2',totalTime:'',splits:[4,5,6]}],
+                athletesArray: [{name:'ath1',totalTime:6,splits:[1,2,3]},
+                    {name:'ath2',totalTime:15,splits:[4,5,6]}],
             }, {
                 type: types.STOP_WATCH
             })
@@ -117,8 +117,8 @@ describe('watch reducer', () => {
             reducer({
                 ...initialState,
                 timerMode: RELAY,
-                athletesArray: [{name:'ath1',totalTime:'',splits:[1,2,3]},
-                    {name:'ath2',totalTime:'',splits:[4,5,6]},{name:'ath3',totalTime:'',splits:[]}],
+                athletesArray: [{name:'ath1',totalTime:6,splits:[1,2,3]},
+                    {name:'ath2',totalTime:15,splits:[4,5,6]},{name:'ath3',totalTime:'',splits:[]}],
             }, {
                 type: types.STOP_WATCH
             })
@@ -308,7 +308,7 @@ describe('watch reducer', () => {
             }, { type: types.ADD_SPLIT, id: 'id_123', splitTime: 10 })
         ).toEqual({
             ...initialState,
-            athletesArray: [{ id:'id_123', splits:[9] }],
+            athletesArray: [{ id:'id_123', splits:[9], totalTime: 9 }],
             lastRelaySplit: 10,
             startTime: 1
         })
@@ -319,12 +319,12 @@ describe('watch reducer', () => {
             reducer({
                 ...initialState,
                 startTime: 1,
-                athletesArray: [{ id:'id_123', splits:[1,2] }, { id:'id_456', splits:[1,2] }],
+                athletesArray: [{ id:'id_123', splits:[1,2], totalTime: 3 }, { id:'id_456', splits:[1,2] }],
                 lastRelaySplit: 5
             }, { type: types.ADD_SPLIT, id: 'id_456', splitTime: 10 })
         ).toEqual({
             ...initialState,
-            athletesArray: [{ id:'id_123', splits:[1,2] }, { id:'id_456', splits:[1,2,6] }],
+            athletesArray: [{ id:'id_123', splits:[1,2], totalTime: 3 }, { id:'id_456', splits:[1,2,6], totalTime: 9 }],
             lastRelaySplit: 10,
             startTime: 1
         })
@@ -335,13 +335,13 @@ describe('watch reducer', () => {
             reducer({
                 ...initialState,
                 startTime: 1,
-                athletesArray: [{ id:'id_123', splits:[1,2], totalTime: '' }, { id:'id_456', splits:[], totalTime: '' }],
+                athletesArray: [{ id:'id_123', splits:[1,2], totalTime: 3 }, { id:'id_456', splits:[], totalTime: '' }],
                 lastRelaySplit: 2,
                 timerMode: RELAY
             }, { type: types.ADD_SPLIT, id: 'id_456', splitTime: 10 })
         ).toEqual({
             ...initialState,
-            athletesArray: [{ id:'id_123', splits:[1,2], totalTime: 3 }, { id:'id_456', splits:[8], totalTime: '' }],
+            athletesArray: [{ id:'id_123', splits:[1,2], totalTime: 3 }, { id:'id_456', splits:[8], totalTime: 8 }],
             lastRelaySplit: 10,
             startTime: 1,
             timerMode: RELAY
