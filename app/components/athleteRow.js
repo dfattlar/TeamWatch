@@ -7,7 +7,8 @@ import {
     View,
     Text,
     TouchableOpacity,
-    TouchableHighlight
+    TouchableHighlight,
+    Animated
 } from 'react-native';
 import { Actions } from 'react-native-router-flux'
 
@@ -70,22 +71,49 @@ const styles = StyleSheet.create({
 export default class AthleteRow extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            scale: new Animated.Value(0)
+        }
+        this.addAthleteCheck = this.addAthleteCheck.bind(this)
+    }
+
+    addAthleteCheck() {
+        const {  name, id, onWatch } = this.props.rowData;
+        const { addAthleteToWatch, removeAthleteFromWatch } = this.props.actions;
+
+        if (!onWatch) {
+            addAthleteToWatch(id, name)
+            Animated.spring(this.state.scale, {
+                toValue: 2,
+                friction: 5
+            }).start(() => {
+                // reset scale to 0 on complete
+                this.state.scale.setValue(0)
+            })
+        } else {
+            removeAthleteFromWatch(id);
+        }
     }
 
     render() {
         const {  name, id, onWatch } = this.props.rowData;
         const athleteData = this.props.rowData;
         const { addAthleteToWatch, removeAthleteFromWatch } = this.props.actions;
+        const animateAdd = this.state.scale.interpolate({
+            inputRange: [0,1,2],
+            outputRange: [1,.8,1]
+        });
+        const onWatchStyle = {
+            transform: [
+                {
+                    scale: animateAdd
+                }
+            ]
+        }
 
         let depStyle = onWatch ? styles.onWatch : styles.notOnWatch;
 
-        function addAthleteCheck() {
-            if (!onWatch) {
-                addAthleteToWatch(id, name)
-            } else {
-                removeAthleteFromWatch(id);
-            }
-        }
+
 
         function athleteDetail() {
             Actions.athleteDetail(athleteData);
@@ -95,17 +123,19 @@ export default class AthleteRow extends Component {
             <View key={id}>
                 <View style={[styles.athleteRow]}>
                     <TouchableHighlight
-                        onPress={addAthleteCheck}
+                        onPress={this.addAthleteCheck}
                         style={styles.addTouchArea}
                     >
                         <View style={styles.buttonContainer}>
                             <View style={styles.athleteAddButton}>
-                                <View style={depStyle}></View>
+                                <Animated.View style={onWatchStyle}>
+                                    <View style={depStyle}></View>
+                                </Animated.View>
                             </View>
                         </View>
                     </TouchableHighlight>
                     <TouchableHighlight
-                        onPress={addAthleteCheck}
+                        onPress={this.addAthleteCheck}
                         style={styles.nameTouchContainer}
                     >
                         <View style={styles.nameContainer}>
