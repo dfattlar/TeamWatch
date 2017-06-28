@@ -7,7 +7,8 @@ import {
     View,
     Text,
     TouchableOpacity,
-    TouchableHighlight
+    TouchableHighlight,
+    Animated
 } from 'react-native'
 
 const athleteColors = ['#51EC91', '#433C3C', '#91897D', '#8AF4B6', '#90AABF'];
@@ -76,6 +77,11 @@ const styles = StyleSheet.create({
 export default class WatchAthleteRow extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            scale: new Animated.Value(0)
+        }
+
     }
 
     render() {
@@ -85,6 +91,18 @@ export default class WatchAthleteRow extends Component {
         const initials = name.split(' ').map(function(i){
           return i.slice(0,1).toUpperCase();
         }).join('');
+
+        const animateAthleteSplit = this.state.scale.interpolate({
+            inputRange: [0,1,2],
+            outputRange: [1,.8,1]
+        });
+        const animateTouch = {
+            transform: [
+                {
+                    scale: animateAthleteSplit
+                }
+            ]
+        }
 
         function eachSplit() {
             return splits.map((split, i) => {
@@ -105,7 +123,16 @@ export default class WatchAthleteRow extends Component {
                     </View>)
         } else {
             return (<TouchableHighlight
-                     onPress={() => addSplit(id)}
+                     onPress={() => {
+                         Animated.spring(this.state.scale, {
+                             toValue: 2,
+                             friction: 5
+                         }).start(() => {
+                             // reset scale to 0 on complete
+                             this.state.scale.setValue(0)
+                         })
+                         addSplit(id)
+                     }}
                      style={[styles.athleteRow]}
                     >
                         { buildRow() }
@@ -116,14 +143,16 @@ export default class WatchAthleteRow extends Component {
             return (
                 <View style={styles.athleteRow} key={id}>
                     <View style={styles.athleteNameContainer}>
-                        <View style={[styles.athleteRowName, {
-                            borderColor: athleteColors[colorId],
-                            backgroundColor: athleteColors[colorId]
-                        }]}>
-                            <Text style={styles.athleteRowNameText}>
-                                {initials}
-                            </Text>
-                        </View>
+                        <Animated.View style={animateTouch}>
+                            <View style={[styles.athleteRowName, {
+                                borderColor: athleteColors[colorId],
+                                backgroundColor: athleteColors[colorId]
+                            }]}>
+                                <Text style={styles.athleteRowNameText}>
+                                    {initials}
+                                </Text>
+                            </View>
+                        </Animated.View>
                     </View>
                     <View style={styles.rowBorder}>
                         <View style={styles.splits}>
