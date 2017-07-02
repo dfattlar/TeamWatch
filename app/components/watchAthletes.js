@@ -28,7 +28,7 @@ export default class WatchAthletes extends Component {
 
     render() {
         const { watch, addSplit } = this.props;
-debugger;
+
         if(!watch.athletesArray.length) {
             return (
                 <View style={styles.noAthContainer}>

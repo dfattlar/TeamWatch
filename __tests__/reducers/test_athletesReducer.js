@@ -1,6 +1,5 @@
 import reducer from '../../app/reducers/athletesReducer'
 import * as types from '../../app/actions/actionTypes'
-import { ListView } from 'react-native'
 
 const initialState = {
     newAthleteInput: '',
@@ -9,7 +8,7 @@ const initialState = {
 }
 
 
-describe('watch reducer', () => {
+describe('athlete reducer', () => {
     it('should handle NEW_ATHLETE_INPUT', () => {
         const newAthleteInput = 'zzz'
         expect(

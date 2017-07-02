@@ -3,35 +3,47 @@
 import * as types from '../actions/actionTypes';
 import { REHYDRATE } from 'redux-persist/constants';
 import React from 'react';
-import { ListView } from 'react-native';
 
-
-let ds = new ListView.DataSource({
-    rowHasChanged: (r1, r2) => r1 !== r2
-});
 let initHistoryStore = [];
 
 const initialState = {
-    historyStore: initHistoryStore,
-    historyDS: ds.cloneWithRows(initHistoryStore)
+    historyStore: initHistoryStore
 };
 
-export default function addAthlete(state = initialState, action = {}) {
+export default function history(state = initialState, action = {}) {
     switch (action.type) {
         case REHYDRATE:
             if (!action.payload.hasOwnProperty('history')) {
                 return state;
             }
             return {
-                ...action.payload.history,
-                historyDS: ds.cloneWithRows(action.payload.history.historyStore)
+                ...action.payload.history
             }
         case types.ADD_HISTORY:
-            const updatedHistory = [...state.historyStore, [action.payload]];
+            const id = Math.random().toString(36).substring(2)
+            const payloadWithId = {
+                ...action.payload,
+                id
+            }
+            const updatedHistory = [...state.historyStore, payloadWithId];
             return {
                 ...state,
-                historyStore: updatedHistory,
-                historyDS: ds.cloneWithRows(updatedHistory)
+                historyStore: updatedHistory
+            }
+        case types.DELETE_HISTORY:
+            const deleteId = action.id;
+            const historyIndex = state.historyStore.findIndex((history)=>{
+                return history.id === deleteId
+            })
+
+            const deleteHistoryArr = [
+                ...state.historyStore.slice(0,historyIndex),
+                ...state.historyStore.slice(historyIndex + 1)
+            ]
+
+            return {
+                ...state,
+                historyStore: deleteHistoryArr
             }
         default:
             return state;

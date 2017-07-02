@@ -27,6 +27,7 @@ var styles = StyleSheet.create({
     },
     backgroundImg: {
         overflow: 'hidden',
+        backgroundColor: '#000',
         flex: 1,
         width: null,
         height: null
@@ -95,9 +96,8 @@ class Watch extends Component {
                   barStyle="light-content"
                 />
                 <View style={styles.timerSection}>
-                    <Image
-                    style={styles.backgroundImg}
-                    source={require('../assets/background.png')}>
+                    <View
+                    style={styles.backgroundImg}>
                         <Navbar {...actions} watch={state} />
                         <View style={styles.timerWrapper}>
                             <Text style={styles.timerText}>{timeFormatting(state.time)}</Text>
@@ -107,7 +107,7 @@ class Watch extends Component {
                             <StartStopButton watch={state} {...actions} />
                             <ResetButton watch={state} {...actions} />
                         </View>
-                    </Image>
+                    </View>
                 </View>
                 <View style={styles.athleteListContainer}>
                     <View style={styles.relayContainer}>

@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
     athleteRow: {
         height: 80,
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        backgroundColor: '#fff'
     },
     rowBorder: {
         flex: 13,
@@ -79,7 +80,7 @@ export default class HistoryRow extends Component {
     }
 
     render() {
-        const {  startTime, name } = this.props.rowData[0];
+        const {  startTime, name } = this.props.rowData[0]
         const historyData = this.props.rowData[0]
 
         function goToHistoryDetail() {
