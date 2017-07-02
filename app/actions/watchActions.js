@@ -1,18 +1,18 @@
+'use strict';
+
 import * as types from './actionTypes';
 
 export function startWatch(intervalId) {
   return {
     type: types.START_WATCH,
     startTime: Date.now(),
-    watchRunning: true,
     intervalId: intervalId
   };
 }
 
 export function stopWatch() {
   return {
-    type: types.STOP_WATCH,
-    watchRunning: false
+    type: types.STOP_WATCH
   };
 }
 
@@ -78,5 +78,12 @@ export function modeChange(mode) {
     return {
         type: types.MODE_CHANGE,
         timerMode: mode
+    }
+}
+
+export function addHistory(watchData) {
+    return {
+        type: types.ADD_HISTORY,
+        payload: watchData
     }
 }

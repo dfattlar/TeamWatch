@@ -1,3 +1,5 @@
+'use strict';
+
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -71,10 +73,10 @@ export default class AddAthleteModal extends Component {
     }
 
     render() {
-        const { watcher, closeModal, newAthleteInput, addAthlete, addAthleteError } = this.props;
+        const { watch, closeModal, newAthleteInput, addAthlete, addAthleteError } = this.props;
 
         function checkAthleteName() {
-            if (watcher.newAthleteInput.trim() === '') {
+            if (watch.newAthleteInput.trim() === '') {
                 addAthleteError();
             } else {
                 addAthlete();
@@ -82,7 +84,7 @@ export default class AddAthleteModal extends Component {
         }
 
         return (
-            <Modal visible={watcher.modalVisible}>
+            <Modal visible={watch.modalVisible}>
                 <View style={styles.modalContainer}>
                     <TouchableHighlight
                      onPress={closeModal}
@@ -96,9 +98,9 @@ export default class AddAthleteModal extends Component {
                           <TextInput
                             style={{height: 40, borderColor: 'gray', borderWidth: 1, paddingLeft: 10}}
                             onChangeText={(text) => newAthleteInput(text)}
-                            value={watcher.newAthleteInput}
+                            value={watch.newAthleteInput}
                           />
-                          <Text style={[styles.errorTextHidden, watcher.addAthleteError && styles.errorText]}>
+                          <Text style={[styles.errorTextHidden, watch.addAthleteError && styles.errorText]}>
                             Please add athlete's first and last name.
                           </Text>
 

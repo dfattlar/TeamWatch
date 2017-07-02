@@ -1,3 +1,5 @@
+'use strict';
+
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -33,7 +35,7 @@ export default class ResetButton extends Component {
     }
 
     render() {
-        const { watcher, resetAll, resetTime, resetAthleteList } = this.props;
+        const { watch, resetAll, resetTime, resetAthleteList } = this.props;
 
         return (
             <TouchableHighlight underlayColor="gray"
@@ -44,12 +46,12 @@ export default class ResetButton extends Component {
                 null,
                 [
                     {text: 'Reset Time And Splits Only', onPress: () => {
-                            clearInterval(watcher.intervalId);
+                            clearInterval(watch.intervalId);
                             resetTime();
                         }
                     },
                     {text: 'Reset Time and Athletes', onPress: () => {
-                            clearInterval(watcher.intervalId);
+                            clearInterval(watch.intervalId);
                             resetAll();
                             resetAthleteList();
                         }

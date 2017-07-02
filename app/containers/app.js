@@ -1,5 +1,7 @@
+'use strict';
+
 import React, { Component } from 'react';
-import { Text, View, AsyncStorage } from 'react-native';
+import { Text, View, AsyncStorage, StyleSheet } from 'react-native';
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider, connect } from 'react-redux';
 import {persistStore, autoRehydrate} from 'redux-persist'
@@ -7,9 +9,12 @@ import thunk from 'redux-thunk';
 import { Router, Scene, Actions } from 'react-native-router-flux';
 
 import * as reducers from '../reducers';
-import TeamWatchApp from './teamWatchApp';
-import AthleteStore from './athleteStore';
+import Watch from './watch';
+import Athletes from './athletes';
+import AthleteDetail from '../components/athleteDetail'
 import AddAthlete from './addAthlete';
+import History from './history';
+import HistoryDetail from '../components/historyDetail'
 import TabView from '../components/tabView';
 
 const store = createStore(
@@ -28,7 +33,7 @@ const RouterWithRedux = connect()(Router);
 class TabIcon extends React.Component {
     render() {
         return (
-            <Text style = {{color: this.props.selected ? 'red' : 'black'}} >
+            <Text style = {{color: this.props.selected ? '#90AABF' : 'black'}} >
                 { this.props.title }
             < /Text>
         );
@@ -64,14 +69,15 @@ export default class App extends Component {
                 <RouterWithRedux>
                     <Scene key="root" hideNavBar={true}>
                         <Scene key="tabbar" tabs={true}>
-                            <Scene key="watch" title="Watch" icon={TabIcon} component={TeamWatchApp} hideNavBar initial={true}/>
-                            <Scene key="athletes"  title="Athletes" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
-                                <Scene key="athleteList" component={AthleteStore} title="Athlete List" onRight={()=>{Actions.newAthlete()}} rightTitle="+ Add" />
-                                <Scene key="newAthlete" component={AddAthlete} title="Add Athlete" titleStyle={{color:'black'}}/>
+                            <Scene key="watch" title="Watch" icon={TabIcon} component={Watch} hideNavBar initial={true}/>
+                            <Scene key="athletes"  title="Athletes" icon={TabIcon} navigationBarStyle={styles.navColor} titleStyle={styles.navFont}>
+                                <Scene key="athleteList" component={Athletes} title="Athletes" onRight={()=>{Actions.newAthlete()}} rightTitle="+ Add" />
+                                <Scene key="newAthlete" component={AddAthlete} title="New Athlete" titleStyle={{color:'#fff'}}/>
+                                <Scene key="athleteDetail" component={AthleteDetail} title="Athlete"/>
                             </Scene>
-                            <Scene key="history"  title="History" icon={TabIcon} navigationBarStyle={{backgroundColor:'red'}} titleStyle={{color:'white'}}>
-                                <Scene key="historyList" component={TabView} title="History List" onRight={()=>alert("Right button")} rightTitle="Right" />
-                                <Scene key="historyDetail" component={TabView} title="Race" titleStyle={{color:'black'}}/>
+                            <Scene key="history"  title="History" icon={TabIcon} navigationBarStyle={styles.navColor} titleStyle={styles.navFont}>
+                                <Scene key="historyList" component={History} title="History" />
+                                <Scene key="historyDetail" component={HistoryDetail} title="Race" titleStyle={{color:'black'}}/>
                             </Scene>
                         </Scene>
                     </Scene>
@@ -80,3 +86,15 @@ export default class App extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    navColor: {
+        backgroundColor: '#90AABF'
+    },
+    navFont: {
+        color: '#fff'
+    },
+    tabFontActive: {
+        color: '#90AABF'
+    }
+})

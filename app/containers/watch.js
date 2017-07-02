@@ -7,8 +7,8 @@ import StartStopButton from '../components/startStopButton';
 import TimerModeButton from '../components/timerModeButton';
 import ResetButton from '../components/resetButton';
 import AddAthleteModal from '../components/addAthleteModal';
-import AthleteList from '../components/athleteList';
-import * as teamWatchActions from '../actions/teamWatchActions';
+import WatchAthletes from '../components/watchAthletes';
+import * as watchActions from '../actions/watchActions';
 import { RELAY } from '../constants.js';
 import { connect } from 'react-redux';
 import {
@@ -27,12 +27,13 @@ var styles = StyleSheet.create({
     },
     backgroundImg: {
         overflow: 'hidden',
+        backgroundColor: '#000',
         flex: 1,
         width: null,
         height: null
     },
     timerWrapper: {
-        alignItems: 'center',
+        alignItems: 'flex-start',
         flexDirection: 'row',
         marginLeft: 20,
         backgroundColor: 'transparent',
@@ -47,7 +48,8 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'flex-start',
-        flex: 2
+        flex: 3,
+        marginTop: -10
     },
     relayContainer: {
         backgroundColor: 'lightgray'
@@ -67,12 +69,13 @@ var styles = StyleSheet.create({
         flex: 1,
     },
     athleteListContainer: {
-        flex: 6,
-        backgroundColor: 'white'
+        flex: 5,
+        backgroundColor: 'white',
+        bottom: 45
     }
 });
 
-class TeamWatchApp extends Component {
+class Watch extends Component {
     constructor(props) {
         super(props);
     }
@@ -83,7 +86,7 @@ class TeamWatchApp extends Component {
 
         if(state.relayFinishTime && state.timerMode === RELAY) {
             relayFinishTime = (<Text style={styles.relayFinishTime}>
-                Relay Finish Time: {timeFormatting(state.relayFinishTime)}
+                Relay Finish Time: { timeFormatting(state.relayFinishTime) }
             </Text>);
         }
 
@@ -93,19 +96,18 @@ class TeamWatchApp extends Component {
                   barStyle="light-content"
                 />
                 <View style={styles.timerSection}>
-                    <Image
-                    style={styles.backgroundImg}
-                    source={require('../assets/background.png')}>
-                        <Navbar {...actions} />
+                    <View
+                    style={styles.backgroundImg}>
+                        <Navbar {...actions} watch={state} />
                         <View style={styles.timerWrapper}>
                             <Text style={styles.timerText}>{timeFormatting(state.time)}</Text>
                         </View>
                         <View style={[styles.buttonWrapper]}>
-                            <TimerModeButton watcher={state} {...actions} />
-                            <StartStopButton watcher={state} {...actions} />
-                            <ResetButton watcher={state} {...actions} />
+                            <TimerModeButton watch={state} {...actions} />
+                            <StartStopButton watch={state} {...actions} />
+                            <ResetButton watch={state} {...actions} />
                         </View>
-                    </Image>
+                    </View>
                 </View>
                 <View style={styles.athleteListContainer}>
                     <View style={styles.relayContainer}>
@@ -113,7 +115,7 @@ class TeamWatchApp extends Component {
                             {relayFinishTime}
                         </Text>
                     </View>
-                    <AthleteList watcher={state} {...actions} />
+                    <WatchAthletes watch={state} {...actions} />
                 </View>
             </View>
         );
@@ -140,9 +142,9 @@ function timeFormatting(time) {
 }
 
 export default connect(state => ({
-        state: state.watcher
+        state: state.watch
     }),
     (dispatch) => ({
-        actions: bindActionCreators(teamWatchActions, dispatch)
+        actions: bindActionCreators(watchActions, dispatch)
     })
-)(TeamWatchApp);
+)(Watch);
