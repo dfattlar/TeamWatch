@@ -98,7 +98,8 @@ export default connect(state => ({
 var styles = StyleSheet.create({
     container: {
         marginTop: 64,
-        flex: 1
+        flex: 1,
+        marginBottom: 50
     },
     noAthContainer: {
         alignItems: 'center'

@@ -68,7 +68,7 @@ export default class App extends Component {
             <Provider store={store}>
                 <RouterWithRedux>
                     <Scene key="root" hideNavBar={true}>
-                        <Scene key="tabbar" tabs={true}>
+                        <Scene key="tabbar" tabs={true} style={styles.tabBar}>
                             <Scene key="watch" title="Watch" icon={TabIcon} component={Watch} hideNavBar initial={true}/>
                             <Scene key="athletes"  title="Athletes" icon={TabIcon} navigationBarStyle={styles.navColor} titleStyle={styles.navFont}>
                                 <Scene key="athleteList" component={Athletes} title="Athletes" onRight={()=>{Actions.newAthlete()}} rightTitle="+ Add" />
@@ -96,5 +96,8 @@ const styles = StyleSheet.create({
     },
     tabFontActive: {
         color: '#90AABF'
+    },
+    tabBar: {
+        backgroundColor: '#d3d3d3'
     }
 })
