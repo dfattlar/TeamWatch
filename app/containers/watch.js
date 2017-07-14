@@ -9,6 +9,7 @@ import ResetButton from '../components/resetButton';
 import AddAthleteModal from '../components/addAthleteModal';
 import WatchAthletes from '../components/watchAthletes';
 import * as watchActions from '../actions/watchActions';
+import { timeFormatting } from '../util'
 import { RELAY } from '../constants.js';
 import { connect } from 'react-redux';
 import {
@@ -82,11 +83,14 @@ class Watch extends Component {
 
     render() {
         const { state, actions } = this.props;
+        const timeRelayTotal = timeFormatting(state.relayFinishTime)
+        const timeTotal = timeFormatting(state.time)
         let relayFinishTime;
 
         if(state.relayFinishTime && state.timerMode === RELAY) {
+            const time =
             relayFinishTime = (<Text style={styles.relayFinishTime}>
-                Relay Finish Time: { timeFormatting(state.relayFinishTime) }
+                Relay Finish Time: { timeRelayTotal.m } : {timeRelayTotal.s} . {timeRelayTotal.ms}
             </Text>);
         }
 
@@ -100,7 +104,7 @@ class Watch extends Component {
                     style={styles.backgroundImg}>
                         <Navbar {...actions} watch={state} />
                         <View style={styles.timerWrapper}>
-                            <Text style={styles.timerText}>{timeFormatting(state.time)}</Text>
+                            <Text style={styles.timerText}>{timeTotal.m} : {timeTotal.s} . {timeTotal.ms}</Text>
                         </View>
                         <View style={[styles.buttonWrapper]}>
                             <TimerModeButton watch={state} {...actions} />
@@ -120,25 +124,6 @@ class Watch extends Component {
             </View>
         );
     }
-}
-
-function timeFormatting(time) {
-    const pad = (time, length) => {
-        while (time.length < length) {
-            time = '0' + time;
-        }
-        return time;
-    }
-
-    time = new Date(time);
-    let m = pad(time.getMinutes().toString(), 2);
-    let s = pad(time.getSeconds().toString(), 2);
-    let msNow = time.getMilliseconds();
-    let msOffset = msNow % 10;
-    let msDisplay = (msNow - msOffset) / 10;
-    let ms = pad(msDisplay, 3);
-
-    return `${m} : ${s} . ${ms}`;
 }
 
 export default connect(state => ({

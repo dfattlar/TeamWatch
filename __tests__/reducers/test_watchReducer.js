@@ -87,7 +87,8 @@ describe('watch reducer', () => {
             {
                 ...initialState,
                 watchRunning: false,
-                relayFinishTime: 0
+                relayFinishTime: 0,
+                watchStop: 0
             }
         )
     })
@@ -98,6 +99,8 @@ describe('watch reducer', () => {
                 ...initialState,
                 athletesArray: [{name:'ath1',totalTime:6,splits:[1,2,3]},
                     {name:'ath2',totalTime:15,splits:[4,5,6]}],
+                startTime: 100,
+                time: 22
             }, {
                 type: types.STOP_WATCH
             })
@@ -106,8 +109,13 @@ describe('watch reducer', () => {
                 ...initialState,
                 watchRunning: false,
                 relayFinishTime: 21,
-                athletesArray: [{name:'ath1',totalTime:6,splits:[1,2,3]},
-                    {name:'ath2',totalTime:15,splits:[4,5,6]}],
+                startTime: 100,
+                time: 22,
+                athletesArray: [
+                    {name:'ath1',totalTime:6,splits:[1,2,3]},
+                    {name:'ath2',totalTime:15,splits:[4,5,6]}
+                ],
+                watchStop: 122
             }
         )
     })
@@ -117,6 +125,8 @@ describe('watch reducer', () => {
             reducer({
                 ...initialState,
                 timerMode: RELAY,
+                startTime: 100,
+                time: 25,
                 athletesArray: [{name:'ath1',totalTime:6,splits:[1,2,3]},
                     {name:'ath2',totalTime:15,splits:[4,5,6]},{name:'ath3',totalTime:'',splits:[]}],
             }, {
@@ -127,10 +137,13 @@ describe('watch reducer', () => {
                 ...initialState,
                 watchRunning: false,
                 timerMode: RELAY,
+                startTime: 100,
+                time: 25,
                 relayFinishTime: 21,
                 athletesArray: [{name:'ath1',totalTime:6,splits:[1,2,3]},
                     {name:'ath2',totalTime:15,splits:[4,5,6]},
-                    {name:'ath3',totalTime:'',splits:[]}]
+                    {name:'ath3',totalTime:'',splits:[]}],
+                watchStop: 125
             }
         )
     })

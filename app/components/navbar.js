@@ -58,7 +58,9 @@ export default class Navbar extends Component {
                     input => addHistory({
                         athletesArray: watch.athletesArray,
                         relayFinishTime: watch.relayFinishTime,
+                        timerMode: watch.timerMode,
                         startTime: watch.startTime,
+                        watchStop: watch.watchStop,
                         name: input
                     })
                 )

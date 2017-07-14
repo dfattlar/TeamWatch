@@ -37,12 +37,12 @@ describe('Watch Actions', () => {
         expect(actions.resetTime()).toEqual(expectedAction)
     })
 
-    it('should create an action to reset time values on watch', () => {
-        const expectedAction = {
-            type: types.RESET_ATHLETE_LIST
-        }
-        expect(actions.resetAthleteList()).toEqual(expectedAction)
-    })
+    // it('should create an action to reset time values on watch', () => {
+    //     const expectedAction = {
+    //         type: types.RESET_ATHLETE_LIST
+    //     }
+    //     expect(actions.resetAthleteList()).toEqual(expectedAction)
+    // })
 
     it('should create an action to trigger a tick', () => {
         Date.now = jest.genMockFunction().mockReturnValue(0);

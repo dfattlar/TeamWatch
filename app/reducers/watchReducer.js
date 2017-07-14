@@ -67,7 +67,8 @@ export default function watch(state = initialState, action = {}) {
                 ...state,
                 athletesArray: arrStop,
                 watchRunning: false,
-                relayFinishTime: relayFinishTime
+                relayFinishTime: relayFinishTime,
+                watchStop: state.startTime + state.time
             }
 
         case types.TICK:

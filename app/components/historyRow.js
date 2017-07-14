@@ -80,8 +80,8 @@ export default class HistoryRow extends Component {
     }
 
     render() {
-        const {  startTime, name } = this.props.rowData[0]
-        const historyData = this.props.rowData[0]
+        const {  startTime, name } = this.props.rowData
+        const historyData = this.props.rowData
 
         function goToHistoryDetail() {
             Actions.historyDetail(historyData)
