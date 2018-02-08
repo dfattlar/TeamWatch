@@ -28,6 +28,12 @@ export function resetTime() {
     }
 }
 
+export function resetAthleteList() {
+    return {
+        type: types.RESET_ATHLETE_LIST
+    }
+}
+
 export function tick() {
     return {
         type: types.TICK,
