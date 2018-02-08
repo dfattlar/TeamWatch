@@ -1,5 +1,6 @@
 export function timeFormatting(time) {
     const pad = (time, length) => {
+
         while (time.length < length) {
             time = '0' + time
         }
@@ -12,7 +13,7 @@ export function timeFormatting(time) {
     const msNow = time.getMilliseconds()
     const msOffset = msNow % 10
     const msDisplay = (msNow - msOffset) / 10
-    const ms = pad(msDisplay, 3)
+    const ms = pad(msDisplay.toString(), 2)
 
     return {
         m,
