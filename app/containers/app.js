@@ -7,6 +7,7 @@ import { Provider, connect } from 'react-redux';
 import {persistStore, autoRehydrate} from 'redux-persist'
 import thunk from 'redux-thunk';
 import { Router, Scene, Actions } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/Ionicons'
 
 import * as reducers from '../reducers';
 import Watch from './watch';
@@ -33,9 +34,7 @@ const RouterWithRedux = connect()(Router);
 class TabIcon extends React.Component {
     render() {
         return (
-            <Text style = {{color: this.props.selected ? '#90AABF' : 'black'}} >
-                { this.props.title }
-            < /Text>
+            <Icon name={this.props.iconName} size={30} color="#4F8EF7" />
         );
     }
 }
@@ -69,13 +68,13 @@ export default class App extends Component {
                 <RouterWithRedux>
                     <Scene key="root" hideNavBar={true}>
                         <Scene key="tabbar" tabs={true} style={styles.tabBar}>
-                            <Scene key="watch" title="Watch" icon={TabIcon} component={Watch} hideNavBar initial={true}/>
-                            <Scene key="athletes"  title="Athletes" icon={TabIcon} navigationBarStyle={styles.navColor} titleStyle={styles.navFont}>
+                            <Scene key="watch" title="Watch" iconName={"ios-stopwatch-outline"} icon={TabIcon} component={Watch} hideNavBar initial={true}/>
+                            <Scene key="athletes"  title="Athletes" iconName={"ios-contacts-outline"} icon={TabIcon} navigationBarStyle={styles.navColor} titleStyle={styles.navFont}>
                                 <Scene key="athleteList" component={Athletes} title="Athletes" onRight={()=>{Actions.newAthlete()}} rightTitle="+ Add" />
                                 <Scene key="newAthlete" component={AddAthlete} title="New Athlete" titleStyle={{color:'#fff'}}/>
                                 <Scene key="athleteDetail" component={AthleteDetail} title="Athlete"/>
                             </Scene>
-                            <Scene key="history"  title="History" icon={TabIcon} navigationBarStyle={styles.navColor} titleStyle={styles.navFont}>
+                            <Scene key="history"  title="History" iconName={"ios-list-box-outline"} icon={TabIcon} navigationBarStyle={styles.navColor} titleStyle={styles.navFont}>
                                 <Scene key="historyList" component={History} title="History" />
                                 <Scene key="historyDetail" component={HistoryDetail} title="Race" titleStyle={{color:'black'}}/>
                             </Scene>

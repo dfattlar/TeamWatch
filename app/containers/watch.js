@@ -1,17 +1,17 @@
-'use strict';
+'use strict'
 
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import Navbar from '../components/navbar';
-import StartStopButton from '../components/startStopButton';
-import TimerModeButton from '../components/timerModeButton';
-import ResetButton from '../components/resetButton';
-import AddAthleteModal from '../components/addAthleteModal';
-import WatchAthletes from '../components/watchAthletes';
-import * as watchActions from '../actions/watchActions';
+import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import Navbar from '../components/navbar'
+import StartStopButton from '../components/startStopButton'
+import TimerModeButton from '../components/timerModeButton'
+import ResetButton from '../components/resetButton'
+import AddAthleteModal from '../components/addAthleteModal'
+import WatchAthletes from '../components/watchAthletes'
+import * as watchActions from '../actions/watchActions'
 import { timeFormatting } from '../util'
-import { RELAY } from '../constants.js';
-import { connect } from 'react-redux';
+import { RELAY } from '../constants.js'
+import { connect } from 'react-redux'
 import {
     View,
     StyleSheet,
@@ -19,7 +19,7 @@ import {
     TouchableHighlight,
     Image,
     StatusBar
-} from 'react-native';
+} from 'react-native'
 
 // style the react component
 var styles = StyleSheet.create({
@@ -28,7 +28,7 @@ var styles = StyleSheet.create({
     },
     backgroundImg: {
         overflow: 'hidden',
-        backgroundColor: '#000',
+        backgroundColor: '#d3d3d3',
         flex: 1,
         width: null,
         height: null
@@ -74,24 +74,23 @@ var styles = StyleSheet.create({
         backgroundColor: 'white',
         bottom: 45
     }
-});
+})
 
 class Watch extends Component {
     constructor(props) {
-        super(props);
+        super(props)
     }
 
     render() {
-        const { state, actions } = this.props;
+        const { state, actions } = this.props
         const timeRelayTotal = timeFormatting(state.relayFinishTime)
         const timeTotal = timeFormatting(state.time)
-        let relayFinishTime;
+        let relayFinishTime
 
         if(state.relayFinishTime && state.timerMode === RELAY) {
-            const time =
             relayFinishTime = (<Text style={styles.relayFinishTime}>
                 Relay Finish Time: { timeRelayTotal.m } : {timeRelayTotal.s} . {timeRelayTotal.ms}
-            </Text>);
+            </Text>)
         }
 
         return (
@@ -122,7 +121,7 @@ class Watch extends Component {
                     <WatchAthletes watch={state} {...actions} />
                 </View>
             </View>
-        );
+        )
     }
 }
 
@@ -132,4 +131,4 @@ export default connect(state => ({
     (dispatch) => ({
         actions: bindActionCreators(watchActions, dispatch)
     })
-)(Watch);
+)(Watch)

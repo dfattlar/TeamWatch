@@ -35,6 +35,12 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center',
+        shadowColor: 'black',
+        shadowOffset:  {
+            width: 1,
+            height: 1
+        },
+        shadowOpacity: 0.3
     },
     athleteRowNameText: {
         fontSize: 24,

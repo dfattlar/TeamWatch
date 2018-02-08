@@ -9,6 +9,8 @@ import {
   Platform,
   AlertIOS
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons'
+
 const styles = StyleSheet.create({
     toolbar: {
         backgroundColor: 'transparent',
@@ -86,7 +88,7 @@ export default class Navbar extends Component {
                       onPress={callAddHistory}
                       style={styles.saveButton}
                     >
-                        <Text style={styles.saveText}>Save</Text>
+                        <Icon name="ios-share-outline" size={20} color="#4F8EF7"/>
                     </TouchableHighlight>
                 </View>
             </View>

@@ -13,9 +13,9 @@ import {
 const styles = StyleSheet.create({
     button: {
         borderWidth: 1,
-        height: 45,
-        width: 80,
-        borderRadius: 8,
+        height: 40,
+        width: 100,
+        borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
         borderColor: 'white',
