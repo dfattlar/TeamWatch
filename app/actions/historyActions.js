@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-import * as types from './actionTypes';
+import * as types from "./actionTypes";
 
 export function deleteHistory(id) {
-    return {
-        type: types.DELETE_HISTORY,
-        id
-    }
+  return {
+    type: types.DELETE_HISTORY,
+    id
+  };
 }

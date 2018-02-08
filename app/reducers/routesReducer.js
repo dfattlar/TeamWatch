@@ -1,21 +1,21 @@
-'use strict';
+"use strict";
 
 const initialState = {
-    scene: {},
+  scene: {}
 };
 
 export default function routes(state = initialState, action = {}) {
-    switch (action.type) {
-        // focus action is dispatched when a new screen comes into focus
-        case "focus":
-            return {
-                ...state,
-                scene: action.scene,
-            };
+  switch (action.type) {
+    // focus action is dispatched when a new screen comes into focus
+    case "focus":
+      return {
+        ...state,
+        scene: action.scene
+      };
 
-            // ...other actions
+    // ...other actions
 
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 }

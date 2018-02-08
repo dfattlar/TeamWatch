@@ -1,63 +1,63 @@
-'use strict';
+"use strict";
 
-import { RACE, RELAY } from '../constants';
-import React, { Component } from 'react';
+import { RACE, RELAY } from "../constants";
+import React, { Component } from "react";
 import {
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
   TouchableHighlight
-} from 'react-native';
+} from "react-native";
 
 const styles = StyleSheet.create({
-    button: {
-        borderWidth: 1,
-        height: 40,
-        width: 100,
-        borderRadius: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: 'white',
-        marginTop: 24
-    },
-    buttonText: {
-        color: 'white'
-    }
+  button: {
+    borderWidth: 1,
+    height: 40,
+    width: 100,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "white",
+    marginTop: 24
+  },
+  buttonText: {
+    color: "white"
+  }
 });
 
 let intervalId;
 
 export default class TimeModeButton extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const { watch, modeChange } = this.props;
+    let depStyle = watch.timerMode ? styles.stopButton : styles.startButton;
+
+    function callModeChange() {
+      const timerMode = watch.timerMode;
+      if (timerMode === RACE) {
+        modeChange(RELAY);
+      } else {
+        modeChange(RACE);
+      }
     }
 
-    render() {
-        const { watch, modeChange } = this.props;
-        let depStyle = watch.timerMode ? styles.stopButton : styles.startButton;
-
-        function callModeChange() {
-            const timerMode = watch.timerMode;
-            if (timerMode === RACE) {
-                modeChange(RELAY);
-            } else {
-                modeChange(RACE);
-            }
-        }
-
-        return (
-            <View>
-                <TouchableHighlight
-                  underlayColor="gray"
-                  onPress={callModeChange}
-                  style = {styles.button}
-                >
-                    <Text style={[styles.buttonText]}>
-                        {watch.timerMode === RACE ? RACE : RELAY}
-                    </Text>
-                </TouchableHighlight>
-            </View>
-        );
-    }
+    return (
+      <View>
+        <TouchableHighlight
+          underlayColor="gray"
+          onPress={callModeChange}
+          style={styles.button}
+        >
+          <Text style={[styles.buttonText]}>
+            {watch.timerMode === RACE ? RACE : RELAY}
+          </Text>
+        </TouchableHighlight>
+      </View>
+    );
+  }
 }

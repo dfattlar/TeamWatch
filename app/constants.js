@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
-export const RACE = 'RACE';
-export const RELAY = 'RELAY';
+export const RACE = "RACE";
+export const RELAY = "RELAY";
