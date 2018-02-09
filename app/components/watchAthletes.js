@@ -46,6 +46,7 @@ export default class WatchAthletes extends Component {
             <WatchAthleteRow
               rowData={rowData}
               addSplit={addSplit}
+              watchRunning={watch.watchRunning}
               routeParent={{ routeParent: "watch" }}
             />
           );

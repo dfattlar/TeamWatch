@@ -92,7 +92,7 @@ export default class WatchAthleteRow extends Component {
   render() {
     const { name, splits, id, colorId, totalTime } = this.props.rowData;
     const { routeParent } = this.props.routeParent;
-    const { addSplit } = this.props;
+    const { addSplit, watchRunning } = this.props;
     const initials = name
       .split(" ")
       .map(function(i) {
@@ -129,6 +129,7 @@ export default class WatchAthleteRow extends Component {
       return (
         <TouchableHighlight
           onPress={() => {
+            if (!watchRunning) return;
             Animated.spring(this.state.scale, {
               toValue: 2,
               friction: 5
@@ -136,7 +137,7 @@ export default class WatchAthleteRow extends Component {
               // reset scale to 0 on complete
               this.state.scale.setValue(0);
             });
-            addSplit(id);
+            return addSplit(id);
           }}
           style={[styles.athleteRow]}
         >
