@@ -125,11 +125,16 @@ class Watch extends Component {
   }
 }
 
-export default connect(
-  state => ({
+function mapStateToProps(state) {
+  return {
     state: state.watch
-  }),
-  dispatch => ({
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
     actions: bindActionCreators(watchActions, dispatch)
-  })
-)(Watch);
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Watch);
