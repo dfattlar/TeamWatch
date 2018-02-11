@@ -123,6 +123,7 @@ export default class AthleteRow extends Component {
           <TouchableHighlight
             onPress={this.addAthleteCheck}
             style={styles.addTouchArea}
+            underlayColor={"transparent"}
           >
             <View style={styles.buttonContainer}>
               <View style={styles.athleteAddButton}>
@@ -135,6 +136,7 @@ export default class AthleteRow extends Component {
           <TouchableHighlight
             onPress={this.addAthleteCheck}
             style={styles.nameTouchContainer}
+            underlayColor={"transparent"}
           >
             <View style={styles.nameContainer}>
               <Text style={styles.athleteRowNameText}>{name}</Text>

@@ -128,8 +128,8 @@ export default class WatchAthleteRow extends Component {
     } else {
       return (
         <TouchableHighlight
+          underlayColor={"#f3f3f3"}
           onPress={() => {
-            if (!watchRunning) return;
             Animated.spring(this.state.scale, {
               toValue: 2,
               friction: 5
@@ -137,7 +137,11 @@ export default class WatchAthleteRow extends Component {
               // reset scale to 0 on complete
               this.state.scale.setValue(0);
             });
-            return addSplit(id);
+            if (!watchRunning) {
+              return;
+            } else {
+              return addSplit(id);
+            }
           }}
           style={[styles.athleteRow]}
         >
