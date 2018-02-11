@@ -1,6 +1,5 @@
 "use strict";
 
-import moment from "moment";
 import React, { Component } from "react";
 import {
   StyleSheet,
@@ -10,6 +9,7 @@ import {
   TouchableHighlight,
   Animated
 } from "react-native";
+import { formatSplit } from "../util";
 
 const athleteColors = ["#51EC91", "#433C3C", "#91897D", "#8AF4B6", "#90AABF"];
 const styles = StyleSheet.create({
@@ -178,26 +178,4 @@ export default class WatchAthleteRow extends Component {
       );
     }
   }
-}
-
-function formatSplit(split) {
-  let formattedSplit;
-  if (split === "") {
-    return split;
-  }
-
-  if (split < 1000) {
-    formattedSplit = moment(split).format(".SS");
-  } else if (split < 10000) {
-    formattedSplit = moment(split).format("s.SS");
-  } else if (split < 60000) {
-    formattedSplit = moment(split).format("ss.SS");
-  } else if (split < 600000) {
-    formattedSplit = moment(split).format("m:ss.SS");
-  } else if (split < 3600000) {
-    formattedSplit = moment(split).format("mm:ss.SS");
-  } else {
-    formattedSplit = moment(split).format("h:mm:ss.SS");
-  }
-  return formattedSplit;
 }
