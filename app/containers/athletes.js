@@ -89,14 +89,19 @@ class AthleteStore extends Component {
   }
 }
 
-export default connect(
-  state => ({
+function mapStateToProps(state) {
+  return {
     state: state
-  }),
-  dispatch => ({
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
     actions: bindActionCreators(athleteActions, dispatch)
-  })
-)(AthleteStore);
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AthleteStore);
 
 // style the react component
 var styles = StyleSheet.create({

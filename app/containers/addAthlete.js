@@ -73,14 +73,19 @@ class AddAthlete extends Component {
   }
 }
 
-export default connect(
-  state => ({
+function mapStateToProps(state) {
+  return {
     state: state.athlete
-  }),
-  dispatch => ({
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
     actions: bindActionCreators(athleteActions, dispatch)
-  })
-)(AddAthlete);
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddAthlete);
 
 // style the react component
 var styles = StyleSheet.create({

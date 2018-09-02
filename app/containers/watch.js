@@ -3,7 +3,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import Navbar from "../components/navbar";
-import StartStopButton from "../components/startStopButton";
 import TimerModeButton from "../components/timerModeButton";
 import ResetButton from "../components/resetButton";
 import AddAthleteModal from "../components/addAthleteModal";
@@ -43,7 +42,8 @@ var styles = StyleSheet.create({
   timerText: {
     fontSize: 70,
     color: "white",
-    fontWeight: "200"
+    fontWeight: "200",
+    paddingLeft: 20
   },
   buttonWrapper: {
     flexDirection: "row",
@@ -73,8 +73,29 @@ var styles = StyleSheet.create({
     flex: 5,
     backgroundColor: "white",
     bottom: 45
+  },
+  button: {
+    borderWidth: 2,
+    height: 90,
+    width: 90,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 24,
+    fontWeight: "200"
+  },
+  startButton: {
+    borderColor: "#51EC91"
+  },
+  stopButton: {
+    borderColor: "#433C3C"
   }
 });
+
+let intervalId;
 
 class Watch extends Component {
   constructor(props) {
@@ -83,8 +104,10 @@ class Watch extends Component {
 
   render() {
     const { state, actions } = this.props;
+    const { startWatch, stopWatch, tick } = actions;
     const timeRelayTotal = timeFormatting(state.relayFinishTime);
     const timeTotal = timeFormatting(state.time);
+    let depStyle = state.watchRunning ? styles.stopButton : styles.startButton;
     let relayFinishTime;
 
     if (state.relayFinishTime && state.timerMode === RELAY) {
@@ -94,6 +117,19 @@ class Watch extends Component {
           {timeRelayTotal.ms}
         </Text>
       );
+    }
+
+    function callStartStop() {
+      const watchRunning = state.watchRunning;
+      if (watchRunning) {
+        clearInterval(intervalId);
+        stopWatch();
+      } else {
+        intervalId = setInterval(() => {
+          tick();
+        });
+        startWatch(intervalId);
+      }
     }
 
     return (
@@ -109,7 +145,17 @@ class Watch extends Component {
             </View>
             <View style={[styles.buttonWrapper]}>
               <TimerModeButton watch={state} {...actions} />
-              <StartStopButton watch={state} {...actions} />
+              <View>
+                <TouchableHighlight
+                  underlayColor="lightgray"
+                  onPress={callStartStop}
+                  style={[styles.button, depStyle]}
+                >
+                  <Text style={[styles.buttonText]}>
+                    {state.watchRunning ? "STOP" : "START"}
+                  </Text>
+                </TouchableHighlight>
+              </View>
               <ResetButton watch={state} {...actions} />
             </View>
           </View>
@@ -125,11 +171,16 @@ class Watch extends Component {
   }
 }
 
-export default connect(
-  state => ({
+function mapStateToProps(state) {
+  return {
     state: state.watch
-  }),
-  dispatch => ({
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
     actions: bindActionCreators(watchActions, dispatch)
-  })
-)(Watch);
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Watch);

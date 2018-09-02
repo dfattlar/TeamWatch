@@ -29,7 +29,7 @@ export default function athlete(state = initialState, action = {}) {
     case types.ADD_ATHLETE:
       let newAthlete = {
         id: Math.random()
-          .toString(36)
+          .toString(12)
           .substring(7),
         name: state.newAthleteInput,
         onWatch: false

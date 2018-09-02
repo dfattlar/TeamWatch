@@ -21,8 +21,8 @@ export default function history(state = initialState, action = {}) {
       };
     case types.ADD_HISTORY:
       const id = Math.random()
-        .toString(36)
-        .substring(2);
+        .toString(12)
+        .substring(4);
       const payloadWithId = {
         ...action.payload,
         id

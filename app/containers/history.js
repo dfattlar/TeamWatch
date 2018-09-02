@@ -88,14 +88,19 @@ class History extends Component {
   }
 }
 
-export default connect(
-  state => ({
+function mapStateToProps(state) {
+  return {
     state: state
-  }),
-  dispatch => ({
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
     actions: bindActionCreators(historyActions, dispatch)
-  })
-)(History);
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(History);
 
 // style the react component
 var styles = StyleSheet.create({

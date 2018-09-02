@@ -18,7 +18,7 @@ describe("history reducer", () => {
       historyStore: [
         {
           watch: "ok",
-          id: "d1kkm3hpgszxil9rin0ugcik9"
+          id: "211879173a863"
         }
       ]
     });
@@ -95,7 +95,7 @@ describe("history reducer", () => {
           name: "test2",
           relayFinishTime: 4122,
           startTime: 1499014397509,
-          id: "d1kkm3hpgszxil9rin0ugcik9"
+          id: "211879173a863"
         }
       ]
     });
@@ -109,13 +109,13 @@ describe("history reducer", () => {
           historyStore: [
             {
               watch: "ok",
-              id: "d1kkm3hpgszxil9rin0ugcik9"
+              id: "211879173a8639"
             }
           ]
         },
         {
           type: types.DELETE_HISTORY,
-          id: "d1kkm3hpgszxil9rin0ugcik9"
+          id: "211879173a8639"
         }
       )
     ).toEqual({
@@ -132,21 +132,21 @@ describe("history reducer", () => {
           historyStore: [
             {
               watch: "ok",
-              id: "d1kkm3hpgszxil9rin0ugcik9"
+              id: "211879173a8639"
             },
             {
               watch: "ok",
-              id: "d1kkm3hpgszxil9rin0ugcik8"
+              id: "211879173a8638"
             },
             {
               watch: "ok",
-              id: "d1kkm3hpgszxil9rin0ugcik7"
+              id: "211879173a8637"
             }
           ]
         },
         {
           type: types.DELETE_HISTORY,
-          id: "d1kkm3hpgszxil9rin0ugcik8"
+          id: "211879173a8638"
         }
       )
     ).toEqual({
@@ -154,11 +154,11 @@ describe("history reducer", () => {
       historyStore: [
         {
           watch: "ok",
-          id: "d1kkm3hpgszxil9rin0ugcik9"
+          id: "211879173a8639"
         },
         {
           watch: "ok",
-          id: "d1kkm3hpgszxil9rin0ugcik7"
+          id: "211879173a8637"
         }
       ]
     });
@@ -172,21 +172,21 @@ describe("history reducer", () => {
           historyStore: [
             {
               watch: "ok",
-              id: "d1kkm3hpgszxil9rin0ugcik9"
+              id: "211879173a8639"
             },
             {
               watch: "ok",
-              id: "d1kkm3hpgszxil9rin0ugcik8"
+              id: "211879173a8638"
             },
             {
               watch: "ok",
-              id: "d1kkm3hpgszxil9rin0ugcik7"
+              id: "211879173a8637"
             }
           ]
         },
         {
           type: types.DELETE_HISTORY,
-          id: "d1kkm3hpgszxil9rin0ugcik7"
+          id: "211879173a8637"
         }
       )
     ).toEqual({
@@ -194,11 +194,11 @@ describe("history reducer", () => {
       historyStore: [
         {
           watch: "ok",
-          id: "d1kkm3hpgszxil9rin0ugcik9"
+          id: "211879173a8639"
         },
         {
           watch: "ok",
-          id: "d1kkm3hpgszxil9rin0ugcik8"
+          id: "211879173a8638"
         }
       ]
     });

@@ -41,7 +41,7 @@ describe("athlete reducer", () => {
       newAthleteInput: "",
       athleteStore: [
         {
-          id: "3hpgszxil9rin0ugcik9",
+          id: "879173a863",
           name: newAthleteInput,
           onWatch: false
         }
@@ -75,7 +75,7 @@ describe("athlete reducer", () => {
         { id: "id_123", name: "yyy", onWatch: true },
         { id: "id_456", name: "xxx", onWatch: false },
         {
-          id: "3hpgszxil9rin0ugcik9",
+          id: "879173a863",
           name: newAthleteInput,
           onWatch: false
         }
