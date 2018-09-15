@@ -5,7 +5,6 @@ import { bindActionCreators } from "redux";
 import Navbar from "../components/navbar";
 import TimerModeButton from "../components/timerModeButton";
 import ResetButton from "../components/resetButton";
-import AddAthleteModal from "../components/addAthleteModal";
 import WatchAthletes from "../components/watchAthletes";
 import * as watchActions from "../actions/watchActions";
 import { timeFormatting } from "../util";

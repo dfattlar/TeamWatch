@@ -2,36 +2,35 @@
 
 import * as types from "../actions/actionTypes";
 import { RACE, RELAY } from "../constants";
-import { REHYDRATE } from "redux-persist/constants";
+import { REHYDRATE } from "redux-persist/lib/constants";
 import React from "react";
 import * as _ from "lodash";
 
 const initialState = {
-  newAthleteInput: "",
+  newAthleteInputFirst: "",
+  newAthleteInputLast: "",
   addAthleteError: false,
   athleteStore: []
 };
 
 export default function athlete(state = initialState, action = {}) {
   switch (action.type) {
-    case REHYDRATE:
-      if (!action.payload.hasOwnProperty("athlete")) {
-        return state;
-      }
-      return {
-        ...action.payload.athlete
-      };
-    case types.NEW_ATHLETE_INPUT:
+    case types.NEW_ATHLETE_INPUT_FIRST:
       return {
         ...state,
-        newAthleteInput: action.newAthleteInput
+        newAthleteInputFirst: action.newAthleteInputFirst
+      };
+    case types.NEW_ATHLETE_INPUT_LAST:
+      return {
+        ...state,
+        newAthleteInputLast: action.newAthleteInputLast
       };
     case types.ADD_ATHLETE:
       let newAthlete = {
         id: Math.random()
           .toString(12)
           .substring(7),
-        name: state.newAthleteInput,
+        name: `${state.newAthleteInputFirst} ${state.newAthleteInputLast}`,
         onWatch: false
       };
       let arrUpdated = [...state.athleteStore, newAthlete];
@@ -39,7 +38,8 @@ export default function athlete(state = initialState, action = {}) {
         ...state,
         addAthleteError: false,
         athleteStore: arrUpdated,
-        newAthleteInput: ""
+        newAthleteInputFirst: "",
+        newAthleteInputLast: ""
       };
     case types.ADD_ATHLETE_ERROR:
       return {

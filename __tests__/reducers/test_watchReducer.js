@@ -239,7 +239,8 @@ describe("watch reducer", () => {
       ...initialState,
       modalVisible: true,
       addAthleteError: false,
-      newAthleteInput: ""
+      newAthleteInputFirst: "",
+      newAthleteInputLast: ""
     });
   });
 

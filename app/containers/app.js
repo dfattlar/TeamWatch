@@ -4,7 +4,9 @@ import React, { Component } from "react";
 import { Text, View, AsyncStorage, StyleSheet } from "react-native";
 import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 import { Provider, connect } from "react-redux";
-import { persistStore, autoRehydrate } from "redux-persist";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import { PersistGate } from "redux-persist/integration/react";
 import thunk from "redux-thunk";
 import { Router, Scene, Actions } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -17,17 +19,21 @@ import AddAthlete from "./addAthlete";
 import History from "./history";
 import HistoryDetail from "../components/historyDetail";
 import TabView from "../components/tabView";
+import Loading from "./loading";
+import SignUp from "./signUp";
+import Login from "./login";
 
-const store = createStore(
-  combineReducers(reducers),
-  undefined,
-  compose(
-    autoRehydrate({
-      log: true
-    }),
-    applyMiddleware(thunk)
-  )
-);
+const persistConfig = {
+  key: "root",
+  storage
+};
+
+const rootReducer = combineReducers(reducers);
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+let store = createStore(persistedReducer);
+let persistor = persistStore(store);
 
 const RouterWithRedux = connect()(Router);
 
@@ -45,84 +51,91 @@ export default class App extends Component {
     };
   }
 
-  componentWillMount() {
-    persistStore(store, { storage: AsyncStorage }, () => {
-      this.setState({
-        rehydrated: true
-      });
-    });
-  }
+  componentWillMount() {}
 
   render() {
-    if (!this.state.rehydrated) {
-      return (
-        <View>
-          <Text>Loading...</Text>
-        </View>
-      );
-    }
+    // if (!this.state.rehydrated) {
+    //   return (
+    //     <View>
+    //       <Text>Loading...</Text>
+    //     </View>
+    //   );
+    // }
     return (
       <Provider store={store}>
-        <RouterWithRedux>
-          <Scene key="root" hideNavBar={true}>
-            <Scene key="tabbar" tabs={true} style={styles.tabBar}>
+        <PersistGate loading={null} persistor={persistor}>
+          <RouterWithRedux>
+            <Scene key="root" hideNavBar={true}>
               <Scene
-                key="watch"
-                title="Watch"
-                iconName={"ios-stopwatch-outline"}
-                icon={TabIcon}
-                component={Watch}
+                key="loading"
+                component={Loading}
                 hideNavBar
                 initial={true}
               />
-              <Scene
-                key="athletes"
-                title="Athletes"
-                iconName={"ios-contacts-outline"}
-                icon={TabIcon}
-                navigationBarStyle={styles.navColor}
-                titleStyle={styles.navFont}
-              >
+              <Scene key="login" component={Login} hideNavBar />
+              <Scene key="signUp" component={SignUp} hideNavBar />
+              <Scene key="tabbar" tabs={true} style={styles.tabBar}>
                 <Scene
-                  key="athleteList"
-                  component={Athletes}
+                  key="watch"
+                  title="Watch"
+                  iconName={"md-stopwatch"}
+                  icon={TabIcon}
+                  component={Watch}
+                  hideNavBar
+                />
+                <Scene
+                  key="athletes"
                   title="Athletes"
-                  onRight={() => {
-                    Actions.newAthlete();
-                  }}
-                  rightTitle="+ Add"
-                />
+                  iconName={"md-contacts"}
+                  icon={TabIcon}
+                  navigationBarStyle={styles.navColor}
+                  titleStyle={styles.navFont}
+                >
+                  <Scene
+                    key="athleteList"
+                    component={Athletes}
+                    title="Athletes"
+                    onRight={() => {
+                      Actions.newAthlete();
+                    }}
+                    rightTitle="+ Add"
+                  />
+                  <Scene
+                    key="newAthlete"
+                    component={AddAthlete}
+                    title="New Athlete"
+                    titleStyle={{ color: "#fff" }}
+                  />
+                  <Scene
+                    key="athleteDetail"
+                    component={AthleteDetail}
+                    title="Athlete"
+                  />
+                </Scene>
                 <Scene
-                  key="newAthlete"
-                  component={AddAthlete}
-                  title="New Athlete"
-                  titleStyle={{ color: "#fff" }}
-                />
-                <Scene
-                  key="athleteDetail"
-                  component={AthleteDetail}
-                  title="Athlete"
-                />
-              </Scene>
-              <Scene
-                key="history"
-                title="History"
-                iconName={"ios-list-box-outline"}
-                icon={TabIcon}
-                navigationBarStyle={styles.navColor}
-                titleStyle={styles.navFont}
-              >
-                <Scene key="historyList" component={History} title="History" />
-                <Scene
-                  key="historyDetail"
-                  component={HistoryDetail}
-                  title="Race"
-                  titleStyle={{ color: "black" }}
-                />
+                  key="history"
+                  title="History"
+                  iconName={"md-list-box"}
+                  icon={TabIcon}
+                  navigationBarStyle={styles.navColor}
+                  titleStyle={styles.navFont}
+                >
+                  <Scene
+                    key="historyList"
+                    component={History}
+                    title="History"
+                  />
+                  <Scene
+                    key="historyDetail"
+                    component={HistoryDetail}
+                    title="Race"
+                    titleStyle={{ color: "black" }}
+                  />
+                </Scene>
               </Scene>
             </Scene>
-          </Scene>
-        </RouterWithRedux>
+          </RouterWithRedux>
+        </PersistGate>
       </Provider>
     );
   }

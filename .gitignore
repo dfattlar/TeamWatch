@@ -36,10 +36,13 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
+#firebase
+#
+ios/TeamWatch/GoogleService-Info.plist
+
 # BUCK
 buck-out/
 \.buckd/
-android/app/libs
 *.keystore
 
 # fastlane
@@ -47,8 +50,21 @@ android/app/libs
 # It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
 # screenshots whenever they are needed.
 # For more information about the recommended setup visit:
-# https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
+# https://docs.fastlane.tools/best-practices/source-control/
 
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots
+*/fastlane/report.xml
+*/fastlane/Preview.html
+*/fastlane/screenshots
+
+# Bundle artifact
+*.jsbundle
+ios/Pods/Headers
+ios/Pods/FirebaseDatabase
+ios/Pods/Firebase
+ios/Pods/FirebaseAuth
+ios/Pods/FirebaseInstanceID
+ios/Pods/FirebaseAnalytics
+ios/Pods/GoogleToolboxForMac
+ios/Pods/FirebaseCore
+ios/Pods/leveldb-library
+ios/Pods/GTMSessionFetcher

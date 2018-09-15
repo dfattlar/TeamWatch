@@ -2,10 +2,17 @@
 
 import * as types from "./actionTypes";
 
-export function newAthleteInput(name) {
+export function newAthleteInputFirst(firstName) {
   return {
-    type: types.NEW_ATHLETE_INPUT,
-    newAthleteInput: name
+    type: types.NEW_ATHLETE_INPUT_FIRST,
+    newAthleteInputFirst: firstName
+  };
+}
+
+export function newAthleteInputLast(lastName) {
+  return {
+    type: types.NEW_ATHLETE_INPUT_LAST,
+    newAthleteInputLast: lastName
   };
 }
 
