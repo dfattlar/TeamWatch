@@ -6,6 +6,8 @@ import * as athleteActions from "../actions/athleteActions";
 import * as constants from "../constants.js";
 import { connect } from "react-redux";
 import { Actions } from "react-native-router-flux";
+import firebase from "react-native-firebase";
+import { athletesRef } from "../config/firebase";
 import {
   View,
   StyleSheet,
@@ -26,20 +28,33 @@ class AddAthlete extends Component {
     const { state, actions } = this.props;
 
     function checkAthleteName() {
-      if (state.newAthleteInput.trim() === "") {
+      if (
+        state.athlete.newAthleteInputFirst.trim() === "" ||
+        state.athlete.newAthleteInputLast.trim() === ""
+      ) {
         actions.addAthleteError();
       } else {
+        // Update local state
         actions.addAthlete();
         Actions.athleteList();
+        // Update database
+
+        const userId = state.user.currentUser.uid;
+        athletesRef
+          .child(userId)
+          .push()
+          .set({
+            FirstName: state.athlete.newAthleteInputFirst,
+            LastName: state.athlete.newAthleteInputLast
+          });
       }
     }
 
     return (
       <View style={styles.container}>
         <View style={[styles.innerContainer]}>
-          <Text style={styles.formText}>
-            Add the athlete's first and last name:{" "}
-          </Text>
+          <Text style={styles.formText}>Add the athlete's name:</Text>
+          <Text style={styles.formText}>First Name:</Text>
           <TextInput
             style={{
               height: 40,
@@ -47,14 +62,25 @@ class AddAthlete extends Component {
               borderWidth: 1,
               paddingLeft: 10
             }}
-            onChangeText={text => actions.newAthleteInput(text)}
-            value={state.newAthleteInput}
+            onChangeText={text => actions.newAthleteInputFirst(text)}
+            value={state.athlete.newAthleteInputFirst}
+          />
+          <Text style={styles.formText}>Last Name:</Text>
+          <TextInput
+            style={{
+              height: 40,
+              borderColor: "gray",
+              borderWidth: 1,
+              paddingLeft: 10
+            }}
+            onChangeText={text => actions.newAthleteInputLast(text)}
+            value={state.athlete.newAthleteInputLast}
           />
           <Text
             style={[
               styles.formText,
               styles.errorTextHidden,
-              state.addAthleteError && styles.errorText
+              state.athlete.addAthleteError && styles.errorText
             ]}
           >
             Please add athlete's first and last name.
@@ -75,7 +101,7 @@ class AddAthlete extends Component {
 
 function mapStateToProps(state) {
   return {
-    state: state.athlete
+    state: state
   };
 }
 
