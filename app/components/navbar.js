@@ -86,7 +86,7 @@ export default class Navbar extends Component {
             onPress={callAddHistory}
             style={styles.saveButton}
           >
-            <Icon name="ios-share-outline" size={20} color="#4F8EF7" />
+            <Icon name="ios-share" size={20} color="#4F8EF7" />
           </TouchableHighlight>
         </View>
       </View>

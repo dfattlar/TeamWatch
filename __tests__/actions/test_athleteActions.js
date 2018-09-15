@@ -2,13 +2,26 @@ import * as actions from "../../app/actions/athleteActions";
 import * as types from "../../app/actions/ActionTypes";
 
 describe("Athlete Actions", () => {
-  it("should create an action to input a new athlete", () => {
-    const newAthleteInput = "Athlete1";
+  it("should create an action to update first name input of a new athlete", () => {
+    const newAthleteInputFirst = "AthleteFirst";
     const expectedAction = {
-      type: types.NEW_ATHLETE_INPUT,
-      newAthleteInput
+      type: types.NEW_ATHLETE_INPUT_FIRST,
+      newAthleteInputFirst
     };
-    expect(actions.newAthleteInput(newAthleteInput)).toEqual(expectedAction);
+    expect(actions.newAthleteInputFirst(newAthleteInputFirst)).toEqual(
+      expectedAction
+    );
+  });
+
+  it("should create an action to update first last input of a new athlete", () => {
+    const newAthleteInputLast = "AthleteLast";
+    const expectedAction = {
+      type: types.NEW_ATHLETE_INPUT_LAST,
+      newAthleteInputLast
+    };
+    expect(actions.newAthleteInputLast(newAthleteInputLast)).toEqual(
+      expectedAction
+    );
   });
 
   it("should create an action to add an athlete", () => {

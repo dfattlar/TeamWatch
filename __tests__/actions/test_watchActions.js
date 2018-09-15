@@ -3,7 +3,7 @@ import * as types from "../../app/actions/ActionTypes";
 
 describe("Watch Actions", () => {
   it("should create an action to start the watch", () => {
-    Date.now = jest.genMockFunction().mockReturnValue(0);
+    Date.now = jest.fn(() => 0);
     const startTime = Date.now();
     const watchRunning = true;
     const intervalId = "id_123";
@@ -13,7 +13,7 @@ describe("Watch Actions", () => {
       intervalId
     };
     expect(actions.startWatch(intervalId)).toEqual(expectedAction);
-    jest.resetAllMocks();
+    jest.fn().mockClear();
   });
 
   it("should create an action to stop the watch", () => {
@@ -45,14 +45,14 @@ describe("Watch Actions", () => {
   // })
 
   it("should create an action to trigger a tick", () => {
-    Date.now = jest.genMockFunction().mockReturnValue(0);
+    Date.now = jest.fn(() => 0);
     const date = Date.now();
     const expectedAction = {
       type: types.TICK,
       time: date
     };
     expect(actions.tick()).toEqual(expectedAction);
-    jest.resetAllMocks();
+    jest.fn().mockClear();
   });
 
   it("should create an action to open the modal", () => {
@@ -63,7 +63,7 @@ describe("Watch Actions", () => {
   });
 
   it("should create an action to add a split", () => {
-    Date.now = jest.genMockFunction().mockReturnValue(0);
+    Date.now = jest.fn(() => 0);
     const time = Date.now();
     const id = "id_123";
     const expectedAction = {
@@ -72,7 +72,7 @@ describe("Watch Actions", () => {
       id
     };
     expect(actions.addSplit(id)).toEqual(expectedAction);
-    jest.resetAllMocks();
+    jest.fn().mockClear();
   });
 
   it("should create an action to change the mode (race,relay)", () => {

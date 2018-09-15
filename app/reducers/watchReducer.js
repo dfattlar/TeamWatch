@@ -2,7 +2,7 @@
 
 import * as types from "../actions/actionTypes";
 import { RACE, RELAY } from "../constants";
-import { REHYDRATE } from "redux-persist/constants";
+import { REHYDRATE } from "redux-persist/lib/constants";
 import React from "react";
 import { ListView } from "react-native";
 
@@ -22,14 +22,6 @@ const initialState = {
 
 export default function watch(state = initialState, action = {}) {
   switch (action.type) {
-    case REHYDRATE:
-      if (!action.payload.hasOwnProperty("watch")) {
-        return state;
-      }
-      return {
-        ...action.payload.watch
-      };
-
     case types.START_WATCH:
       // clear athlete totalTimes
       const arrStart = state.athletesArray.map(function(athlete) {
@@ -110,7 +102,8 @@ export default function watch(state = initialState, action = {}) {
         ...state,
         modalVisible: true,
         addAthleteError: false,
-        newAthleteInput: ""
+        newAthleteInputFirst: "",
+        newAthleteInputLast: ""
       };
 
     case types.CLOSE_MODAL:

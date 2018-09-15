@@ -2,34 +2,50 @@ import reducer from "../../app/reducers/athletesReducer";
 import * as types from "../../app/actions/actionTypes";
 
 const initialState = {
-  newAthleteInput: "",
+  newAthleteInputFirst: "",
+  newAthleteInputLast: "",
   addAthleteError: false,
   athleteStore: []
 };
 
 describe("athlete reducer", () => {
-  it("should handle NEW_ATHLETE_INPUT", () => {
-    const newAthleteInput = "zzz";
+  it("should handle NEW_ATHLETE_INPUT_FIRST", () => {
+    const newAthleteInputFirst = "firstName";
     expect(
       reducer(undefined, {
-        type: types.NEW_ATHLETE_INPUT,
-        newAthleteInput: newAthleteInput
+        type: types.NEW_ATHLETE_INPUT_FIRST,
+        newAthleteInputFirst: newAthleteInputFirst
       })
     ).toEqual({
       ...initialState,
-      newAthleteInput
+      newAthleteInputFirst
+    });
+  });
+
+  it("should handle NEW_ATHLETE_INPUT_LAST", () => {
+    const newAthleteInputLast = "lastName";
+    expect(
+      reducer(undefined, {
+        type: types.NEW_ATHLETE_INPUT_LAST,
+        newAthleteInputLast: newAthleteInputLast
+      })
+    ).toEqual({
+      ...initialState,
+      newAthleteInputLast
     });
   });
 
   it("should handle ADD_ATHLETE first athlete", () => {
     Math.random = () => 0.36232365838707015;
 
-    const newAthleteInput = "zzz";
+    const newAthleteInputFirst = "firstName";
+    const newAthleteInputLast = "lastName";
     expect(
       reducer(
         {
           ...initialState,
-          newAthleteInput: newAthleteInput
+          newAthleteInputFirst: newAthleteInputFirst,
+          newAthleteInputLast: newAthleteInputLast
         },
         {
           type: types.ADD_ATHLETE
@@ -38,11 +54,12 @@ describe("athlete reducer", () => {
     ).toEqual({
       ...initialState,
       addAthleteError: false,
-      newAthleteInput: "",
+      newAthleteInputFirst: "",
+      newAthleteInputLast: "",
       athleteStore: [
         {
           id: "879173a863",
-          name: newAthleteInput,
+          name: `${newAthleteInputFirst} ${newAthleteInputLast}`,
           onWatch: false
         }
       ]
@@ -52,15 +69,17 @@ describe("athlete reducer", () => {
   it("should handle ADD_ATHLETE additional athletes", () => {
     Math.random = () => 0.36232365838707015;
 
-    const newAthleteInput = "zzz";
+    const newAthleteInputFirst = "firstName";
+    const newAthleteInputLast = "lastName";
     expect(
       reducer(
         {
           ...initialState,
-          newAthleteInput: newAthleteInput,
+          newAthleteInputFirst: newAthleteInputFirst,
+          newAthleteInputLast: newAthleteInputLast,
           athleteStore: [
             { id: "id_123", name: "yyy", onWatch: true },
-            { id: "id_456", name: "xxx", onWatch: false }
+            { id: "id_456", name: "firstName lastName", onWatch: false }
           ]
         },
         {
@@ -70,13 +89,14 @@ describe("athlete reducer", () => {
     ).toEqual({
       ...initialState,
       addAthleteError: false,
-      newAthleteInput: "",
+      newAthleteInputFirst: "",
+      newAthleteInputLast: "",
       athleteStore: [
         { id: "id_123", name: "yyy", onWatch: true },
-        { id: "id_456", name: "xxx", onWatch: false },
+        { id: "id_456", name: "firstName lastName", onWatch: false },
         {
           id: "879173a863",
-          name: newAthleteInput,
+          name: `${newAthleteInputFirst} ${newAthleteInputLast}`,
           onWatch: false
         }
       ]
@@ -116,7 +136,8 @@ describe("athlete reducer", () => {
     ).toEqual({
       ...initialState,
       addAthleteError: false,
-      newAthleteInput: "",
+      newAthleteInputFirst: "",
+      newAthleteInputLast: "",
       athleteStore: [
         { id: "id_123", name: "yyy", onWatch: true },
         { id: "id_456", name: "xxx", onWatch: true },
@@ -144,7 +165,8 @@ describe("athlete reducer", () => {
     ).toEqual({
       ...initialState,
       addAthleteError: false,
-      newAthleteInput: "",
+      newAthleteInputFirst: "",
+      newAthleteInputLast: "",
       athleteStore: [
         { id: "id_123", name: "yyy", onWatch: true },
         { id: "id_456", name: "xxx", onWatch: false },
@@ -171,7 +193,8 @@ describe("athlete reducer", () => {
     ).toEqual({
       ...initialState,
       addAthleteError: false,
-      newAthleteInput: "",
+      newAthleteInputFirst: "",
+      newAthleteInputLast: "",
       athleteStore: [
         { id: "id_123", name: "yyy", onWatch: false },
         { id: "id_456", name: "xxx", onWatch: false },

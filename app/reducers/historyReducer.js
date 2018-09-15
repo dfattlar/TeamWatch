@@ -1,7 +1,7 @@
 "use strict";
 
 import * as types from "../actions/actionTypes";
-import { REHYDRATE } from "redux-persist/constants";
+import { REHYDRATE } from "redux-persist/lib/constants";
 import React from "react";
 
 let initHistoryStore = [];
@@ -12,13 +12,6 @@ const initialState = {
 
 export default function history(state = initialState, action = {}) {
   switch (action.type) {
-    case REHYDRATE:
-      if (!action.payload.hasOwnProperty("history")) {
-        return state;
-      }
-      return {
-        ...action.payload.history
-      };
     case types.ADD_HISTORY:
       const id = Math.random()
         .toString(12)
