@@ -94,9 +94,9 @@ export function modeChange(mode) {
   };
 }
 
-export function addHistory(watchData) {
+export function addEvent(watchData) {
   return {
-    type: types.ADD_HISTORY,
+    type: types.ADD_EVENT,
     payload: watchData
   };
 }

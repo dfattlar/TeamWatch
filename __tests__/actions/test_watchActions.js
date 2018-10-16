@@ -84,12 +84,12 @@ describe("Watch Actions", () => {
     expect(actions.modeChange(timerMode)).toEqual(expectedAction);
   });
 
-  it("should create an action to add history", () => {
+  it("should create an action to add event", () => {
     const watchData = { time: 0 };
     const expectedAction = {
-      type: types.ADD_HISTORY,
+      type: types.ADD_EVENT,
       payload: watchData
     };
-    expect(actions.addHistory(watchData)).toEqual(expectedAction);
+    expect(actions.addEvent(watchData)).toEqual(expectedAction);
   });
 });

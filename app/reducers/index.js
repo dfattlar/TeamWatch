@@ -3,7 +3,7 @@
 import routes from "./routesReducer";
 import watch from "./watchReducer";
 import athlete from "./athletesReducer";
-import history from "./historyReducer";
+import event from "./eventReducer";
 import user from "./userReducer";
 
-export { routes, watch, athlete, history, user };
+export { routes, watch, athlete, event, user };
