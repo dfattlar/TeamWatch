@@ -4,11 +4,7 @@ import PropTypes from "prop-types";
 
 import TimerComponent from "./Component";
 
-class TimerContainer extends Component {
-  render() {
-    return <TimerComponent time={this.props.time} />;
-  }
-}
+const TimerContainer = props => <TimerComponent time={props.time} />;
 
 const mapStateToProps = state => {
   return {

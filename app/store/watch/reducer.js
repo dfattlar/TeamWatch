@@ -1,4 +1,8 @@
 import * as types from "./actionTypes";
+import {
+  ADD_ATHLETE_TO_WATCH,
+  REMOVE_ATHLETE_FROM_WATCH
+} from "../athletes/actionTypes";
 import { RACE } from "../../constants";
 
 const initialState = {
@@ -6,30 +10,29 @@ const initialState = {
   startTime: null,
   time: 0,
   id: 0,
-  // currentColorId: 0,
-  // modalVisible: false,
-  // newAthlete: "",
-  athletesArray: [],
+  currentColorId: 0,
+  modalVisible: false,
+  newAthlete: "",
+  athletesOnWatch: [],
   timerMode: RACE,
-  // lastRelaySplit: null,
-  relayFinishTime: null
+  lastRelaySplit: null,
+  relayFinishTime: 0
 };
 
 const watch = (state = initialState, action) => {
-  debugger;
   switch (action.type) {
     case types.START_WATCH:
       // clear athlete totalTimes
-      const arrStart = state.athletesArray.map(function(athlete) {
+      const arrStart = state.athletesOnWatch.map(function(athlete) {
         return {
           ...athlete,
-          totalTime: ""
+          totalTime: 0
         };
       });
 
       return {
         ...state,
-        athletesArray: arrStart,
+        athletesOnWatch: arrStart,
         watchRunning: true,
         intervalId: action.intervalId,
         startTime: state.startTime ? state.startTime : action.startTime,
@@ -37,22 +40,22 @@ const watch = (state = initialState, action) => {
       };
     case types.STOP_WATCH:
       let relayFinishTime = 0;
-      const arrStop = state.athletesArray.map(function(athlete) {
+      const arrStop = state.athletesOnWatch.map(function(athlete) {
         const splits = athlete.splits;
-        let totalTime = "";
+        let totalTime = 0;
         if (splits.length) {
           totalTime = splits.reduce((a, b) => a + b);
           relayFinishTime += totalTime;
         }
         return {
           ...athlete,
-          totalTime: totalTime
+          totalTime
         };
       });
 
       return {
         ...state,
-        athletesArray: arrStop,
+        athletesOnWatch: arrStop,
         watchRunning: false,
         relayFinishTime: relayFinishTime,
         watchStop: state.startTime + state.time
@@ -69,42 +72,118 @@ const watch = (state = initialState, action) => {
         ...state,
         time: 0,
         watchRunning: false,
-        athletesArray: [],
+        athletesOnWatch: [],
         id: 0,
         startTime: null,
-        relayFinishTime: null
+        relayFinishTime: 0
       };
     case types.RESET_TIME:
-      const resetAthleteSplitsArr = state.athletesArray.map(function(athlete) {
+      const resetAthleteSplitsArr = state.athletesOnWatch.map(function(
+        athlete
+      ) {
         return {
           ...athlete,
           splits: [],
-          totalTime: ""
+          totalTime: 0
         };
       });
       return {
         ...state,
         time: 0,
         watchRunning: false,
-        athletesArray: resetAthleteSplitsArr,
+        athletesOnWatch: resetAthleteSplitsArr,
         startTime: null,
-        relayFinishTime: null
+        relayFinishTime: 0
       };
-    // case types.CHAT_MESSAGE_LOADING:
-    //   return { ...state, sending: true, sendingError: null }
-    // case types.CHAT_MESSAGE_ERROR:
-    //   return { ...state, sending: false, sendingError: action.error }
-    // case types.CHAT_MESSAGE_SUCCESS:
-    //   return { ...state, sending: false, sendingError: null, message: '' }
-    // case types.CHAT_MESSAGE_UPDATE:
-    //   return { ...state, sending: false, message: action.text, sendingError: null }
-    // case types.CHAT_LOAD_MESSAGES_SUCCESS:
-    //   return { ...state, messages: action.messages, loadMessagesError: null }
-    // case types.CHAT_LOAD_MESSAGES_ERROR:
-    //   return { ...state, messages: null, loadMessagesError: action.error }
+    case types.ADD_SPLIT:
+      // don't add split if time has not started
+      if (!state.startTime) {
+        return state;
+      }
+
+      let athIndex; // track which athlete in array is being modified
+      // Add new split for Athlete
+      let athletes = state.athletesOnWatch.map((athlete, index) => {
+        if (athlete.id === action.id) {
+          athIndex = index;
+          const splits = _getNextSplit(
+            athlete.splits,
+            state.timerMode,
+            action,
+            state.lastRelaySplit,
+            state.startTime
+          );
+          const totalTime = splits.reduce((a, b) => a + b);
+          return {
+            ...athlete,
+            splits: splits,
+            totalTime
+          };
+        }
+        return athlete;
+      });
+
+      return {
+        ...state,
+        athletesOnWatch: athletes,
+        lastRelaySplit: action.splitTime
+      };
+    case ADD_ATHLETE_TO_WATCH:
+      const incId = state.id + 1;
+      const incColorId =
+        state.currentColorId + 1 >= 5 ? 0 : state.currentColorId + 1;
+      const newAthlete = {
+        id: action.payload.id,
+        name: action.payload.name,
+        splits: [],
+        colorId: incColorId,
+        totalTime: 0
+      };
+      const arrUpdated = [...state.athletesOnWatch, newAthlete];
+      return {
+        ...state,
+        modalVisible: false,
+        addAthleteError: false,
+        athletesOnWatch: arrUpdated,
+        id: incId,
+        currentColorId: incColorId
+      };
+    case REMOVE_ATHLETE_FROM_WATCH:
+      let athleteIndex;
+      // using 'some' method break loop when athlete is found
+      state.athletesOnWatch.some((athlete, index) => {
+        if (athlete.id === action.id) {
+          athleteIndex = index;
+          return true;
+        }
+      });
+
+      const updatedSource = [
+        ...state.athletesOnWatch.slice(0, athleteIndex),
+        ...state.athletesOnWatch.slice(athleteIndex + 1)
+      ];
+
+      return {
+        ...state,
+        athletesOnWatch: updatedSource
+      };
     default:
       return state;
   }
 };
 
 export default watch;
+
+function _getNextSplit(splits, timerMode, action, lastRelaySplit, startTime) {
+  let split;
+  if (timerMode === RACE) {
+    let prevSplit = splits.length
+      ? splits.reduce((a, b) => a + b) + startTime
+      : startTime;
+    split = action.splitTime - prevSplit;
+  } else {
+    split = action.splitTime - lastRelaySplit;
+  }
+
+  return [...splits, split];
+}

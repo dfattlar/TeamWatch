@@ -1,6 +1,7 @@
 "use strict";
 
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import {
   StyleSheet,
   View,
@@ -9,13 +10,13 @@ import {
   TouchableHighlight,
   Animated
 } from "react-native";
-import { formatSplit } from "../../../../../../util";
+import { formatSplit } from "../../../../../util";
 
 import styles from "./Styles";
 
 const athleteColors = ["#51EC91", "#433C3C", "#91897D", "#8AF4B6", "#90AABF"];
 
-export default class WatchAthleteRow extends Component {
+export default class WatchAthleteRowComponent extends Component {
   constructor(props) {
     super(props);
 
@@ -25,8 +26,7 @@ export default class WatchAthleteRow extends Component {
   }
 
   render() {
-    const { name, splits, id, colorId, totalTime } = this.props.rowData;
-    const { routeParent } = this.props.routeParent;
+    const { name, splits, id, colorId, totalTime } = this.props.item;
     const { addSplit, watchRunning } = this.props;
     const initials = name
       .split(" ")
@@ -58,32 +58,28 @@ export default class WatchAthleteRow extends Component {
       });
     }
 
-    if (routeParent === "event") {
-      return <View style={[styles.athleteRow]}>{buildRow()}</View>;
-    } else {
-      return (
-        <TouchableHighlight
-          underlayColor={"#f3f3f3"}
-          onPress={() => {
-            Animated.spring(this.state.scale, {
-              toValue: 2,
-              friction: 5
-            }).start(() => {
-              // reset scale to 0 on complete
-              this.state.scale.setValue(0);
-            });
-            if (!watchRunning) {
-              return;
-            } else {
-              return addSplit(id);
-            }
-          }}
-          style={[styles.athleteRow]}
-        >
-          {buildRow()}
-        </TouchableHighlight>
-      );
-    }
+    return (
+      <TouchableHighlight
+        underlayColor={"#f3f3f3"}
+        onPress={() => {
+          Animated.spring(this.state.scale, {
+            toValue: 2,
+            friction: 5
+          }).start(() => {
+            // reset scale to 0 on complete
+            this.state.scale.setValue(0);
+          });
+          if (!watchRunning) {
+            return;
+          } else {
+            return addSplit(id);
+          }
+        }}
+        style={[styles.athleteRow]}
+      >
+        {buildRow()}
+      </TouchableHighlight>
+    );
 
     function buildRow() {
       return (
@@ -114,3 +110,15 @@ export default class WatchAthleteRow extends Component {
     }
   }
 }
+
+WatchAthleteRowComponent.propTypes = {
+  watchRunning: PropTypes.bool.isRequired,
+  addSplit: PropTypes.func.isRequired,
+  item: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    splits: PropTypes.array.isRequired,
+    id: PropTypes.string.isRequired,
+    colorId: PropTypes.number.isRequired,
+    totalTime: PropTypes.number.isRequired
+  })
+};

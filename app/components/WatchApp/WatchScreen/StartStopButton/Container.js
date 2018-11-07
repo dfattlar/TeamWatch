@@ -11,24 +11,18 @@ import {
 
 import StartStopButtonComponent from "./Component";
 
-class StartStopButtonContainer extends Component {
-  render() {
-    return (
-      <StartStopButtonComponent
-        watchRunning={this.props.watchRunning}
-        startWatch={this.props.startWatch}
-        stopWatch={this.props.stopWatch}
-        tick={this.props.tick}
-      />
-    );
-  }
-}
+const StartStopButtonContainer = props => (
+  <StartStopButtonComponent
+    watchRunning={props.watchRunning}
+    startWatch={props.startWatch}
+    stopWatch={props.stopWatch}
+    tick={props.tick}
+  />
+);
 
-const mapStateToProps = state => {
-  return {
-    watchRunning: state.watch.watchRunning
-  };
-};
+const mapStateToProps = state => ({
+  watchRunning: state.watch.watchRunning
+});
 
 const mapDispatchToProps = {
   startWatch,

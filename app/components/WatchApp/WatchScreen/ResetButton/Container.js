@@ -2,35 +2,31 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { resetAll, resetTime, resetAthleteList } from "../../../../store/watch";
+import { resetAll, resetTime } from "../../../../store/watch";
+import { removeAllAthletesFromWatch } from "../../../../store/athletes";
 
 import ResetButtonComponent from "./Component";
 
-class ResetButtonContainer extends Component {
-  render() {
-    return (
-      <ResetButtonComponent
-        resetAll={this.props.resetAll}
-        resetTime={this.props.resetTime}
-        /*resetAthleteList={this.props.resetAthleteList}*/
-      />
-    );
-  }
-}
+const ResetButtonContainer = props => (
+  <ResetButtonComponent
+    resetAll={props.resetAll}
+    resetTime={props.resetTime}
+    removeAllAthletesFromWatch={props.removeAllAthletesFromWatch}
+  />
+);
 
-const mapStateToProps = () => {
-  return {};
-};
+const mapStateToProps = state => ({});
 
 const mapDispatchToProps = {
   resetAll,
-  resetTime
+  resetTime,
+  removeAllAthletesFromWatch
 };
 
 ResetButtonContainer.propTypes = {
   resetAll: PropTypes.func.isRequired,
-  resetTime: PropTypes.func.isRequired
-  // resetAthleteList: PropTypes.func.isRequired
+  resetTime: PropTypes.func.isRequired,
+  removeAllAthletesFromWatch: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(

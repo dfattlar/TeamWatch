@@ -37,6 +37,12 @@ export const resetTime = () => {
   };
 };
 
+export const addSplit = id => {
+  return dispatch => {
+    dispatch(addingSplit(id));
+  };
+};
+
 const startingWatch = intervalId => ({
   type: types.START_WATCH,
   startTime: Date.now(),
@@ -63,4 +69,10 @@ const resettingAll = timerMode => ({
 
 const resettingTime = timerMode => ({
   type: types.RESET_TIME
+});
+
+const addingSplit = id => ({
+  type: types.ADD_SPLIT,
+  id,
+  splitTime: Date.now()
 });

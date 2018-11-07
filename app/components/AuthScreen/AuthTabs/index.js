@@ -1,31 +1,31 @@
-import { TabNavigator } from 'react-navigation'
+import { createBottomTabNavigator } from "react-navigation";
 
-import LoginForm from './LoginForm'
-import SignUpForm from './SignUpForm'
+import LoginForm from "./LoginForm";
+import SignUpForm from "./SignUpForm";
 
 const routeConfigs = {
   Login: {
-    screen: LoginForm,
+    screen: LoginForm
   },
   SignUp: {
-    screen: SignUpForm,
-  },
-}
+    screen: SignUpForm
+  }
+};
 
 const tabBarOptions = {
   tabBarOptions: {
-    activeTintColor: '#88cc88',
-    inactiveTintColor: '#aaaaaa',
+    activeTintColor: "#88cc88",
+    inactiveTintColor: "#aaaaaa",
     showIcon: true,
     scrollEnabled: false,
     indicatorStyle: {
-      display: 'none',
+      display: "none"
     },
     style: {
-      backgroundColor: '#ffffff',
-    },
+      backgroundColor: "#ffffff"
+    }
   },
-  tabBarPosition: 'bottom'
-}
+  tabBarPosition: "bottom"
+};
 
-export default TabNavigator(routeConfigs, tabBarOptions)
+export default createBottomTabNavigator(routeConfigs, tabBarOptions);

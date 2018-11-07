@@ -11,12 +11,10 @@ export default class ResetButtonComponent extends Component {
     super();
 
     this.handleReset = () => {
-      debugger;
       Alert.alert("What would you like to reset?", null, [
         {
           text: "Reset Time And Splits Only",
           onPress: () => {
-            debugger;
             this.props.resetTime();
           }
         },
@@ -24,7 +22,7 @@ export default class ResetButtonComponent extends Component {
           text: "Reset Time and Athletes",
           onPress: () => {
             this.props.resetAll();
-            // this.props.resetAthleteList();
+            this.props.removeAllAthletesFromWatch();
           }
         },
         { text: "Cancel", onPress: () => console.log("cancelled") }
@@ -48,6 +46,6 @@ export default class ResetButtonComponent extends Component {
 
 ResetButtonComponent.propTypes = {
   resetAll: PropTypes.func.isRequired,
-  resetTime: PropTypes.func.isRequired
-  // resetAthleteList: PropTypes.func.isRequired
+  resetTime: PropTypes.func.isRequired,
+  removeAllAthletesFromWatch: PropTypes.func.isRequired
 };

@@ -6,16 +6,12 @@ import { modeChange } from "../../../../store/watch";
 
 import TimerModeButtonComponent from "./Component";
 
-class TimerModeButtonContainer extends Component {
-  render() {
-    return (
-      <TimerModeButtonComponent
-        timerMode={this.props.timerMode}
-        modeChange={this.props.modeChange}
-      />
-    );
-  }
-}
+const TimerModeButtonContainer = props => (
+  <TimerModeButtonComponent
+    timerMode={props.timerMode}
+    modeChange={props.modeChange}
+  />
+);
 
 const mapStateToProps = state => {
   return {
