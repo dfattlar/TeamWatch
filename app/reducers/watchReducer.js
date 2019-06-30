@@ -2,7 +2,7 @@
 
 import * as types from "../actions/actionTypes";
 import { RACE, RELAY } from "../constants";
-import { REHYDRATE } from "redux-persist/constants";
+import { REHYDRATE } from "redux-persist";
 import React from "react";
 import { ListView } from "react-native";
 
@@ -21,9 +21,10 @@ const initialState = {
 };
 
 export default function watch(state = initialState, action = {}) {
+  debugger;
   switch (action.type) {
     case REHYDRATE:
-      if (!action.payload.hasOwnProperty("watch")) {
+      if (!action.payload || !action.payload.hasOwnProperty("watch")) {
         return state;
       }
       return {

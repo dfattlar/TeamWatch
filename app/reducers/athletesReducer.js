@@ -2,7 +2,7 @@
 
 import * as types from "../actions/actionTypes";
 import { RACE, RELAY } from "../constants";
-import { REHYDRATE } from "redux-persist/constants";
+import { REHYDRATE } from "redux-persist";
 import React from "react";
 import * as _ from "lodash";
 
@@ -15,7 +15,7 @@ const initialState = {
 export default function athlete(state = initialState, action = {}) {
   switch (action.type) {
     case REHYDRATE:
-      if (!action.payload.hasOwnProperty("athlete")) {
+      if (!action.payload || !action.payload.hasOwnProperty("athlete")) {
         return state;
       }
       return {

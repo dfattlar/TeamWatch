@@ -2,7 +2,7 @@
 
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Actions } from "react-native-router-flux";
+import PropTypes from "prop-types";
 
 const styles = StyleSheet.create({
   container: {
@@ -35,5 +35,5 @@ export default class TabView extends React.Component {
 }
 
 TabView.contextTypes = {
-  drawer: React.PropTypes.object
+  drawer: PropTypes.object
 };
