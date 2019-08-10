@@ -9,6 +9,7 @@ import {
   Modal,
   TextInput
 } from "react-native";
+import { COLORS } from "../constants";
 
 const styles = StyleSheet.create({
   modalContainer: {
@@ -21,11 +22,12 @@ const styles = StyleSheet.create({
   innerContainer: {
     borderRadius: 10,
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: COLORS.BACKGROUND_LIGHT,
     padding: 20
   },
   modalLabel: {
-    fontSize: 16,
+    fontSize: 18,
+    fontFamily: "GothamRounded-Medium",
     paddingBottom: 20
   },
   modalButton: {
@@ -33,7 +35,7 @@ const styles = StyleSheet.create({
   },
   modalClose: {
     borderWidth: 2,
-    borderColor: "#fff",
+    borderColor: COLORS.BACKGROUND_LIGHT,
     borderRadius: 6,
     height: 40,
     width: 80,
@@ -42,14 +44,14 @@ const styles = StyleSheet.create({
     right: 20
   },
   modalCloseText: {
-    color: "white",
+    color: COLORS.FONT_LIGHT,
     textAlign: "center",
     paddingTop: 10
   },
   modalSaveButton: {
     marginTop: 10,
     borderWidth: 2,
-    borderColor: "#433C3C",
+    borderColor: COLORS.NAV_BUTTON,
     borderRadius: 6,
     height: 40,
     width: 120
@@ -60,10 +62,10 @@ const styles = StyleSheet.create({
     paddingTop: 10
   },
   errorTextHidden: {
-    color: "white"
+    color: COLORS.FONT_LIGHT
   },
   errorText: {
-    color: "red"
+    color: COLORS.FONT_ERRROR
   }
 });
 
@@ -95,7 +97,7 @@ export default class AddAthleteModal extends Component {
           <TouchableHighlight
             onPress={closeModal}
             style={[styles.modalClose]}
-            underlayColor="#a9d9d4"
+            underlayColor={COLORS.BUTTON_UNDERLAY}
           >
             <Text style={styles.modalCloseText}>Close</Text>
           </TouchableHighlight>
@@ -106,7 +108,7 @@ export default class AddAthleteModal extends Component {
             <TextInput
               style={{
                 height: 40,
-                borderColor: "gray",
+                borderColor: COLORS.BACKGROUND_CONTAINER,
                 borderWidth: 1,
                 paddingLeft: 10
               }}
@@ -125,7 +127,7 @@ export default class AddAthleteModal extends Component {
             <TouchableHighlight
               onPress={checkAthleteName}
               style={[styles.modalSaveButton, this.props.style]}
-              underlayColor="#a9d9d4"
+              underlayColor={COLORS.BUTTON_UNDERLAY}
             >
               <Text style={styles.modalSaveButtonText}>Add Athlete</Text>
             </TouchableHighlight>

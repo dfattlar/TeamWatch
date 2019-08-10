@@ -17,11 +17,11 @@ const initialState = {
   athletesArray: [],
   timerMode: RACE,
   lastRelaySplit: null,
-  relayFinishTime: null
+  relayFinishTime: null,
+  bestTime: 0
 };
 
 export default function watch(state = initialState, action = {}) {
-  debugger;
   switch (action.type) {
     case REHYDRATE:
       if (!action.payload || !action.payload.hasOwnProperty("watch")) {
@@ -51,16 +51,20 @@ export default function watch(state = initialState, action = {}) {
 
     case types.STOP_WATCH:
       let relayFinishTime = 0;
+      let bestTime = 0;
       const arrStop = state.athletesArray.map(function(athlete) {
         const splits = athlete.splits;
         let totalTime = "";
         if (splits.length) {
           totalTime = splits.reduce((a, b) => a + b);
+          if (totalTime < bestTime || !bestTime) {
+            bestTime = totalTime;
+          }
           relayFinishTime += totalTime;
         }
         return {
           ...athlete,
-          totalTime: totalTime
+          totalTime
         };
       });
 
@@ -69,7 +73,8 @@ export default function watch(state = initialState, action = {}) {
         athletesArray: arrStop,
         watchRunning: false,
         relayFinishTime: relayFinishTime,
-        watchStop: state.startTime + state.time
+        watchStop: state.startTime + state.time,
+        bestTime
       };
 
     case types.TICK:
@@ -86,7 +91,8 @@ export default function watch(state = initialState, action = {}) {
         athletesArray: [],
         id: 0,
         startTime: null,
-        relayFinishTime: null
+        relayFinishTime: null,
+        bestTime: 0
       };
 
     case types.RESET_TIME:
@@ -103,7 +109,8 @@ export default function watch(state = initialState, action = {}) {
         watchRunning: false,
         athletesArray: resetAthleteSplitsArr,
         startTime: null,
-        relayFinishTime: null
+        relayFinishTime: null,
+        bestTime: 0
       };
 
     case types.OPEN_MODAL:

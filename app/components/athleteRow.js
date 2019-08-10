@@ -11,8 +11,7 @@ import {
   Animated
 } from "react-native";
 import { Actions } from "react-native-router-flux";
-
-const athleteColors = ["#51EC91", "#433C3C", "#91897D", "#8AF4B6", "#90AABF"];
+import { COLORS } from "../constants";
 
 const styles = StyleSheet.create({
   athleteRow: {
@@ -20,16 +19,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    borderBottomColor: "#d3d3d3",
+    borderBottomColor: COLORS.BACKGROUND_CONTAINER,
     borderBottomWidth: 1,
-    backgroundColor: "#fff"
+    backgroundColor: COLORS.BACKGROUND_LIGHT
   },
   athleteAddButton: {
     height: 40,
     width: 40,
     borderRadius: 50,
     borderWidth: 0.8,
-    borderColor: "#d3d3d3",
+    borderColor: COLORS.BACKGROUND_CONTAINER,
     flex: 1,
     justifyContent: "center",
     alignItems: "center"
@@ -39,10 +38,10 @@ const styles = StyleSheet.create({
     width: 30,
     borderRadius: 50,
     margin: 4,
-    backgroundColor: "#51EC91"
+    backgroundColor: COLORS.SECONDARY
   },
   notOnWatch: {
-    backgroundColor: "white"
+    backgroundColor: COLORS.BACKGROUND_LIGHT
   },
   addTouchArea: {
     width: 80,
@@ -50,8 +49,9 @@ const styles = StyleSheet.create({
   },
   athleteRowNameText: {
     fontSize: 24,
-    color: "black",
-    fontWeight: "200"
+    color: COLORS.FONT_MEDIUM,
+    fontWeight: "200",
+    fontFamily: "GothamRounded-Medium"
   },
   buttonContainer: {
     flex: 1,

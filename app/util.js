@@ -11,17 +11,20 @@ export function timeFormatting(time) {
   };
 
   time = new Date(time);
-  const m = pad(time.getMinutes().toString(), 2);
-  const s = pad(time.getSeconds().toString(), 2);
+  const [m1, m2] = pad(time.getMinutes().toString(), 2).split("");
+  const [s1, s2] = pad(time.getSeconds().toString(), 2).split("");
   const msNow = time.getMilliseconds();
   const msOffset = msNow % 10;
   const msDisplay = (msNow - msOffset) / 10;
-  const ms = pad(msDisplay.toString(), 2);
+  const [ms1, ms2] = pad(msDisplay.toString(), 2).split("");
 
   return {
-    m,
-    s,
-    ms
+    m1,
+    m2,
+    s1,
+    s2,
+    ms1,
+    ms2
   };
 }
 

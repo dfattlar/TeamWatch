@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TouchableHighlight
 } from "react-native";
+import { COLORS } from "../constants";
 
 const styles = StyleSheet.create({
   button: {
@@ -19,15 +20,15 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   buttonText: {
-    color: "white",
+    color: COLORS.FONT_LIGHT,
     fontSize: 24,
-    fontWeight: "200"
+    fontFamily: "GothamRounded-Medium"
   },
   startButton: {
-    borderColor: "#51EC91"
+    borderColor: COLORS.BUTTON_START
   },
   stopButton: {
-    borderColor: "#433C3C"
+    borderColor: COLORS.BUTTON_START
   }
 });
 

@@ -3,7 +3,7 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import * as athleteActions from "../actions/athleteActions";
-import * as constants from "../constants.js";
+import { COLORS } from "../constants";
 import { connect } from "react-redux";
 import { Actions } from "react-native-router-flux";
 import {
@@ -30,23 +30,18 @@ class AddAthlete extends Component {
         actions.addAthleteError();
       } else {
         actions.addAthlete();
-        Actions.athleteList();
+        Actions.pop();
       }
     }
 
     return (
       <View style={styles.container}>
         <View style={[styles.innerContainer]}>
-          <Text style={styles.formText}>
+          <Text style={[styles.formText, styles.labelPadding]}>
             Add the athlete's first and last name:{" "}
           </Text>
           <TextInput
-            style={{
-              height: 40,
-              borderColor: "gray",
-              borderWidth: 1,
-              paddingLeft: 10
-            }}
+            style={styles.nameInput}
             onChangeText={text => actions.newAthleteInput(text)}
             value={state.newAthleteInput}
           />
@@ -85,39 +80,70 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddAthlete);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddAthlete);
 
 // style the react component
 var styles = StyleSheet.create({
   container: {
-    marginTop: 64,
+    marginTop: 20,
+    marginLeft: 10,
+    marginRight: 10,
     flex: 1,
     alignItems: "center"
   },
   formText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "200",
-    margin: 20
+    fontFamily: "GothamRounded-Medium",
+    paddingLeft: 10
+  },
+  labelPadding: {
+    paddingTop: 10,
+    paddingBottom: 5
   },
   errorTextHidden: {
     marginTop: 5,
-    color: "#fff"
+    color: COLORS.FONT_LIGHT,
+    fontFamily: "GothamRounded-Medium",
+    paddingLeft: 10
   },
   errorText: {
     color: "red"
   },
   modalSaveButton: {
-    backgroundColor: "#90aabf",
+    backgroundColor: COLORS.FONT_ERRROR,
     height: 40,
     borderRadius: 6,
-    borderWidth: 1,
-    borderColor: "#433c3c"
+    borderWidth: 1.5,
+    borderColor: COLORS.BACKGROUND_LIGHT,
+    marginRight: 10,
+    marginLeft: 10
   },
   modalSaveButtonText: {
-    color: "#fff",
+    color: COLORS.FONT_LIGHT,
     textAlign: "center",
     fontSize: 20,
     fontWeight: "normal",
-    marginTop: 6
+    marginTop: 8,
+    fontFamily: "GothamRounded-Medium"
+  },
+  nameInput: {
+    height: 40,
+    borderColor: COLORS.BACKGROUND_CONTAINER,
+    borderWidth: 1,
+    paddingLeft: 10,
+    borderRadius: 6,
+    marginRight: 10,
+    marginLeft: 10
+  },
+  innerContainer: {
+    backgroundColor: COLORS.BACKGROUND_LIGHT,
+    borderRadius: 6,
+    paddingTop: 6,
+    paddingBottom: 20,
+    width: "100%"
   }
 });

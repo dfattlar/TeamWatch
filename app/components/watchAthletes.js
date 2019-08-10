@@ -2,24 +2,12 @@
 
 import moment from "moment";
 import React, { Component } from "react";
-import { StyleSheet, ListView, ScrollView, View, Text } from "react-native";
+import { StyleSheet, FlatList, View, Text } from "react-native";
 import WatchAthleteRow from "./watchAthleteRow";
 
 export default class WatchAthletes extends Component {
   constructor(props) {
     super(props);
-    this.ds = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2
-    });
-    this.state = {
-      dataSource: this.ds.cloneWithRows(this.props.watch.athletesArray)
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      dataSource: this.ds.cloneWithRows(nextProps.watch.athletesArray)
-    });
   }
 
   render() {
@@ -37,20 +25,18 @@ export default class WatchAthletes extends Component {
       );
     }
     return (
-      <ListView
-        dataSource={this.state.dataSource}
+      <FlatList
+        data={this.props.watch.athletesArray}
         style={styles.athleteListView}
-        enableEmptySections={true}
-        renderRow={function(rowData) {
-          return (
-            <WatchAthleteRow
-              rowData={rowData}
-              addSplit={addSplit}
-              watchRunning={watch.watchRunning}
-              routeParent={{ routeParent: "watch" }}
-            />
-          );
-        }}
+        renderItem={rowData => (
+          <WatchAthleteRow
+            rowData={rowData}
+            addSplit={addSplit}
+            watchRunning={watch.watchRunning}
+            routeParent={{ routeParent: "watch" }}
+          />
+        )}
+        keyExtractor={(item, index) => index.toString()}
       />
     );
   }
@@ -65,11 +51,13 @@ const styles = StyleSheet.create({
   noAthTitle: {
     fontSize: 24,
     fontWeight: "200",
-    marginTop: 15
+    marginTop: 15,
+    fontFamily: "GothamRounded-Medium"
   },
   noAthText: {
     fontSize: 16,
     fontWeight: "200",
-    margin: 20
+    margin: 20,
+    fontFamily: "GothamRounded-Medium"
   }
 });

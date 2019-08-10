@@ -2,58 +2,47 @@
 
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
-import Navbar from "../components/navbar";
 import TimerModeButton from "../components/timerModeButton";
+import TimeAnimation from "../components/timeAnimation";
+import SaveModeButtonSwap from "../components/saveModeButtonSwap";
 import ResetButton from "../components/resetButton";
 import AddAthleteModal from "../components/addAthleteModal";
 import WatchAthletes from "../components/watchAthletes";
 import * as watchActions from "../actions/watchActions";
-import { timeFormatting } from "../util";
-import { RELAY } from "../constants.js";
 import { connect } from "react-redux";
 import {
   View,
   StyleSheet,
   Text,
   TouchableHighlight,
-  Image,
   StatusBar
 } from "react-native";
+import { COLORS } from "../constants";
 
 // style the react component
 var styles = StyleSheet.create({
   timerSection: {
-    flex: 4
+    flex: 3
   },
-  backgroundImg: {
-    overflow: "hidden",
-    backgroundColor: "#d3d3d3",
-    flex: 1,
-    width: null,
-    height: null
+  timerBackground: {
+    backgroundColor: COLORS.PRIMARY,
+    flex: 1
   },
   timerWrapper: {
-    alignItems: "flex-start",
-    flexDirection: "row",
-    marginLeft: 20,
     backgroundColor: "transparent",
-    flex: 2
-  },
-  timerText: {
-    fontSize: 70,
-    color: "white",
-    fontWeight: "200",
-    paddingLeft: 20
+    flex: 2,
+    marginTop: 35,
+    display: "flex",
+    justifyContent: "flex-end"
   },
   buttonWrapper: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: "flex-start",
-    flex: 3,
-    marginTop: -10
+    flex: 2
   },
   relayContainer: {
-    backgroundColor: "lightgray"
+    backgroundColor: COLORS.BACKGROUND_CONTAINER
   },
   relayText: {
     textAlign: "center",
@@ -63,19 +52,17 @@ var styles = StyleSheet.create({
     paddingBottom: 5
   },
   relayFinishTime: {
-    fontSize: 20,
-    marginTop: 20
+    fontSize: 20
   },
   appContainer: {
     flex: 1
   },
   athleteListContainer: {
     flex: 5,
-    backgroundColor: "white",
-    bottom: 45
+    backgroundColor: COLORS.BACKGROUND_LIGHT
   },
   button: {
-    borderWidth: 2,
+    borderWidth: 3,
     height: 90,
     width: 90,
     borderRadius: 50,
@@ -83,15 +70,15 @@ var styles = StyleSheet.create({
     alignItems: "center"
   },
   buttonText: {
-    color: "white",
-    fontSize: 24,
-    fontWeight: "200"
+    color: COLORS.WATCH_BUTTON,
+    fontSize: 22,
+    fontFamily: "GothamRounded-Medium"
   },
   startButton: {
-    borderColor: "#51EC91"
+    borderColor: COLORS.BUTTON_START
   },
   stopButton: {
-    borderColor: "#433C3C"
+    borderColor: COLORS.FONT_LIGHT
   }
 });
 
@@ -105,19 +92,9 @@ class Watch extends Component {
   render() {
     const { state, actions } = this.props;
     const { startWatch, stopWatch, tick } = actions;
-    const timeRelayTotal = timeFormatting(state.relayFinishTime);
-    const timeTotal = timeFormatting(state.time);
-    let depStyle = state.watchRunning ? styles.stopButton : styles.startButton;
-    let relayFinishTime;
-
-    if (state.relayFinishTime && state.timerMode === RELAY) {
-      relayFinishTime = (
-        <Text style={styles.relayFinishTime}>
-          Relay Finish Time: {timeRelayTotal.m} : {timeRelayTotal.s} .{" "}
-          {timeRelayTotal.ms}
-        </Text>
-      );
-    }
+    const depStyle = state.watchRunning
+      ? styles.stopButton
+      : styles.startButton;
 
     function callStartStop() {
       const watchRunning = state.watchRunning;
@@ -136,18 +113,20 @@ class Watch extends Component {
       <View style={styles.appContainer}>
         <StatusBar barStyle="light-content" />
         <View style={styles.timerSection}>
-          <View style={styles.backgroundImg}>
-            <Navbar {...actions} watch={state} />
+          <View style={styles.timerBackground}>
             <View style={styles.timerWrapper}>
-              <Text style={styles.timerText}>
-                {timeTotal.m} : {timeTotal.s} . {timeTotal.ms}
-              </Text>
+              <TimeAnimation
+                showHighlight={state.watchRunning === false && state.time !== 0}
+              />
             </View>
             <View style={[styles.buttonWrapper]}>
-              <TimerModeButton watch={state} {...actions} />
-              <View>
+              <SaveModeButtonSwap
+                watchRunning={state.watchRunning}
+                time={state.time}
+              />
+              <View style={{ marginBottom: 10 }}>
                 <TouchableHighlight
-                  underlayColor="lightgray"
+                  underlayColor={COLORS.BUTTON_START}
                   onPress={callStartStop}
                   style={[styles.button, depStyle]}
                 >
@@ -161,9 +140,6 @@ class Watch extends Component {
           </View>
         </View>
         <View style={styles.athleteListContainer}>
-          <View style={styles.relayContainer}>
-            <Text style={styles.relayText}>{relayFinishTime}</Text>
-          </View>
           <WatchAthletes watch={state} {...actions} />
         </View>
       </View>
@@ -183,4 +159,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Watch);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Watch);

@@ -10,8 +10,15 @@ import {
   Animated
 } from "react-native";
 import { formatSplit } from "../util";
+import { COLORS } from "../constants";
 
-const athleteColors = ["#51EC91", "#433C3C", "#91897D", "#8AF4B6", "#90AABF"];
+const athleteColors = [
+  COLORS.ATHLETE1,
+  COLORS.ATHLETE2,
+  COLORS.ATHLETE3,
+  COLORS.ATHLETE4,
+  COLORS.ATHLETE5
+];
 const styles = StyleSheet.create({
   athleteRow: {
     height: 80,
@@ -20,7 +27,7 @@ const styles = StyleSheet.create({
   },
   rowBorder: {
     flex: 13,
-    borderBottomColor: "#d3d3d3",
+    borderBottomColor: COLORS.BACKGROUND_CONTAINER,
     borderBottomWidth: 1,
     flexDirection: "row"
   },
@@ -35,7 +42,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: "black",
+    shadowColor: COLORS.BACKGROUND_DARK,
     shadowOffset: {
       width: 1,
       height: 1
@@ -44,20 +51,22 @@ const styles = StyleSheet.create({
   },
   athleteRowNameText: {
     fontSize: 24,
-    color: "#fff",
-    fontWeight: "300"
+    color: COLORS.FONT_LIGHT,
+    fontWeight: "300",
+    fontFamily: "GothamRounded-Medium",
+    paddingTop: 5
   },
   splits: {
     flexDirection: "row",
     flexWrap: "wrap",
     flex: 6,
     paddingLeft: 10,
-    height: 20
+    height: 40
   },
   split: {
-    paddingRight: 10,
+    paddingRight: 20,
     flexWrap: "wrap",
-    fontSize: 16,
+    fontSize: 22,
     fontWeight: "300"
   },
   rowButton: {
@@ -67,7 +76,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   rowButtonText: {
-    color: "#fff"
+    color: COLORS.FONT_LIGHT
   },
   totalTimeContainer: {
     flex: 3,
@@ -75,7 +84,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   totalTime: {
-    color: "#433C3C",
+    color: COLORS.FONT_MEDIUM,
     fontSize: 24
   }
 });
@@ -90,7 +99,7 @@ export default class WatchAthleteRow extends Component {
   }
 
   render() {
-    const { name, splits, id, colorId, totalTime } = this.props.rowData;
+    const { name, splits, id, colorId, totalTime } = this.props.rowData.item;
     const { routeParent } = this.props.routeParent;
     const { addSplit, watchRunning } = this.props;
     const initials = name
@@ -128,7 +137,7 @@ export default class WatchAthleteRow extends Component {
     } else {
       return (
         <TouchableHighlight
-          underlayColor={"#f3f3f3"}
+          underlayColor={COLORS.BUTTON_UNDERLAY}
           onPress={() => {
             Animated.spring(this.state.scale, {
               toValue: 2,

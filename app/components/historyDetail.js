@@ -1,38 +1,25 @@
 import React, { Component } from "react";
 import WatchAthleteRow from "./watchAthleteRow";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableHighlight,
-  Modal,
-  TextInput,
-  ListView
-} from "react-native";
+import { StyleSheet, View, Text, FlatList } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { RACE } from "../constants";
 import { timeFormatting, timeFormattingMonth } from "../util";
+import { COLORS } from "../constants";
 
 export default class HistoryDetail extends Component {
   constructor(props) {
     super(props);
-    this.ds = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2
-    });
-    this.state = {
-      dataSource: this.ds.cloneWithRows(this.props.athletesArray)
-    };
   }
 
   render() {
     const {
-      athletesArray,
       relayFinishTime,
       startTime,
-      name,
+      eventName,
       watchStop,
       timerMode
     } = this.props;
+
     const finish = timeFormatting(watchStop - startTime);
     const relay = timeFormatting(relayFinishTime);
     const { month, date, year } = timeFormattingMonth(startTime);
@@ -42,7 +29,10 @@ export default class HistoryDetail extends Component {
       } else {
         return (
           <Text style={styles.relayTime}>
-            Relay Finish Time: {relay.m}:{relay.s}.{relay.ms}
+            Relay Finish Time: {relay.m1}
+            {relay.m2}:{relay.s1}
+            {relay.s2}.{relay.ms1}
+            {relay.ms2}
           </Text>
         );
       }
@@ -51,27 +41,28 @@ export default class HistoryDetail extends Component {
     return (
       <View style={[styles.history]}>
         <View style={styles.textSection}>
-          <Text style={styles.raceName}>{name}</Text>
+          <Text style={styles.raceName}>{eventName}</Text>
           <Text style={styles.raceDate}>
             {month}/{date}/{year}
           </Text>
           {showRelayTime()}
           <Text style={styles.watchStop}>
-            Watch Finish Time: {finish.m}:{finish.s}.{finish.ms}
+            Watch Finish Time: {finish.m1}
+            {finish.m2}:{finish.s1}
+            {finish.s2}.{finish.ms1}
+            {finish.ms2}
           </Text>
         </View>
-        <ListView
-          dataSource={this.state.dataSource}
+        <FlatList
+          data={this.props.athletesArray}
           style={styles.athleteListView}
-          enableEmptySections={true}
-          renderRow={function(rowData) {
-            return (
-              <WatchAthleteRow
-                rowData={rowData}
-                routeParent={{ routeParent: "history" }}
-              />
-            );
-          }}
+          renderItem={rowData => (
+            <WatchAthleteRow
+              rowData={rowData}
+              routeParent={{ routeParent: "history" }}
+            />
+          )}
+          keyExtractor={(item, index) => index.toString()}
         />
       </View>
     );
@@ -80,8 +71,6 @@ export default class HistoryDetail extends Component {
 
 const styles = StyleSheet.create({
   history: {
-    marginTop: 64,
-    marginBottom: 50,
     flex: 1
   },
   athleteListView: {
@@ -91,26 +80,30 @@ const styles = StyleSheet.create({
     height: 140,
     alignItems: "center",
     justifyContent: "center",
-    borderBottomColor: "#d3d3d3",
+    borderBottomColor: COLORS.BACKGROUND_CONTAINER,
     borderBottomWidth: 1,
     marginBottom: 5
   },
   raceName: {
     fontSize: 40,
-    fontWeight: "200"
+    fontWeight: "200",
+    fontFamily: "GothamRounded-Medium"
   },
   raceDate: {
     fontSize: 14,
     fontWeight: "200",
-    marginBottom: 10
+    marginBottom: 10,
+    fontFamily: "GothamRounded-Medium"
   },
   watchStop: {
     fontSize: 18,
     fontWeight: "200",
-    marginTop: 5
+    marginTop: 5,
+    fontFamily: "GothamRounded-Medium"
   },
   relayTime: {
     fontSize: 18,
-    fontWeight: "200"
+    fontWeight: "200",
+    fontFamily: "GothamRounded-Medium"
   }
 });

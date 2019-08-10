@@ -10,17 +10,18 @@ import {
   TouchableHighlight
 } from "react-native";
 import { Actions } from "react-native-router-flux";
+import { COLORS } from "../constants";
 
 const styles = StyleSheet.create({
   athleteRow: {
     height: 80,
     flex: 1,
     flexDirection: "row",
-    backgroundColor: "#fff"
+    backgroundColor: COLORS.BACKGROUND_LIGHT
   },
   rowBorder: {
     flex: 13,
-    borderBottomColor: "#d3d3d3",
+    borderBottomColor: COLORS.BACKGROUND_CONTAINER,
     borderBottomWidth: 1,
     flexDirection: "row"
   },
@@ -38,8 +39,9 @@ const styles = StyleSheet.create({
   },
   athleteRowNameText: {
     fontSize: 24,
-    color: "#fff",
-    fontWeight: "300"
+    color: COLORS.FONT_LIGHT,
+    fontWeight: "300",
+    fontFamily: "GothamRounded-Medium"
   },
   splits: {
     flexDirection: "row",
@@ -52,7 +54,8 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     flexWrap: "wrap",
     fontSize: 16,
-    fontWeight: "300"
+    fontWeight: "300",
+    fontFamily: "GothamRounded-Medium"
   },
   rowButton: {
     height: 60,
@@ -61,7 +64,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   rowButtonText: {
-    color: "#fff"
+    color: COLORS.FONT_LIGHT
   },
   totalTimeContainer: {
     flex: 3,
@@ -69,8 +72,9 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   totalTime: {
-    color: "#433C3C",
-    fontSize: 24
+    color: COLORS.FONT_MEDIUM,
+    fontSize: 24,
+    fontFamily: "GothamRounded-Medium"
   }
 });
 
@@ -80,10 +84,11 @@ export default class HistoryRow extends Component {
   }
 
   render() {
-    const { startTime, name } = this.props.rowData;
-    const historyData = this.props.rowData;
+    const { startTime, name } = this.props.rowData.item;
+    const historyData = this.props.rowData.item;
 
     function goToHistoryDetail() {
+      historyData.eventName = historyData.name;
       Actions.historyDetail(historyData);
     }
 

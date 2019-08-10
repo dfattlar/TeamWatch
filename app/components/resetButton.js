@@ -10,20 +10,24 @@ import {
   Alert
 } from "react-native";
 import Navbar from "./navbar";
+import { COLORS } from "../constants";
 
 const styles = StyleSheet.create({
   button: {
-    borderWidth: 1,
+    borderWidth: 1.5,
     height: 40,
     width: 100,
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-    borderColor: "white",
+    borderColor: COLORS.WATCH_BUTTON,
     marginTop: 24
   },
   buttonText: {
-    color: "white"
+    color: COLORS.WATCH_BUTTON,
+    fontFamily: "GothamRounded-Medium",
+    fontSize: 16,
+    paddingTop: 4
   }
 });
 
@@ -39,10 +43,10 @@ export default class ResetButton extends Component {
 
     return (
       <TouchableHighlight
-        underlayColor="gray"
+        underlayColor={COLORS.BUTTON_UNDERLAY}
         style={[styles.button]}
-        underlayColor="lightgray"
-        onPress={() =>
+        onPress={() => {
+          clearInterval(watch.intervalId);
           Alert.alert("What would you like to reset?", null, [
             {
               text: "Reset Time And Splits Only",
@@ -60,8 +64,8 @@ export default class ResetButton extends Component {
               }
             },
             { text: "Cancel", onPress: () => console.log("cancelled") }
-          ])
-        }
+          ]);
+        }}
       >
         <Text style={[styles.buttonText]}>RESET</Text>
       </TouchableHighlight>

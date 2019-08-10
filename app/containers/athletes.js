@@ -3,7 +3,7 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import * as athleteActions from "../actions/athleteActions";
-import * as constants from "../constants.js";
+import { COLORS } from "../constants";
 import { connect } from "react-redux";
 import { Actions } from "react-native-router-flux";
 import AthleteRow from "../components/athleteRow";
@@ -67,7 +67,7 @@ class AthleteStore extends Component {
                   deleteAthleteConfirm(data.id);
                 }}
               >
-                <Text>Delete</Text>
+                <Text style="{styles.deleteText}">Delete</Text>
               </TouchableHighlight>
             )}
             disableRightSwipe={true}
@@ -101,14 +101,15 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AthleteStore);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AthleteStore);
 
 // style the react component
 var styles = StyleSheet.create({
   container: {
-    marginTop: 64,
-    flex: 1,
-    marginBottom: 50
+    flex: 1
   },
   noAthContainer: {
     alignItems: "center"
@@ -116,19 +117,24 @@ var styles = StyleSheet.create({
   noAthTitle: {
     fontSize: 24,
     fontWeight: "200",
-    marginTop: 15
+    marginTop: 15,
+    fontFamily: "GothamRounded-Medium"
   },
   noAthText: {
     fontSize: 16,
     fontWeight: "200",
-    margin: 20
+    margin: 20,
+    fontFamily: "GothamRounded-Medium"
   },
   rowBack: {
     alignItems: "center",
-    backgroundColor: "#DDD",
+    backgroundColor: COLORS.BACKGROUND_CONTAINER,
     flex: 1,
     flexDirection: "row",
     justifyContent: "flex-end",
     paddingRight: 15
+  },
+  deleteText: {
+    fontFamily: "GothamRounded-Medium"
   }
 });

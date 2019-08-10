@@ -18,7 +18,9 @@ import AthleteDetail from "../components/athleteDetail";
 import AddAthlete from "./addAthlete";
 import History from "./history";
 import HistoryDetail from "../components/historyDetail";
+import { COLORS } from "../constants";
 import TabView from "../components/tabView";
+import _backButtonImage from "../../node_modules/react-native-router-flux/images/back_chevron.png";
 
 const persistConfig = {
   key: "primary",
@@ -34,15 +36,27 @@ const persistor = persistStore(store);
 
 const RouterWithRedux = connect()(Router);
 
+function BackButton() {
+  return <Icon name={"ios-arrow-back"} size={30} color={COLORS.NAV_BUTTON} />;
+}
+
 class TabIcon extends React.Component {
   render() {
-    return <Icon name={this.props.iconName} size={30} color="#4F8EF7" />;
+    return (
+      <Icon name={this.props.iconName} size={30} color={COLORS.SECONDARY} />
+    );
   }
 }
 
 export default class AppContainer extends Component {
   constructor() {
     super();
+    this.handleBackButton = this.handleBackButton.bind(this);
+  }
+
+  handleBackButton() {
+    debugger;
+    return Actions.pop();
   }
 
   render() {
@@ -51,11 +65,18 @@ export default class AppContainer extends Component {
         <PersistGate loading={null} persistor={persistor}>
           <RouterWithRedux>
             <Scene key="root" hideNavBar={true}>
-              <Scene key="tabbar" tabs={true} style={styles.tabBar}>
+              <Scene
+                key="tabbar"
+                tabs={true}
+                style={styles.tabBar}
+                activeTintColor={COLORS.SECONDARY}
+                labelStyle={styles.tabFont}
+                showLabel={false}
+              >
                 <Scene
                   key="watch"
                   title="Watch"
-                  iconName={"ios-stopwatch-outline"}
+                  iconName={"ios-stopwatch"}
                   icon={TabIcon}
                   component={Watch}
                   hideNavBar
@@ -64,10 +85,11 @@ export default class AppContainer extends Component {
                 <Scene
                   key="athletes"
                   title="Athletes"
-                  iconName={"ios-contacts-outline"}
+                  iconName={"ios-contacts"}
                   icon={TabIcon}
                   navigationBarStyle={styles.navColor}
-                  titleStyle={styles.navFont}
+                  titleStyle={styles.navTitle}
+                  leftButtonTextStyle={styles.navBtn}
                 >
                   <Scene
                     key="athleteList"
@@ -77,12 +99,24 @@ export default class AppContainer extends Component {
                       Actions.newAthlete();
                     }}
                     rightTitle="+ Add"
+                    titleStyle={styles.navTitle}
+                    rightButtonTextStyle={styles.navBtn}
                   />
                   <Scene
                     key="newAthlete"
                     component={AddAthlete}
                     title="New Athlete"
-                    titleStyle={{ color: "#fff" }}
+                    titleStyle={styles.navTitle}
+                    onLeft={() => {
+                      Actions.pop();
+                    }}
+                    leftTitle={
+                      <Icon
+                        name={"ios-arrow-back"}
+                        size={30}
+                        color={COLORS.FONT_LIGHT}
+                      />
+                    }
                   />
                   <Scene
                     key="athleteDetail"
@@ -93,10 +127,10 @@ export default class AppContainer extends Component {
                 <Scene
                   key="history"
                   title="History"
-                  iconName={"ios-list-box-outline"}
+                  iconName={"ios-list-box"}
                   icon={TabIcon}
                   navigationBarStyle={styles.navColor}
-                  titleStyle={styles.navFont}
+                  titleStyle={styles.navTitle}
                 >
                   <Scene
                     key="historyList"
@@ -107,7 +141,17 @@ export default class AppContainer extends Component {
                     key="historyDetail"
                     component={HistoryDetail}
                     title="Race"
-                    titleStyle={{ color: "black" }}
+                    titleStyle={styles.navTitle}
+                    onLeft={() => {
+                      Actions.pop();
+                    }}
+                    leftTitle={
+                      <Icon
+                        name={"ios-arrow-back"}
+                        size={30}
+                        color={COLORS.FONT_LIGHT}
+                      />
+                    }
                   />
                 </Scene>
               </Scene>
@@ -121,15 +165,24 @@ export default class AppContainer extends Component {
 
 const styles = StyleSheet.create({
   navColor: {
-    backgroundColor: "#90AABF"
+    backgroundColor: COLORS.PRIMARY
   },
-  navFont: {
-    color: "#fff"
+  navTitle: {
+    color: COLORS.NAV_BUTTON,
+    fontFamily: "GothamRounded-Medium",
+    fontSize: 18
+  },
+  navBtn: {
+    color: COLORS.NAV_BUTTON,
+    fontFamily: "GothamRounded-Medium"
   },
   tabFontActive: {
-    color: "#90AABF"
+    color: COLORS.SECONDARY
   },
   tabBar: {
-    backgroundColor: "#d3d3d3"
+    backgroundColor: COLORS.BACKGROUND_CONTAINER
+  },
+  tabFont: {
+    fontFamily: "GothamRounded-Medium"
   }
 });

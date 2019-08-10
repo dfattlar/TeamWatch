@@ -10,6 +10,7 @@ import {
   AlertIOS
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import { COLORS } from "../constants";
 
 const styles = StyleSheet.create({
   toolbar: {
@@ -32,19 +33,15 @@ const styles = StyleSheet.create({
     flex: 4,
     justifyContent: "flex-end"
   },
-  toolbarButtonText: {
-    color: "#fff",
-    textAlign: "center"
-  },
   toolbarTitle: {
-    color: "#fff",
+    color: COLORS.FONT_LIGHT,
     fontSize: 24,
     fontWeight: "300",
     textAlign: "center"
   },
   saveText: {
     fontSize: 18,
-    color: "#fff"
+    color: COLORS.FONT_LIGHT
   }
 });
 
@@ -54,7 +51,7 @@ export default class Navbar extends Component {
 
     function callAddHistory() {
       if (Platform.OS === "ios") {
-        AlertIOS.prompt("Name this Race", null, input =>
+        AlertIOS.prompt("Name this Race", null, input => {
           addHistory({
             athletesArray: watch.athletesArray,
             relayFinishTime: watch.relayFinishTime,
@@ -62,8 +59,8 @@ export default class Navbar extends Component {
             startTime: watch.startTime,
             watchStop: watch.watchStop,
             name: input
-          })
-        );
+          });
+        });
       } else {
         addHistory({
           athletesArray: watch.athletesArray,
@@ -82,11 +79,11 @@ export default class Navbar extends Component {
         </View>
         <View style={styles.buttonContainer}>
           <TouchableHighlight
-            underlayColor="lightgray"
+            underlayColor={COLORS.BUTTON_UNDERLAY}
             onPress={callAddHistory}
             style={styles.saveButton}
           >
-            <Icon name="ios-share-outline" size={20} color="#4F8EF7" />
+            <Icon name="ios-share-outline" size={20} color={COLORS.SECONDARY} />
           </TouchableHighlight>
         </View>
       </View>
