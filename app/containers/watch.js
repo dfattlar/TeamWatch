@@ -82,8 +82,6 @@ var styles = StyleSheet.create({
   }
 });
 
-let intervalId;
-
 class Watch extends Component {
   constructor(props) {
     super(props);
@@ -91,7 +89,7 @@ class Watch extends Component {
 
   render() {
     const { state, actions } = this.props;
-    const { startWatch, stopWatch, tick } = actions;
+    const { startWatch, stopWatch } = actions;
     const depStyle = state.watchRunning
       ? styles.stopButton
       : styles.startButton;
@@ -99,13 +97,9 @@ class Watch extends Component {
     function callStartStop() {
       const watchRunning = state.watchRunning;
       if (watchRunning) {
-        clearInterval(intervalId);
         stopWatch();
       } else {
-        intervalId = setInterval(() => {
-          tick();
-        });
-        startWatch(intervalId);
+        startWatch();
       }
     }
 
@@ -116,19 +110,25 @@ class Watch extends Component {
           <View style={styles.timerBackground}>
             <View style={styles.timerWrapper}>
               <TimeAnimation
-                showHighlight={state.watchRunning === false && state.time !== 0}
+                showHighlight={
+                  state.watchRunning === false &&
+                  state.startTime &&
+                  state.stopTime
+                }
+                startTime={state.startTime}
               />
             </View>
             <View style={[styles.buttonWrapper]}>
               <SaveModeButtonSwap
                 watchRunning={state.watchRunning}
-                time={state.time}
+                startTime={state.startTime}
               />
               <View style={{ marginBottom: 10 }}>
                 <TouchableHighlight
                   underlayColor={COLORS.BUTTON_START}
                   onPress={callStartStop}
                   style={[styles.button, depStyle]}
+                  testID="StartButton"
                 >
                   <Text style={[styles.buttonText]}>
                     {state.watchRunning ? "STOP" : "START"}

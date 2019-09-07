@@ -7,25 +7,34 @@ import {
 describe("Time Formatting", () => {
   it("should return the minutes, seconds, milliseconds", () => {
     expect(timeFormatting(3495)).toEqual({
-      m: "00",
-      s: "03",
-      ms: "49"
+      m1: "0",
+      m2: "0",
+      s1: "0",
+      s2: "3",
+      ms1: "4",
+      ms2: "9"
     });
   });
 
   it("should return the minutes, seconds, milliseconds", () => {
     expect(timeFormatting(3095)).toEqual({
-      m: "00",
-      s: "03",
-      ms: "09"
+      m1: "0",
+      m2: "0",
+      s1: "0",
+      s2: "3",
+      ms1: "0",
+      ms2: "9"
     });
   });
 
   it("should return the minutes, seconds, milliseconds", () => {
     expect(timeFormatting(103095)).toEqual({
-      m: "01",
-      s: "43",
-      ms: "09"
+      m1: "0",
+      m2: "1",
+      s1: "4",
+      s2: "3",
+      ms1: "0",
+      ms2: "9"
     });
   });
 });

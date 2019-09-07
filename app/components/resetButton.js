@@ -31,8 +31,6 @@ const styles = StyleSheet.create({
   }
 });
 
-let intervalId;
-
 export default class ResetButton extends Component {
   constructor(props) {
     super(props);
@@ -46,19 +44,16 @@ export default class ResetButton extends Component {
         underlayColor={COLORS.BUTTON_UNDERLAY}
         style={[styles.button]}
         onPress={() => {
-          clearInterval(watch.intervalId);
           Alert.alert("What would you like to reset?", null, [
             {
               text: "Reset Time And Splits Only",
               onPress: () => {
-                clearInterval(watch.intervalId);
                 resetTime();
               }
             },
             {
               text: "Reset Time and Athletes",
               onPress: () => {
-                clearInterval(watch.intervalId);
                 resetAll();
                 resetAthleteList();
               }

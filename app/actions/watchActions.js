@@ -2,17 +2,17 @@
 
 import * as types from "./actionTypes";
 
-export function startWatch(intervalId) {
+export function startWatch() {
   return {
     type: types.START_WATCH,
-    startTime: Date.now(),
-    intervalId: intervalId
+    startTime: Date.now()
   };
 }
 
 export function stopWatch() {
   return {
-    type: types.STOP_WATCH
+    type: types.STOP_WATCH,
+    stopTime: Date.now()
   };
 }
 
@@ -31,13 +31,6 @@ export function resetTime() {
 export function resetAthleteList() {
   return {
     type: types.RESET_ATHLETE_LIST
-  };
-}
-
-export function tick() {
-  return {
-    type: types.TICK,
-    time: Date.now()
   };
 }
 

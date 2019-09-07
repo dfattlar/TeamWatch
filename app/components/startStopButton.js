@@ -32,27 +32,21 @@ const styles = StyleSheet.create({
   }
 });
 
-let intervalId;
-
 export default class StartStopButton extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { watch, startWatch, stopWatch, tick } = this.props;
+    const { watch, startWatch, stopWatch } = this.props;
     let depStyle = watch.watchRunning ? styles.stopButton : styles.startButton;
 
     function callStartStop() {
       const watchRunning = watch.watchRunning;
       if (watchRunning) {
-        clearInterval(intervalId);
         stopWatch();
       } else {
-        intervalId = setInterval(() => {
-          tick();
-        });
-        startWatch(intervalId);
+        startWatch();
       }
     }
 
@@ -62,6 +56,7 @@ export default class StartStopButton extends Component {
           underlayColor="lightgray"
           onPress={callStartStop}
           style={[styles.button, depStyle]}
+          testID="StartButton"
         >
           <Text style={[styles.buttonText]}>
             {watch.watchRunning ? "STOP" : "START"}

@@ -5,7 +5,7 @@ import { View, Animated, Easing } from "react-native";
 import TimerModeButton from "./timerModeButton";
 import SaveButton from "./saveButton";
 
-export default function SaveModeButtonSwap({ watchRunning, time }) {
+export default function SaveModeButtonSwap({ watchRunning, startTime }) {
   const animatedValue = new Animated.Value(0);
 
   const styleRelay = {
@@ -18,15 +18,10 @@ export default function SaveModeButtonSwap({ watchRunning, time }) {
   animate();
   return (
     <View>
-      {(watchRunning || time === 0) && <TimerModeButton />}
-      {!watchRunning && time !== 0 && <SaveButton />}
+      {(watchRunning || !startTime) && <TimerModeButton />}
+      {!watchRunning && startTime && <SaveButton />}
     </View>
   );
-
-  // {(watchRunning || !time) && (
-  //   <TimerModeButton watch={watch} {...actions} />
-  // )}
-  // {!watchRunning && time !== 0 && <SaveButton watch={watch} {...actions} />}
 
   function animate() {
     Animated.timing(animatedValue, {

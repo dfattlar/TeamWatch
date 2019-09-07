@@ -3,13 +3,11 @@
 import * as types from "../actions/actionTypes";
 import { RACE, RELAY } from "../constants";
 import { REHYDRATE } from "redux-persist";
-import React from "react";
-import { ListView } from "react-native";
 
 const initialState = {
   watchRunning: false,
   startTime: null,
-  time: 0,
+  stopTime: null,
   id: 0,
   currentColorId: 0,
   modalVisible: false,
@@ -18,7 +16,8 @@ const initialState = {
   timerMode: RACE,
   lastRelaySplit: null,
   relayFinishTime: null,
-  bestTime: 0
+  bestTime: 0,
+  watchReset: false
 };
 
 export default function watch(state = initialState, action = {}) {
@@ -28,7 +27,9 @@ export default function watch(state = initialState, action = {}) {
         return state;
       }
       return {
-        ...action.payload.watch
+        ...action.payload.watch,
+        watchRunning: false,
+        watchReset: false
       };
 
     case types.START_WATCH:
@@ -44,12 +45,13 @@ export default function watch(state = initialState, action = {}) {
         ...state,
         athletesArray: arrStart,
         watchRunning: true,
-        intervalId: action.intervalId,
         startTime: state.startTime ? state.startTime : action.startTime,
-        lastRelaySplit: action.startTime
+        lastRelaySplit: action.startTime,
+        watchReset: false
       };
 
     case types.STOP_WATCH:
+      const stopTime = action.stopTime;
       let relayFinishTime = 0;
       let bestTime = 0;
       const arrStop = state.athletesArray.map(function(athlete) {
@@ -73,26 +75,22 @@ export default function watch(state = initialState, action = {}) {
         athletesArray: arrStop,
         watchRunning: false,
         relayFinishTime: relayFinishTime,
-        watchStop: state.startTime + state.time,
+        watchStop: stopTime - state.startTime,
+        stopTime,
         bestTime
-      };
-
-    case types.TICK:
-      return {
-        ...state,
-        time: action.time - state.startTime
       };
 
     case types.RESET_ALL:
       return {
         ...state,
-        time: 0,
         watchRunning: false,
         athletesArray: [],
         id: 0,
         startTime: null,
+        stopTime: null,
         relayFinishTime: null,
-        bestTime: 0
+        bestTime: 0,
+        watchReset: true
       };
 
     case types.RESET_TIME:
@@ -103,14 +101,16 @@ export default function watch(state = initialState, action = {}) {
           totalTime: ""
         };
       });
+      debugger;
       return {
         ...state,
-        time: 0,
         watchRunning: false,
         athletesArray: resetAthleteSplitsArr,
         startTime: null,
+        stopTime: null,
         relayFinishTime: null,
-        bestTime: 0
+        bestTime: 0,
+        watchReset: true
       };
 
     case types.OPEN_MODAL:
@@ -232,6 +232,7 @@ export default function watch(state = initialState, action = {}) {
         ...state,
         timerMode: action.timerMode
       };
+
     default:
       return state;
   }

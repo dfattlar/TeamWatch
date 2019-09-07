@@ -21,7 +21,7 @@ jest.mock("ListView", () => {
 const initialState = {
   watchRunning: false,
   startTime: null,
-  time: 0,
+  stopTime: null,
   id: 0,
   currentColorId: 0,
   modalVisible: false,
@@ -29,7 +29,9 @@ const initialState = {
   athletesArray: [],
   timerMode: RACE,
   lastRelaySplit: null,
-  relayFinishTime: null
+  relayFinishTime: null,
+  bestTime: 0,
+  watchReset: false
 };
 
 describe("watch reducer", () => {
@@ -40,15 +42,13 @@ describe("watch reducer", () => {
   it("should handle START_WATCH with no athletes", () => {
     expect(
       reducer(undefined, {
-        type: types.START_WATCH,
-        intervalId: "id_123"
+        type: types.START_WATCH
       })
     ).toEqual({
       ...initialState,
       watchRunning: true,
       startTime: undefined,
-      lastRelaySplit: undefined,
-      intervalId: "id_123"
+      lastRelaySplit: undefined
     });
   });
 
@@ -63,12 +63,10 @@ describe("watch reducer", () => {
             { name: "ath1", totalTime: "111" },
             { name: "ath2", totalTime: "222" }
           ],
-          lastRelaySplit: undefined,
-          intervalId: "id_123"
+          lastRelaySplit: undefined
         },
         {
-          type: types.START_WATCH,
-          intervalId: "id_123"
+          type: types.START_WATCH
         }
       )
     ).toEqual({
@@ -79,25 +77,28 @@ describe("watch reducer", () => {
         { name: "ath1", totalTime: "" },
         { name: "ath2", totalTime: "" }
       ],
-      lastRelaySplit: undefined,
-      intervalId: "id_123"
+      lastRelaySplit: undefined
     });
   });
 
   it("should handle STOP_WATCH", () => {
+    const stop = new Date("2019-05-14T11:01:58.135Z").valueOf();
     expect(
       reducer(undefined, {
-        type: types.STOP_WATCH
+        type: types.STOP_WATCH,
+        stopTime: stop
       })
     ).toEqual({
       ...initialState,
       watchRunning: false,
       relayFinishTime: 0,
-      watchStop: 0
+      stopTime: stop,
+      watchStop: stop
     });
   });
 
   it("should handle STOP_WATCH and set athlete totalTime", () => {
+    const stop = new Date("2019-05-14T11:01:58.135Z").valueOf();
     expect(
       reducer(
         {
@@ -110,11 +111,13 @@ describe("watch reducer", () => {
           time: 22
         },
         {
-          type: types.STOP_WATCH
+          type: types.STOP_WATCH,
+          stopTime: stop
         }
       )
     ).toEqual({
       ...initialState,
+      bestTime: 6,
       watchRunning: false,
       relayFinishTime: 21,
       startTime: 100,
@@ -123,11 +126,13 @@ describe("watch reducer", () => {
         { name: "ath1", totalTime: 6, splits: [1, 2, 3] },
         { name: "ath2", totalTime: 15, splits: [4, 5, 6] }
       ],
-      watchStop: 122
+      watchStop: stop - 100,
+      stopTime: stop
     });
   });
 
   it("should handle STOP_WATCH in Relay Mode", () => {
+    const stop = new Date("2019-05-14T11:01:58.135Z").valueOf();
     expect(
       reducer(
         {
@@ -142,11 +147,13 @@ describe("watch reducer", () => {
           ]
         },
         {
-          type: types.STOP_WATCH
+          type: types.STOP_WATCH,
+          stopTime: stop
         }
       )
     ).toEqual({
       ...initialState,
+      bestTime: 6,
       watchRunning: false,
       timerMode: RELAY,
       startTime: 100,
@@ -157,26 +164,8 @@ describe("watch reducer", () => {
         { name: "ath2", totalTime: 15, splits: [4, 5, 6] },
         { name: "ath3", totalTime: "", splits: [] }
       ],
-      watchStop: 125
-    });
-  });
-
-  it("should handle TICK", () => {
-    expect(
-      reducer(
-        {
-          ...initialState,
-          startTime: 1
-        },
-        {
-          type: types.TICK,
-          time: 10
-        }
-      )
-    ).toEqual({
-      ...initialState,
-      startTime: 1,
-      time: 9
+      watchStop: stop - 100,
+      stopTime: stop
     });
   });
 
@@ -185,7 +174,6 @@ describe("watch reducer", () => {
       reducer(
         {
           ...initialState,
-          time: 10,
           watchRunning: true,
           athletesArray: [1, 2, 3],
           id: 10,
@@ -196,12 +184,12 @@ describe("watch reducer", () => {
       )
     ).toEqual({
       ...initialState,
-      time: 0,
       watchRunning: false,
       athletesArray: [],
       id: 0,
       startTime: null,
-      relayFinishTime: null
+      relayFinishTime: null,
+      watchReset: true
     });
   });
 
@@ -210,7 +198,6 @@ describe("watch reducer", () => {
       reducer(
         {
           ...initialState,
-          time: 10,
           watchRunning: true,
           athletesArray: [
             { splits: [1, 2, 3], totalTime: 6 },
@@ -223,14 +210,14 @@ describe("watch reducer", () => {
       )
     ).toEqual({
       ...initialState,
-      time: 0,
       watchRunning: false,
       athletesArray: [
         { splits: [], totalTime: "" },
         { splits: [], totalTime: "" }
       ],
       startTime: null,
-      relayFinishTime: null
+      relayFinishTime: null,
+      watchReset: true
     });
   });
 

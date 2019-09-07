@@ -3,16 +3,13 @@ import * as types from "../../app/actions/ActionTypes";
 
 describe("Watch Actions", () => {
   it("should create an action to start the watch", () => {
-    Date.now = jest.genMockFunction().mockReturnValue(0);
+    Date.now = jest.fn().mockReturnValue(0);
     const startTime = Date.now();
-    const watchRunning = true;
-    const intervalId = "id_123";
     const expectedAction = {
       type: types.START_WATCH,
-      startTime,
-      intervalId
+      startTime
     };
-    expect(actions.startWatch(intervalId)).toEqual(expectedAction);
+    expect(actions.startWatch()).toEqual(expectedAction);
     jest.resetAllMocks();
   });
 
@@ -44,17 +41,6 @@ describe("Watch Actions", () => {
   //     expect(actions.resetAthleteList()).toEqual(expectedAction)
   // })
 
-  it("should create an action to trigger a tick", () => {
-    Date.now = jest.genMockFunction().mockReturnValue(0);
-    const date = Date.now();
-    const expectedAction = {
-      type: types.TICK,
-      time: date
-    };
-    expect(actions.tick()).toEqual(expectedAction);
-    jest.resetAllMocks();
-  });
-
   it("should create an action to open the modal", () => {
     const expectedAction = {
       type: types.CLOSE_MODAL
@@ -63,7 +49,7 @@ describe("Watch Actions", () => {
   });
 
   it("should create an action to add a split", () => {
-    Date.now = jest.genMockFunction().mockReturnValue(0);
+    Date.now = jest.fn().mockReturnValue(0);
     const time = Date.now();
     const id = "id_123";
     const expectedAction = {

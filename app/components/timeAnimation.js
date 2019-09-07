@@ -6,10 +6,14 @@ import { connect } from "react-redux";
 import WatchTimer from "../components/watchTimer";
 import HighlightedTime from "../components/highlightedTime";
 
-function TimeAnimation({ showHighlight }) {
+let lastHightlightVal = null;
+
+function TimeAnimation({ showHighlight, startTime }) {
   const [vis, setVis] = useState(showHighlight);
 
-  const animatedValue = new Animated.Value(showHighlight ? 0 : 1);
+  const animatedValue = new Animated.Value(
+    showHighlight ? 0 : !startTime ? 1 : 0
+  );
   const marginBottom = animatedValue.interpolate({
     inputRange: [0, 1],
     outputRange: [-40, 0]
@@ -51,13 +55,13 @@ function TimeAnimation({ showHighlight }) {
       easing: Easing.linear
     }).start(() => {
       setVis(showHighlight);
+      lastHightlightVal = showHighlight;
     });
   }
 }
 
 function mapStateToProps(state) {
   return {
-    time: state.watch.time,
     watchRunning: state.watch.watchRunning
   };
 }
