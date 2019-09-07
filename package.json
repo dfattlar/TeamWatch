@@ -17,7 +17,6 @@
     "react-native-router-flux": "^4.0.6",
     "react-native-swipe-list-view": "^1.5.6",
     "react-native-vector-icons": "^6.6.0",
-    "react-navigation": "^3.11.0",
     "react-redux": "^7.1.0",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
@@ -27,11 +26,23 @@
     "@babel/core": "^7.4.5",
     "@babel/runtime": "^7.4.5",
     "babel-jest": "^24.8.0",
+    "detox": "^14.0.3",
     "jest": "^24.8.0",
     "metro-react-native-babel-preset": "^0.54.1",
     "react-test-renderer": "16.8.3"
   },
   "jest": {
     "preset": "react-native"
+  },
+  "detox": {
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/TeamWatch.app",
+        "build": "xcodebuild -project ios/TeamWatch.xcodeproj -scheme TeamWatch -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone Xʀ"
+      }
+    },
+    "test-runner": "jest"
   }
 }
