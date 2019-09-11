@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Watch Actions should create an action to add a split 1`] = `
+Object {
+  "id": "id_123",
+  "splitTime": 10,
+  "type": "ADD_SPLIT",
+}
+`;
+
+exports[`Watch Actions should create an action to add history 1`] = `
+Object {
+  "payload": Object {
+    "time": 0,
+  },
+  "type": "ADD_HISTORY",
+}
+`;
+
+exports[`Watch Actions should create an action to change the mode (race,relay) 1`] = `
+Object {
+  "timerMode": "MODE",
+  "type": "MODE_CHANGE",
+}
+`;
+
+exports[`Watch Actions should create an action to open the modal 1`] = `
+Object {
+  "type": "CLOSE_MODAL",
+}
+`;
+
+exports[`Watch Actions should create an action to reset all values on watch 1`] = `
+Object {
+  "type": "RESET_ALL",
+}
+`;
+
+exports[`Watch Actions should create an action to reset time values on watch 1`] = `
+Object {
+  "type": "RESET_TIME",
+}
+`;
+
+exports[`Watch Actions should create an action to reset time values on watch 2`] = `
+Object {
+  "type": "RESET_ATHLETE_LIST",
+}
+`;
+
+exports[`Watch Actions should create an action to start the watch 1`] = `
+Object {
+  "startTime": 10,
+  "type": "START_WATCH",
+}
+`;
+
+exports[`Watch Actions should create an action to stop the watch 1`] = `
+Object {
+  "stopTime": undefined,
+  "type": "STOP_WATCH",
+}
+`;

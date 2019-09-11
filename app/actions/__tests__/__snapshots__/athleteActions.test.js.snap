@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Athlete Actions should create an action to add an athlete 1`] = `
+Object {
+  "type": "ADD_ATHLETE",
+}
+`;
+
+exports[`Athlete Actions should create an action to add an athlete error 1`] = `
+Object {
+  "type": "ADD_ATHLETE_ERROR",
+}
+`;
+
+exports[`Athlete Actions should create an action to add an athlete to the watch 1`] = `
+Object {
+  "payload": Object {
+    "id": "id_123",
+    "name": "Athlete1",
+  },
+  "type": "ADD_ATHLETE_TO_WATCH",
+}
+`;
+
+exports[`Athlete Actions should create an action to delete an athlete 1`] = `
+Object {
+  "id": "id_123",
+  "type": "DELETE_ATHLETE",
+}
+`;
+
+exports[`Athlete Actions should create an action to input a new athlete 1`] = `
+Object {
+  "newAthleteInput": "Athlete1",
+  "type": "NEW_ATHLETE_INPUT",
+}
+`;
+
+exports[`Athlete Actions should create an action to remove an athlete from the watch 1`] = `
+Object {
+  "id": "id_123",
+  "type": "REMOVE_ATHLETE_FROM_WATCH",
+}
+`;
