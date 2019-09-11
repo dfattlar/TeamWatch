@@ -1,85 +1,85 @@
-"use strict";
+'use strict';
 
-import React, { Component } from "react";
-import { bindActionCreators } from "redux";
-import TimerModeButton from "../components/timerModeButton";
-import TimeAnimation from "../components/timeAnimation";
-import SaveModeButtonSwap from "../components/saveModeButtonSwap";
-import ResetButton from "../components/resetButton";
-import AddAthleteModal from "../components/addAthleteModal";
-import WatchAthletes from "../components/watchAthletes";
-import * as watchActions from "../actions/watchActions";
-import { connect } from "react-redux";
+import React, {Component} from 'react';
+import {bindActionCreators} from 'redux';
+import TimerModeButton from '../components/timerModeButton';
+import TimeAnimation from '../components/timeAnimation';
+import SaveModeButtonSwap from '../components/saveModeButtonSwap';
+import ResetButton from '../components/resetButton';
+import AddAthleteModal from '../components/addAthleteModal';
+import WatchAthletes from '../components/watchAthletes';
+import * as watchActions from '../actions/watchActions';
+import {connect} from 'react-redux';
 import {
   View,
   StyleSheet,
   Text,
   TouchableHighlight,
-  StatusBar
-} from "react-native";
-import { COLORS } from "../constants";
+  StatusBar,
+} from 'react-native';
+import {COLORS} from '../constants';
 
 // style the react component
 var styles = StyleSheet.create({
   timerSection: {
-    flex: 3
+    flex: 3,
   },
   timerBackground: {
     backgroundColor: COLORS.PRIMARY,
-    flex: 1
+    flex: 1,
   },
   timerWrapper: {
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
     flex: 2,
     marginTop: 35,
-    display: "flex",
-    justifyContent: "flex-end"
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
   buttonWrapper: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "flex-start",
-    flex: 2
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'flex-start',
+    flex: 2,
   },
   relayContainer: {
-    backgroundColor: COLORS.BACKGROUND_CONTAINER
+    backgroundColor: COLORS.BACKGROUND_CONTAINER,
   },
   relayText: {
-    textAlign: "center",
-    backgroundColor: "transparent",
-    fontWeight: "300",
+    textAlign: 'center',
+    backgroundColor: 'transparent',
+    fontWeight: '300',
     paddingTop: 5,
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   relayFinishTime: {
-    fontSize: 20
+    fontSize: 20,
   },
   appContainer: {
-    flex: 1
+    flex: 1,
   },
   athleteListContainer: {
     flex: 5,
-    backgroundColor: COLORS.BACKGROUND_LIGHT
+    backgroundColor: COLORS.BACKGROUND_LIGHT,
   },
   button: {
     borderWidth: 3,
     height: 90,
     width: 90,
     borderRadius: 50,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
     color: COLORS.WATCH_BUTTON,
     fontSize: 22,
-    fontFamily: "GothamRounded-Medium"
+    fontFamily: 'GothamRounded-Medium',
   },
   startButton: {
-    borderColor: COLORS.BUTTON_START
+    borderColor: COLORS.BUTTON_START,
   },
   stopButton: {
-    borderColor: COLORS.FONT_LIGHT
-  }
+    borderColor: COLORS.FONT_LIGHT,
+  },
 });
 
 class Watch extends Component {
@@ -88,8 +88,8 @@ class Watch extends Component {
   }
 
   render() {
-    const { state, actions } = this.props;
-    const { startWatch, stopWatch } = actions;
+    const {state, actions} = this.props;
+    const {startWatch, stopWatch} = actions;
     const depStyle = state.watchRunning
       ? styles.stopButton
       : styles.startButton;
@@ -123,15 +123,14 @@ class Watch extends Component {
                 watchRunning={state.watchRunning}
                 startTime={state.startTime}
               />
-              <View style={{ marginBottom: 10 }}>
+              <View style={{marginBottom: 10}}>
                 <TouchableHighlight
                   underlayColor={COLORS.BUTTON_START}
                   onPress={callStartStop}
                   style={[styles.button, depStyle]}
-                  testID="StartButton"
-                >
+                  testID="StartButton">
                   <Text style={[styles.buttonText]}>
-                    {state.watchRunning ? "STOP" : "START"}
+                    {state.watchRunning ? 'STOP' : 'START'}
                   </Text>
                 </TouchableHighlight>
               </View>
@@ -149,17 +148,17 @@ class Watch extends Component {
 
 function mapStateToProps(state) {
   return {
-    state: state.watch
+    state: state.watch,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(watchActions, dispatch)
+    actions: bindActionCreators(watchActions, dispatch),
   };
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Watch);

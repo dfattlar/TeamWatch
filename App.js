@@ -6,8 +6,8 @@
  * @flow
  */
 
-import React, { Component } from "react";
-import AppContainer from "./app/containers/app";
+import React, {Component} from 'react';
+import AppContainer from './app/containers/app';
 
 type Props = {};
 export default class App extends Component<Props> {

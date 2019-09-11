@@ -1,14 +1,13 @@
-"use strict";
+'use strict';
 
-import React, { Component } from "react";
-import { FlatList } from "react-native";
-import { bindActionCreators } from "redux";
-import * as historyActions from "../actions/historyActions";
-import * as constants from "../constants.js";
-import { connect } from "react-redux";
-import { Actions } from "react-native-router-flux";
-import HistoryRow from "../components/historyRow";
-import { COLORS } from "../constants";
+import React, {Component} from 'react';
+import {FlatList} from 'react-native';
+import {bindActionCreators} from 'redux';
+import * as historyActions from '../actions/historyActions';
+import * as constants from '../constants.js';
+import {connect} from 'react-redux';
+import HistoryRow from '../components/historyRow';
+import {COLORS, BASE_NAV_OPTIONS} from '../constants';
 
 import {
   View,
@@ -16,25 +15,32 @@ import {
   Text,
   ListView,
   TouchableHighlight,
-  Alert
-} from "react-native";
+  Alert,
+} from 'react-native';
 
 class History extends Component {
   constructor(props) {
     super(props);
   }
+
+  static navigationOptions = ({navigation}) => ({
+    ...BASE_NAV_OPTIONS,
+    headerTitle: 'History',
+    headerBackTitle: null,
+  });
+
   render() {
-    const { state, actions } = this.props;
+    const {state, actions} = this.props;
     const store = state.history.historyStore;
 
     function deleteHistoryConfirm(id) {
       Alert.alert(
-        "Delete History",
-        "Are you sure you want to delete this Race?",
+        'Delete History',
+        'Are you sure you want to delete this Race?',
         [
-          { text: "Cancel", onPress: () => {} },
-          { text: "OK", onPress: () => actions.deleteHistory(id) }
-        ]
+          {text: 'Cancel', onPress: () => {}},
+          {text: 'OK', onPress: () => actions.deleteHistory(id)},
+        ],
       );
     }
 
@@ -66,50 +72,50 @@ class History extends Component {
 
 function mapStateToProps(state) {
   return {
-    state: state
+    state: state,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(historyActions, dispatch)
+    actions: bindActionCreators(historyActions, dispatch),
   };
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(History);
 
 // style the react component
 var styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   noHistContainer: {
-    alignItems: "center"
+    alignItems: 'center',
   },
   noHistTitle: {
     fontSize: 24,
-    fontWeight: "200",
+    fontWeight: '200',
     marginTop: 15,
-    fontFamily: "GothamRounded-Medium"
+    fontFamily: 'GothamRounded-Medium',
   },
   noHistText: {
     fontSize: 16,
-    fontWeight: "200",
+    fontWeight: '200',
     margin: 20,
-    fontFamily: "GothamRounded-Medium"
+    fontFamily: 'GothamRounded-Medium',
   },
   rowBack: {
-    alignItems: "center",
+    alignItems: 'center',
     backgroundColor: COLORS.BACKGROUND_CONTAINER,
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    paddingRight: 15
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingRight: 15,
   },
   historyListView: {
-    backgroundColor: COLORS.BACKGROUND_LIGHT
-  }
+    backgroundColor: COLORS.BACKGROUND_LIGHT,
+  },
 });

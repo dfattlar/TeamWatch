@@ -1,27 +1,27 @@
-"use strict";
+'use strict';
 
-import React, { Component } from "react";
+import React, {Component} from 'react';
 import {
   Text,
   TouchableHighlight,
   Alert,
   Platform,
   Animated,
-  Easing
-} from "react-native";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { COLORS } from "../constants";
-import { addHistory } from "../actions/watchActions";
+  Easing,
+} from 'react-native';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {COLORS} from '../constants';
+import {addHistory} from '../actions/watchActions';
 
-function SaveButton({ watch, addHistory }) {
+function SaveButton({watch, addHistory}) {
   const animatedValue = new Animated.Value(0);
 
   const opacity = {
     opacity: animatedValue.interpolate({
       inputRange: [0, 0.5, 1],
-      outputRange: [0, 0.5, 1]
-    })
+      outputRange: [0, 0.5, 1],
+    }),
   };
   animate();
   return (
@@ -31,8 +31,7 @@ function SaveButton({ watch, addHistory }) {
         style={[styles.button]}
         onPress={() => {
           return callAddHistory(watch, addHistory);
-        }}
-      >
+        }}>
         <Text style={[styles.buttonText]}>SAVE</Text>
       </TouchableHighlight>
     </Animated.View>
@@ -42,38 +41,40 @@ function SaveButton({ watch, addHistory }) {
     Animated.timing(animatedValue, {
       toValue: 1,
       duration: 500,
-      easing: Easing.linear
+      easing: Easing.linear,
     }).start();
   }
 }
 
 function mapStateToProps(state) {
   return {
-    watch: state.watch
+    watch: state.watch,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    addHistory: bindActionCreators(addHistory, dispatch)
+    addHistory: bindActionCreators(addHistory, dispatch),
   };
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(SaveButton);
 
 function callAddHistory(watch, addHistory) {
-  if (Platform.OS === "ios") {
-    Alert.prompt("Name this Race", null, input => {
+  if (Platform.OS === 'ios') {
+    debugger;
+    Alert.prompt('Name this Race', null, input => {
       addHistory({
         athletesArray: watch.athletesArray,
         relayFinishTime: watch.relayFinishTime,
         timerMode: watch.timerMode,
         startTime: watch.startTime,
+        stopTime: watch.stopTime,
         watchStop: watch.watchStop,
-        name: input
+        name: input,
       });
     });
   } else {
@@ -81,7 +82,7 @@ function callAddHistory(watch, addHistory) {
       athletesArray: watch.athletesArray,
       relayFinishTime: watch.relayFinishTime,
       startTime: watch.startTime,
-      name: null
+      name: null,
     });
   }
 }
@@ -92,15 +93,15 @@ const styles = {
     height: 40,
     width: 100,
     borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     borderColor: COLORS.SECONDARY,
-    marginTop: 24
+    marginTop: 24,
   },
   buttonText: {
     color: COLORS.WATCH_BUTTON,
-    fontFamily: "GothamRounded-Medium",
+    fontFamily: 'GothamRounded-Medium',
     fontSize: 16,
-    paddingTop: 4
-  }
+    paddingTop: 4,
+  },
 };

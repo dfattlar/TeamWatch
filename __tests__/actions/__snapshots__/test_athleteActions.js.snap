@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Athlete Actions should create an action to input a new athlete 1`] = `
+Object {
+  "newAthleteInput": "Athlete1",
+  "type": "NEW_ATHLETE_INPUT",
+}
+`;
