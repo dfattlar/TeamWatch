@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`history reducer should handle ADD_HISTORY 1`] = `
+Object {
+  "historyStore": Array [
+    Object {
+      "id": "211879173a863",
+      "watch": "ok",
+    },
+  ],
+}
+`;
+
+exports[`history reducer should handle ADD_HISTORY test2 1`] = `
+Object {
+  "historyStore": Array [
+    Object {
+      "athletesArray": Array [
+        Object {
+          "colorId": 1,
+          "id": "hfz5yu",
+          "name": "name1",
+          "splits": Array [
+            1,
+            2,
+            3,
+          ],
+          "totalTime": 6,
+        },
+      ],
+      "name": "test1",
+      "relayFinishTime": 4122,
+      "startTime": 1499014397509,
+    },
+    Object {
+      "athletesArray": Array [
+        Object {
+          "colorId": 2,
+          "id": "hfz5yu2",
+          "name": "name2",
+          "splits": Array [
+            1,
+            2,
+            3,
+          ],
+          "totalTime": 6,
+        },
+      ],
+      "id": "211879173a863",
+      "name": "test2",
+      "relayFinishTime": 4122,
+      "startTime": 1499014397509,
+    },
+  ],
+}
+`;
+
+exports[`history reducer should handle DELETE_HISTORY 1`] = `
+Object {
+  "historyStore": Array [],
+}
+`;
+
+exports[`history reducer should handle DELETE_HISTORY test2 1`] = `
+Object {
+  "historyStore": Array [
+    Object {
+      "id": "211879173a8639",
+      "watch": "ok",
+    },
+    Object {
+      "id": "211879173a8637",
+      "watch": "ok",
+    },
+  ],
+}
+`;
+
+exports[`history reducer should handle DELETE_HISTORY test3 1`] = `
+Object {
+  "historyStore": Array [
+    Object {
+      "id": "211879173a8639",
+      "watch": "ok",
+    },
+    Object {
+      "id": "211879173a8638",
+      "watch": "ok",
+    },
+  ],
+}
+`;

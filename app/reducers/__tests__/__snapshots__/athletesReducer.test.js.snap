@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`athlete reducer should handle ADD_ATHLETE additional athletes 1`] = `
+Object {
+  "addAthleteError": false,
+  "athleteStore": Array [
+    Object {
+      "id": "id_123",
+      "name": "yyy",
+      "onWatch": true,
+    },
+    Object {
+      "id": "id_456",
+      "name": "xxx",
+      "onWatch": false,
+    },
+    Object {
+      "id": "879173a863",
+      "name": "zzz",
+      "onWatch": false,
+    },
+  ],
+  "newAthleteInput": "",
+}
+`;
+
+exports[`athlete reducer should handle ADD_ATHLETE first athlete 1`] = `
+Object {
+  "addAthleteError": false,
+  "athleteStore": Array [
+    Object {
+      "id": "879173a863",
+      "name": "zzz",
+      "onWatch": false,
+    },
+  ],
+  "newAthleteInput": "",
+}
+`;
+
+exports[`athlete reducer should handle ADD_ATHLETE_ERROR 1`] = `
+Object {
+  "addAthleteError": true,
+  "athleteStore": Array [],
+  "newAthleteInput": "",
+}
+`;
+
+exports[`athlete reducer should handle ADD_ATHLETE_TO_WATCH 1`] = `
+Object {
+  "addAthleteError": false,
+  "athleteStore": Array [
+    Object {
+      "id": "id_123",
+      "name": "yyy",
+      "onWatch": true,
+    },
+    Object {
+      "id": "id_456",
+      "name": "xxx",
+      "onWatch": true,
+    },
+    Object {
+      "id": "id_789",
+      "name": "zzz",
+      "onWatch": false,
+    },
+  ],
+  "newAthleteInput": "",
+}
+`;
+
+exports[`athlete reducer should handle DELETE_ATHLETE 1`] = `
+Object {
+  "addAthleteError": false,
+  "athleteStore": Array [
+    Object {
+      "id": "id_123",
+      "name": "yyy",
+      "onWatch": true,
+    },
+    Object {
+      "id": "id_789",
+      "name": "zzz",
+      "onWatch": true,
+    },
+  ],
+  "newAthleteInput": "",
+}
+`;
+
+exports[`athlete reducer should handle NEW_ATHLETE_INPUT 1`] = `
+Object {
+  "addAthleteError": false,
+  "athleteStore": Array [],
+  "newAthleteInput": "zzz",
+}
+`;
+
+exports[`athlete reducer should handle REMOVE_ATHLETE_FROM_WATCH 1`] = `
+Object {
+  "addAthleteError": false,
+  "athleteStore": Array [
+    Object {
+      "id": "id_123",
+      "name": "yyy",
+      "onWatch": true,
+    },
+    Object {
+      "id": "id_456",
+      "name": "xxx",
+      "onWatch": false,
+    },
+    Object {
+      "id": "id_789",
+      "name": "zzz",
+      "onWatch": false,
+    },
+  ],
+  "newAthleteInput": "",
+}
+`;
+
+exports[`athlete reducer should handle RESET_ATHLETE_LIST 1`] = `
+Object {
+  "addAthleteError": false,
+  "athleteStore": Array [
+    Object {
+      "id": "id_123",
+      "name": "yyy",
+      "onWatch": false,
+    },
+    Object {
+      "id": "id_456",
+      "name": "xxx",
+      "onWatch": false,
+    },
+    Object {
+      "id": "id_789",
+      "name": "zzz",
+      "onWatch": false,
+    },
+  ],
+  "newAthleteInput": "",
+}
+`;

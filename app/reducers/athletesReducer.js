@@ -1,30 +1,30 @@
-"use strict";
+'use strict';
 
-import * as types from "../actions/actionTypes";
-import { RACE, RELAY } from "../constants";
-import { REHYDRATE } from "redux-persist";
-import React from "react";
-import * as _ from "lodash";
+import * as types from '../actions/actionTypes';
+import {RACE, RELAY} from '../constants';
+import {REHYDRATE} from 'redux-persist';
+import React from 'react';
+import * as _ from 'lodash';
 
 const initialState = {
-  newAthleteInput: "",
+  newAthleteInput: '',
   addAthleteError: false,
-  athleteStore: []
+  athleteStore: [],
 };
 
 export default function athlete(state = initialState, action = {}) {
   switch (action.type) {
     case REHYDRATE:
-      if (!action.payload || !action.payload.hasOwnProperty("athlete")) {
+      if (!action.payload || !action.payload.hasOwnProperty('athlete')) {
         return state;
       }
       return {
-        ...action.payload.athlete
+        ...action.payload.athlete,
       };
     case types.NEW_ATHLETE_INPUT:
       return {
         ...state,
-        newAthleteInput: action.newAthleteInput
+        newAthleteInput: action.newAthleteInput,
       };
     case types.ADD_ATHLETE:
       let newAthlete = {
@@ -32,26 +32,26 @@ export default function athlete(state = initialState, action = {}) {
           .toString(12)
           .substring(7),
         name: state.newAthleteInput,
-        onWatch: false
+        onWatch: false,
       };
       let arrUpdated = [...state.athleteStore, newAthlete];
       return {
         ...state,
         addAthleteError: false,
         athleteStore: arrUpdated,
-        newAthleteInput: ""
+        newAthleteInput: '',
       };
     case types.ADD_ATHLETE_ERROR:
       return {
         ...state,
-        addAthleteError: true
+        addAthleteError: true,
       };
     case types.ADD_ATHLETE_TO_WATCH:
       const updatedAthleteArr = state.athleteStore.map(function(athlete) {
         if (athlete.id === action.payload.id) {
           return {
             ...athlete,
-            onWatch: true
+            onWatch: true,
           };
         }
         return athlete;
@@ -59,7 +59,7 @@ export default function athlete(state = initialState, action = {}) {
 
       return {
         ...state,
-        athleteStore: updatedAthleteArr
+        athleteStore: updatedAthleteArr,
       };
     case types.REMOVE_ATHLETE_FROM_WATCH:
       const removeId = action.id;
@@ -67,7 +67,7 @@ export default function athlete(state = initialState, action = {}) {
         if (athlete.id === removeId) {
           return {
             ...athlete,
-            onWatch: false
+            onWatch: false,
           };
         }
         return athlete;
@@ -75,19 +75,19 @@ export default function athlete(state = initialState, action = {}) {
 
       return {
         ...state,
-        athleteStore: updatedStore
+        athleteStore: updatedStore,
       };
 
     case types.RESET_ATHLETE_LIST:
       let resetAthleteArr = state.athleteStore.map(function(athlete) {
         return {
           ...athlete,
-          onWatch: false
+          onWatch: false,
         };
       });
       return {
         ...state,
-        athleteStore: resetAthleteArr
+        athleteStore: resetAthleteArr,
       };
 
     case types.DELETE_ATHLETE:
@@ -98,12 +98,12 @@ export default function athlete(state = initialState, action = {}) {
 
       const deleteAthleteArr = [
         ...state.athleteStore.slice(0, athleteIndex),
-        ...state.athleteStore.slice(athleteIndex + 1)
+        ...state.athleteStore.slice(athleteIndex + 1),
       ];
 
       return {
         ...state,
-        athleteStore: deleteAthleteArr
+        athleteStore: deleteAthleteArr,
       };
     default:
       return state;

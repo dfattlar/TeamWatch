@@ -1,0 +1,477 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`watch reducer should handle ADD_ATHLETE_TO_WATCH 1`] = `
+Object {
+  "addAthleteError": false,
+  "athletesArray": Array [
+    Object {
+      "colorId": 5,
+      "id": "id_000",
+      "name": "athlete1",
+      "splits": Array [],
+      "totalTime": "",
+    },
+    Object {
+      "colorId": 0,
+      "id": "id_123",
+      "name": "athlete2",
+      "splits": Array [],
+      "totalTime": "",
+    },
+  ],
+  "bestTime": 0,
+  "currentColorId": 0,
+  "id": 3,
+  "lastRelaySplit": null,
+  "modalVisible": false,
+  "newAthlete": "",
+  "relayFinishTime": null,
+  "startTime": null,
+  "stopTime": null,
+  "timerMode": "RACE",
+  "watchReset": false,
+  "watchRunning": false,
+}
+`;
+
+exports[`watch reducer should handle ADD_SPLIT - No start time 1`] = `
+Object {
+  "initialState": Object {
+    "athletesArray": Array [],
+    "bestTime": 0,
+    "currentColorId": 0,
+    "id": 0,
+    "lastRelaySplit": null,
+    "modalVisible": false,
+    "newAthlete": "",
+    "relayFinishTime": null,
+    "startTime": null,
+    "stopTime": null,
+    "timerMode": "RACE",
+    "watchReset": false,
+    "watchRunning": false,
+  },
+}
+`;
+
+exports[`watch reducer should handle ADD_SPLIT - RACE, First Split 1`] = `
+Object {
+  "athletesArray": Array [
+    Object {
+      "id": "id_123",
+      "splits": Array [
+        9,
+      ],
+      "totalTime": 9,
+    },
+  ],
+  "bestTime": 0,
+  "currentColorId": 0,
+  "id": 0,
+  "lastRelaySplit": 10,
+  "modalVisible": false,
+  "newAthlete": "",
+  "relayFinishTime": null,
+  "startTime": 1,
+  "stopTime": null,
+  "timerMode": "RACE",
+  "watchReset": false,
+  "watchRunning": false,
+}
+`;
+
+exports[`watch reducer should handle ADD_SPLIT - RACE, Multiple Athletes 1`] = `
+Object {
+  "athletesArray": Array [
+    Object {
+      "id": "id_123",
+      "splits": Array [
+        1,
+        2,
+      ],
+      "totalTime": 3,
+    },
+    Object {
+      "id": "id_456",
+      "splits": Array [
+        1,
+        2,
+        6,
+      ],
+      "totalTime": 9,
+    },
+  ],
+  "bestTime": 0,
+  "currentColorId": 0,
+  "id": 0,
+  "lastRelaySplit": 10,
+  "modalVisible": false,
+  "newAthlete": "",
+  "relayFinishTime": null,
+  "startTime": 1,
+  "stopTime": null,
+  "timerMode": "RACE",
+  "watchReset": false,
+  "watchRunning": false,
+}
+`;
+
+exports[`watch reducer should handle ADD_SPLIT - RELAY, Second Athlete 1`] = `
+Object {
+  "athletesArray": Array [
+    Object {
+      "id": "id_123",
+      "splits": Array [
+        1,
+        2,
+      ],
+      "totalTime": 3,
+    },
+    Object {
+      "id": "id_456",
+      "splits": Array [
+        8,
+      ],
+      "totalTime": 8,
+    },
+  ],
+  "bestTime": 0,
+  "currentColorId": 0,
+  "id": 0,
+  "lastRelaySplit": 10,
+  "modalVisible": false,
+  "newAthlete": "",
+  "relayFinishTime": null,
+  "startTime": 1,
+  "stopTime": null,
+  "timerMode": "RELAY",
+  "watchReset": false,
+  "watchRunning": false,
+}
+`;
+
+exports[`watch reducer should handle CLOSE_MODAL 1`] = `
+Object {
+  "athletesArray": Array [],
+  "bestTime": 0,
+  "currentColorId": 0,
+  "id": 0,
+  "lastRelaySplit": null,
+  "modalVisible": false,
+  "newAthlete": "",
+  "relayFinishTime": null,
+  "startTime": null,
+  "stopTime": null,
+  "timerMode": "RACE",
+  "watchReset": false,
+  "watchRunning": false,
+}
+`;
+
+exports[`watch reducer should handle DELETE_ATHLETE - athlete not on watch 1`] = `
+Object {
+  "athletesArray": Array [
+    Object {
+      "id": 1,
+    },
+    Object {
+      "id": 2,
+    },
+    Object {
+      "id": 3,
+    },
+  ],
+  "bestTime": 0,
+  "currentColorId": 0,
+  "id": 0,
+  "lastRelaySplit": null,
+  "modalVisible": false,
+  "newAthlete": "",
+  "relayFinishTime": null,
+  "startTime": null,
+  "stopTime": null,
+  "timerMode": "RACE",
+  "watchReset": false,
+  "watchRunning": false,
+}
+`;
+
+exports[`watch reducer should handle DELETE_ATHLETE 1`] = `
+Object {
+  "athletesArray": Array [
+    Object {
+      "id": 1,
+    },
+    Object {
+      "id": 3,
+    },
+  ],
+  "bestTime": 0,
+  "currentColorId": 0,
+  "id": 0,
+  "lastRelaySplit": null,
+  "modalVisible": false,
+  "newAthlete": "",
+  "relayFinishTime": null,
+  "startTime": null,
+  "stopTime": null,
+  "timerMode": "RACE",
+  "watchReset": false,
+  "watchRunning": false,
+}
+`;
+
+exports[`watch reducer should handle MODE_CHANGE 1`] = `
+Object {
+  "athletesArray": Array [],
+  "bestTime": 0,
+  "currentColorId": 0,
+  "id": 0,
+  "lastRelaySplit": null,
+  "modalVisible": false,
+  "newAthlete": "",
+  "relayFinishTime": null,
+  "startTime": null,
+  "stopTime": null,
+  "timerMode": "RACE",
+  "watchReset": false,
+  "watchRunning": false,
+}
+`;
+
+exports[`watch reducer should handle OPEN_MODAL 1`] = `
+Object {
+  "addAthleteError": false,
+  "athletesArray": Array [],
+  "bestTime": 0,
+  "currentColorId": 0,
+  "id": 0,
+  "lastRelaySplit": null,
+  "modalVisible": true,
+  "newAthlete": "",
+  "newAthleteInput": "",
+  "relayFinishTime": null,
+  "startTime": null,
+  "stopTime": null,
+  "timerMode": "RACE",
+  "watchReset": false,
+  "watchRunning": false,
+}
+`;
+
+exports[`watch reducer should handle REMOVE_ATHLETE_FROM_WATCH 1`] = `
+Object {
+  "athletesArray": Array [
+    Object {
+      "id": 1,
+    },
+    Object {
+      "id": 3,
+    },
+  ],
+  "bestTime": 0,
+  "currentColorId": 0,
+  "id": 0,
+  "lastRelaySplit": null,
+  "modalVisible": false,
+  "newAthlete": "",
+  "relayFinishTime": null,
+  "startTime": null,
+  "stopTime": null,
+  "timerMode": "RACE",
+  "watchReset": false,
+  "watchRunning": false,
+}
+`;
+
+exports[`watch reducer should handle RESET_ALL 1`] = `
+Object {
+  "athletesArray": Array [],
+  "bestTime": 0,
+  "currentColorId": 0,
+  "id": 0,
+  "lastRelaySplit": null,
+  "modalVisible": false,
+  "newAthlete": "",
+  "relayFinishTime": null,
+  "startTime": null,
+  "stopTime": null,
+  "timerMode": "RACE",
+  "watchReset": true,
+  "watchRunning": false,
+}
+`;
+
+exports[`watch reducer should handle RESET_TIME 1`] = `
+Object {
+  "athletesArray": Array [
+    Object {
+      "splits": Array [],
+      "totalTime": "",
+    },
+    Object {
+      "splits": Array [],
+      "totalTime": "",
+    },
+  ],
+  "bestTime": 0,
+  "currentColorId": 0,
+  "id": 0,
+  "lastRelaySplit": null,
+  "modalVisible": false,
+  "newAthlete": "",
+  "relayFinishTime": null,
+  "startTime": null,
+  "stopTime": null,
+  "timerMode": "RACE",
+  "watchReset": true,
+  "watchRunning": false,
+}
+`;
+
+exports[`watch reducer should handle START_WATCH with athletes (clear total time) 1`] = `
+Object {
+  "athletesArray": Array [
+    Object {
+      "name": "ath1",
+      "totalTime": "",
+    },
+    Object {
+      "name": "ath2",
+      "totalTime": "",
+    },
+  ],
+  "bestTime": 0,
+  "currentColorId": 0,
+  "id": 0,
+  "lastRelaySplit": undefined,
+  "modalVisible": false,
+  "newAthlete": "",
+  "relayFinishTime": null,
+  "startTime": 999,
+  "stopTime": null,
+  "timerMode": "RACE",
+  "watchReset": false,
+  "watchRunning": true,
+}
+`;
+
+exports[`watch reducer should handle START_WATCH with no athletes 1`] = `
+Object {
+  "athletesArray": Array [],
+  "bestTime": 0,
+  "currentColorId": 0,
+  "id": 0,
+  "lastRelaySplit": undefined,
+  "modalVisible": false,
+  "newAthlete": "",
+  "relayFinishTime": null,
+  "startTime": undefined,
+  "stopTime": null,
+  "timerMode": "RACE",
+  "watchReset": false,
+  "watchRunning": true,
+}
+`;
+
+exports[`watch reducer should handle STOP_WATCH 1`] = `
+Object {
+  "athletesArray": Array [],
+  "bestTime": 0,
+  "currentColorId": 0,
+  "id": 0,
+  "lastRelaySplit": null,
+  "modalVisible": false,
+  "newAthlete": "",
+  "relayFinishTime": 0,
+  "startTime": null,
+  "stopTime": 1557831718135,
+  "timerMode": "RACE",
+  "watchReset": false,
+  "watchRunning": false,
+  "watchStop": 1557831718135,
+}
+`;
+
+exports[`watch reducer should handle STOP_WATCH and set athlete totalTime 1`] = `
+Object {
+  "athletesArray": Array [
+    Object {
+      "name": "ath1",
+      "splits": Array [
+        1,
+        2,
+        3,
+      ],
+      "totalTime": 6,
+    },
+    Object {
+      "name": "ath2",
+      "splits": Array [
+        4,
+        5,
+        6,
+      ],
+      "totalTime": 15,
+    },
+  ],
+  "bestTime": 6,
+  "currentColorId": 0,
+  "id": 0,
+  "lastRelaySplit": null,
+  "modalVisible": false,
+  "newAthlete": "",
+  "relayFinishTime": 21,
+  "startTime": 100,
+  "stopTime": 1557831718135,
+  "time": 22,
+  "timerMode": "RACE",
+  "watchReset": false,
+  "watchRunning": false,
+  "watchStop": 1557831718035,
+}
+`;
+
+exports[`watch reducer should handle STOP_WATCH in Relay Mode 1`] = `
+Object {
+  "athletesArray": Array [
+    Object {
+      "name": "ath1",
+      "splits": Array [
+        1,
+        2,
+        3,
+      ],
+      "totalTime": 6,
+    },
+    Object {
+      "name": "ath2",
+      "splits": Array [
+        4,
+        5,
+        6,
+      ],
+      "totalTime": 15,
+    },
+    Object {
+      "name": "ath3",
+      "splits": Array [],
+      "totalTime": "",
+    },
+  ],
+  "bestTime": 6,
+  "currentColorId": 0,
+  "id": 0,
+  "lastRelaySplit": null,
+  "modalVisible": false,
+  "newAthlete": "",
+  "relayFinishTime": 21,
+  "startTime": 100,
+  "stopTime": 1557831718135,
+  "time": 25,
+  "timerMode": "RELAY",
+  "watchReset": false,
+  "watchRunning": false,
+  "watchStop": 1557831718035,
+}
+`;
