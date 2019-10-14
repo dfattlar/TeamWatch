@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
-import * as types from "../actions/actionTypes";
-import { RACE, RELAY } from "../constants";
-import { REHYDRATE } from "redux-persist";
+import * as types from '../actions/actionTypes';
+import {RACE, RELAY} from '../constants';
+import {REHYDRATE} from 'redux-persist';
 
 const initialState = {
   watchRunning: false,
@@ -11,25 +11,25 @@ const initialState = {
   id: 0,
   currentColorId: 0,
   modalVisible: false,
-  newAthlete: "",
+  newAthlete: '',
   athletesArray: [],
   timerMode: RACE,
   lastRelaySplit: null,
   relayFinishTime: null,
   bestTime: 0,
-  watchReset: false
+  watchReset: false,
 };
 
 export default function watch(state = initialState, action = {}) {
   switch (action.type) {
     case REHYDRATE:
-      if (!action.payload || !action.payload.hasOwnProperty("watch")) {
+      if (!action.payload || !action.payload.hasOwnProperty('watch')) {
         return state;
       }
       return {
         ...action.payload.watch,
         watchRunning: false,
-        watchReset: false
+        watchReset: false,
       };
 
     case types.START_WATCH:
@@ -37,7 +37,7 @@ export default function watch(state = initialState, action = {}) {
       const arrStart = state.athletesArray.map(function(athlete) {
         return {
           ...athlete,
-          totalTime: ""
+          totalTime: '',
         };
       });
 
@@ -47,7 +47,7 @@ export default function watch(state = initialState, action = {}) {
         watchRunning: true,
         startTime: state.startTime ? state.startTime : action.startTime,
         lastRelaySplit: action.startTime,
-        watchReset: false
+        watchReset: false,
       };
 
     case types.STOP_WATCH:
@@ -56,7 +56,7 @@ export default function watch(state = initialState, action = {}) {
       let bestTime = 0;
       const arrStop = state.athletesArray.map(function(athlete) {
         const splits = athlete.splits;
-        let totalTime = "";
+        let totalTime = '';
         if (splits.length) {
           totalTime = splits.reduce((a, b) => a + b);
           if (totalTime < bestTime || !bestTime) {
@@ -66,7 +66,7 @@ export default function watch(state = initialState, action = {}) {
         }
         return {
           ...athlete,
-          totalTime
+          totalTime,
         };
       });
 
@@ -77,7 +77,7 @@ export default function watch(state = initialState, action = {}) {
         relayFinishTime: relayFinishTime,
         watchStop: stopTime - state.startTime,
         stopTime,
-        bestTime
+        bestTime,
       };
 
     case types.RESET_ALL:
@@ -90,7 +90,7 @@ export default function watch(state = initialState, action = {}) {
         stopTime: null,
         relayFinishTime: null,
         bestTime: 0,
-        watchReset: true
+        watchReset: true,
       };
 
     case types.RESET_TIME:
@@ -98,10 +98,9 @@ export default function watch(state = initialState, action = {}) {
         return {
           ...athlete,
           splits: [],
-          totalTime: ""
+          totalTime: '',
         };
       });
-      debugger;
       return {
         ...state,
         watchRunning: false,
@@ -110,7 +109,7 @@ export default function watch(state = initialState, action = {}) {
         stopTime: null,
         relayFinishTime: null,
         bestTime: 0,
-        watchReset: true
+        watchReset: true,
       };
 
     case types.OPEN_MODAL:
@@ -118,13 +117,13 @@ export default function watch(state = initialState, action = {}) {
         ...state,
         modalVisible: true,
         addAthleteError: false,
-        newAthleteInput: ""
+        newAthleteInput: '',
       };
 
     case types.CLOSE_MODAL:
       return {
         ...state,
-        modalVisible: false
+        modalVisible: false,
       };
 
     case types.ADD_ATHLETE_TO_WATCH:
@@ -136,7 +135,7 @@ export default function watch(state = initialState, action = {}) {
         name: action.payload.name,
         splits: [],
         colorId: incColorId,
-        totalTime: ""
+        totalTime: '',
       };
       const arrUpdated = [...state.athletesArray, newAthlete];
       return {
@@ -145,7 +144,7 @@ export default function watch(state = initialState, action = {}) {
         addAthleteError: false,
         athletesArray: arrUpdated,
         id: incId,
-        currentColorId: incColorId
+        currentColorId: incColorId,
       };
 
     case types.REMOVE_ATHLETE_FROM_WATCH:
@@ -160,12 +159,12 @@ export default function watch(state = initialState, action = {}) {
 
       const updatedSource = [
         ...state.athletesArray.slice(0, athleteIndex),
-        ...state.athletesArray.slice(athleteIndex + 1)
+        ...state.athletesArray.slice(athleteIndex + 1),
       ];
 
       return {
         ...state,
-        athletesArray: updatedSource
+        athletesArray: updatedSource,
       };
 
     case types.DELETE_ATHLETE:
@@ -182,7 +181,7 @@ export default function watch(state = initialState, action = {}) {
       if (athleteOnWatch) {
         deleteArr = [
           ...state.athletesArray.slice(0, deleteIndex),
-          ...state.athletesArray.slice(deleteIndex + 1)
+          ...state.athletesArray.slice(deleteIndex + 1),
         ];
       } else {
         deleteArr = [...state.athletesArray];
@@ -190,7 +189,7 @@ export default function watch(state = initialState, action = {}) {
 
       return {
         ...state,
-        athletesArray: deleteArr
+        athletesArray: deleteArr,
       };
 
     case types.ADD_SPLIT:
@@ -209,13 +208,13 @@ export default function watch(state = initialState, action = {}) {
             state.timerMode,
             action,
             state.lastRelaySplit,
-            state.startTime
+            state.startTime,
           );
           const totalTime = splits.reduce((a, b) => a + b);
           return {
             ...athlete,
             splits: splits,
-            totalTime: totalTime
+            totalTime: totalTime,
           };
         }
         return athlete;
@@ -224,13 +223,13 @@ export default function watch(state = initialState, action = {}) {
       return {
         ...state,
         athletesArray: athletes,
-        lastRelaySplit: action.splitTime
+        lastRelaySplit: action.splitTime,
       };
 
     case types.MODE_CHANGE:
       return {
         ...state,
-        timerMode: action.timerMode
+        timerMode: action.timerMode,
       };
 
     default:

@@ -1,13 +1,14 @@
 // 'use strict';
 
 import React, {Component} from 'react';
-import {createStore, applyMiddleware, combineReducers} from 'redux';
-import {Provider, connect} from 'react-redux';
-import {
-  persistCombineReducers,
-  persistStore,
-  persistReducer,
-} from 'redux-persist';
+// import {createStore, applyMiddleware, combineReducers} from 'redux';
+// import {Provider, connect} from 'react-redux';
+// import thunk from 'redux-thunk';
+// import {
+//   persistCombineReducers,
+//   persistStore,
+//   persistReducer,
+// } from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 import {PersistGate} from 'redux-persist/integration/react';
 import {createAppContainer} from 'react-navigation';
@@ -24,18 +25,6 @@ import AddAthlete from './addAthlete';
 import History from './history';
 import HistoryDetail from '../components/historyDetail';
 import {COLORS, ICONS} from '../constants';
-
-const persistConfig = {
-  key: 'primary',
-  storage: AsyncStorage,
-};
-
-const persistedReducer = persistReducer(
-  persistConfig,
-  combineReducers(reducers),
-);
-const store = createStore(persistedReducer);
-const persistor = persistStore(store);
 
 const AthletesStack = createStackNavigator({
   Athletes,
@@ -92,12 +81,6 @@ let Navigation = createAppContainer(RootStack);
 // Render the app container component with the provider around it
 export default class App extends React.Component {
   render() {
-    return (
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Navigation />
-        </PersistGate>
-      </Provider>
-    );
+    return <Navigation />;
   }
 }

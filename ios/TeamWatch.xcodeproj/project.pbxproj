@@ -30,7 +30,7 @@
 		79AC4CF62324144A005E0B00 /* GothamRounded-BookItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79AC4CEA2324144A005E0B00 /* GothamRounded-BookItalic.otf */; };
 		79AC4CF72324144A005E0B00 /* GothamRounded-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79AC4CEB2324144A005E0B00 /* GothamRounded-BoldItalic.otf */; };
 		79AC4CF82324144A005E0B00 /* GothamRounded-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79AC4CEC2324144A005E0B00 /* GothamRounded-Book.otf */; };
-		79AC4CFC23241BC0005E0B00 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79AC4CFB23241BC0005E0B00 /* Ionicons.ttf */; };
+		79E9789F232F3DE100B5BB02 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79E9789E232F3DE100B5BB02 /* GoogleService-Info.plist */; };
 		B75FF6971BCC216BD982F2C0 /* libPods-TeamWatchTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3718DFAD9EAFF78CCEA476E5 /* libPods-TeamWatchTests.a */; };
 		F53D2B058BC497E96BD8CE9F /* libPods-TeamWatch-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A22BEB324AC8804616FE3B5C /* libPods-TeamWatch-tvOS.a */; };
 /* End PBXBuildFile section */
@@ -83,6 +83,7 @@
 		79AC4CEB2324144A005E0B00 /* GothamRounded-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "GothamRounded-BoldItalic.otf"; path = "../../../Downloads/gotham-rounded 2/GothamRounded-BoldItalic.otf"; sourceTree = "<group>"; };
 		79AC4CEC2324144A005E0B00 /* GothamRounded-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "GothamRounded-Book.otf"; path = "../../../Downloads/gotham-rounded 2/GothamRounded-Book.otf"; sourceTree = "<group>"; };
 		79AC4CFB23241BC0005E0B00 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		79E9789E232F3DE100B5BB02 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		81363BDDC7B3C103FF34CE7E /* Pods-TeamWatch-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamWatch-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-TeamWatch-tvOS/Pods-TeamWatch-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		8EA5C46BD93733211C45E39C /* Pods-TeamWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamWatch.debug.xcconfig"; path = "Target Support Files/Pods-TeamWatch/Pods-TeamWatch.debug.xcconfig"; sourceTree = "<group>"; };
 		93843A78F1951D5371F07C5B /* Pods-TeamWatch-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeamWatch-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-TeamWatch-tvOSTests/Pods-TeamWatch-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -221,6 +222,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				79E9789E232F3DE100B5BB02 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* TeamWatch */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* TeamWatchTests */,
@@ -392,10 +394,10 @@
 				79AC4CF12324144A005E0B00 /* GothamRoundedBold_21016.ttf in Resources */,
 				79AC4CF22324144A005E0B00 /* GothamRoundedMedium_21022.ttf in Resources */,
 				79AC4CEE2324144A005E0B00 /* GothamRounded-Light.otf in Resources */,
-				79AC4CFC23241BC0005E0B00 /* Ionicons.ttf in Resources */,
 				79AC4CED2324144A005E0B00 /* GothamRounded-Medium.otf in Resources */,
 				79AC4CF02324144A005E0B00 /* GothamRounded-Bold.otf in Resources */,
 				79AC4CF62324144A005E0B00 /* GothamRounded-BookItalic.otf in Resources */,
+				79E9789F232F3DE100B5BB02 /* GoogleService-Info.plist in Resources */,
 				79AC4CF32324144A005E0B00 /* GothamRounded-LightItalic.otf in Resources */,
 				79AC4CEF2324144A005E0B00 /* GothamRoundedLight_21020.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
@@ -496,6 +498,7 @@
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+				"${PODS_CONFIGURATION_BUILD_DIR}/gRPC-C++/gRPCCertificates-Cpp.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -515,6 +518,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates-Cpp.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

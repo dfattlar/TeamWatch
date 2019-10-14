@@ -55,10 +55,7 @@ export default class AthleteRow extends Component {
 
     let depStyle = onWatch ? styles.onWatch : styles.notOnWatch;
 
-    function athleteDetail() {
-      debugger;
-    }
-    debugger;
+    function athleteDetail() {}
     return (
       <View key={id}>
         <View style={[styles.athleteRow]}>

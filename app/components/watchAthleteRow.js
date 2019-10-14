@@ -99,7 +99,6 @@ export default class WatchAthleteRow extends Component {
   }
 
   render() {
-    debugger;
     const {name, splits, id, colorId, totalTime} = this.props.rowData.item;
     const {routeParent} = this.props.routeParent;
     const {addSplit, watchRunning} = this.props;

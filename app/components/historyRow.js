@@ -15,7 +15,6 @@ class HistoryRow extends Component {
   goToHistoryDetail() {
     const historyData = this.props.rowData.item;
     historyData.eventName = historyData.name;
-    debugger;
     this.props.navigation.navigate({
       routeName: 'HistoryDetail',
       params: historyData,

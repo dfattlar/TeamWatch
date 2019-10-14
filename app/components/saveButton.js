@@ -65,7 +65,6 @@ export default connect(
 
 function callAddHistory(watch, addHistory) {
   if (Platform.OS === 'ios') {
-    debugger;
     Alert.prompt('Name this Race', null, input => {
       addHistory({
         athletesArray: watch.athletesArray,

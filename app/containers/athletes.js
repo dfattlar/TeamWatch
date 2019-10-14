@@ -43,7 +43,6 @@ class AthleteStore extends Component {
     }
 
     if (store.length) {
-      debugger;
       return (
         <View style={styles.container}>
           <SwipeListView

@@ -134,14 +134,14 @@ class Watch extends Component {
                   </Text>
                 </TouchableHighlight>
               </View>
-              <ResetButton watch={state} {...actions} />
+              {/* <ResetButton watch={state} {...actions} /> */}
             </View>
           </View>
         </View>
-        <View style={styles.athleteListContainer}>
+        {/* <View style={styles.athleteListContainer}>
           <WatchAthletes watch={state} {...actions} />
         </View>
-      </View>
+      </View> */}
     );
   }
 }
