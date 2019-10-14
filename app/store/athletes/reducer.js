@@ -22,16 +22,16 @@ export default function athletes(state = initialState, action = {}) {
         name: `${first} ${last}`,
         onWatch: false,
       };
-      let arrUpdated = [...state.athletesStore, newAthlete];
+      let arrUpdated = [...state.athleteStore, newAthlete];
       return {
         ...state,
         addAthleteError: false,
-        athletesStore: arrUpdated,
+        athleteStore: arrUpdated,
         newAthleteInputFirst: '',
         newAthleteInputLast: '',
       };
     case types.ADD_ATHLETE_TO_WATCH:
-      const updatedAthleteArr = state.athletesStore.map(function(athlete) {
+      const updatedAthleteArr = state.athleteStore.map(function(athlete) {
         if (athlete.id === action.payload.id) {
           return {
             ...athlete,

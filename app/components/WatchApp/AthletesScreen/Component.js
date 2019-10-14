@@ -40,8 +40,8 @@ export default class AthletesScreenComponent extends Component {
 
   render() {
     debugger;
-    const {athletesStore} = this.props;
-    const data = athletesStore;
+    const {athleteStore} = this.props;
+    const data = athleteStore;
 
     return (
       <FlatList
@@ -59,6 +59,6 @@ export default class AthletesScreenComponent extends Component {
 }
 
 AthletesScreenComponent.propTypes = {
-  athletesStore: PropTypes.array,
+  athleteStore: PropTypes.array,
   navigation: PropTypes.object.isRequired,
 };

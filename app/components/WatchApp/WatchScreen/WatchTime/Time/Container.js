@@ -26,7 +26,7 @@ const mapDispatchToProps = {};
 
 TimeContainer.propTypes = {
   watchRunning: PropTypes.bool.isRequired,
-  startTime: PropTypes.number.isRequired,
+  startTime: PropTypes.number,
   watchReset: PropTypes.bool.isRequired,
 };
 

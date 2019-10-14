@@ -13,7 +13,6 @@ const HighlightedTimeContainer = ({relayFinishTime, timerMode, bestTime}) => (
 );
 
 const mapStateToProps = state => {
-  debugger;
   return {
     relayFinishTime: state.watch.relayFinishTime,
     timerMode: state.watch.timerMode,
@@ -24,7 +23,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {};
 
 HighlightedTimeContainer.propTypes = {
-  relayFinishTime: PropTypes.number.isRequired,
+  relayFinishTime: PropTypes.number,
   timerMode: PropTypes.string.isRequired,
   bestTime: PropTypes.number.isRequired,
 };

@@ -5,7 +5,6 @@ import {formatSplit} from '../../../../../util';
 import styles from './Styles';
 
 function HighlightedTimeComponent({relayFinishTime, timerMode, bestTime}) {
-  debugger;
   return (
     <View style={styles.relayContainer}>
       <View style={styles.cont}>

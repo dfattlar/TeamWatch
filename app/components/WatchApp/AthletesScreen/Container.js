@@ -20,7 +20,7 @@ class AthletesScreenContainer extends Component {
   render() {
     return (
       <AthletesScreenComponent
-        athletesStore={this.props.athletesStore}
+        athleteStore={this.props.athleteStore}
         navigation={this.props.navigation}
       />
     );
@@ -30,14 +30,14 @@ class AthletesScreenContainer extends Component {
 const mapStateToProps = state => {
   debugger;
   return {
-    athletesStore: state.athletes.athletesStore,
+    athleteStore: state.athletes.athleteStore,
   };
 };
 
 const mapDispatchToProps = {};
 
 AthletesScreenContainer.propTypes = {
-  athletesStore: PropTypes.array.isRequired,
+  athleteStore: PropTypes.array.isRequired,
   navigation: PropTypes.object.isRequired,
 };
 
